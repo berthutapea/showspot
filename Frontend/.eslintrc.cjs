@@ -14,6 +14,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'react/prop-types': 'off',
   },
   settings: {
     react: {
