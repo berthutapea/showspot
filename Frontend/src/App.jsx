@@ -5,6 +5,7 @@ import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
+import ShowCase from './pages/showcase';
 
 const MainLayout = ({ children }) => {
   return (
@@ -25,6 +26,14 @@ const App = () => {
           element={
             <MainLayout>
               <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/showcase"
+          element={
+            <MainLayout>
+              <ShowCase />
             </MainLayout>
           }
         />
