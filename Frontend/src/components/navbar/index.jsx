@@ -9,7 +9,6 @@ import { GiCrossMark } from 'react-icons/gi';
 import { FaHome } from 'react-icons/fa';
 import logoShowspot from '../../assets/images/showspot-logo.png';
 import { MdWork } from 'react-icons/md';
-import { ImBlog } from 'react-icons/im';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import PrimaryButton from '../buttons/primary-button';
@@ -23,9 +22,8 @@ export default function Navbar() {
   const navLinks = [
     { title: 'Home', link: '/', icon: <FaHome /> },
     { title: 'About', link: '/about', icon: <RiFolderInfoFill /> },
-    { title: 'Project', link: '/project', icon: <MdWork /> },
+    { title: 'Showcase', link: '/showcase', icon: <MdWork /> },
     { title: 'Contact', link: '/contact', icon: <RiContactsBook2Fill /> },
-    { title: 'Blog', link: '/blog', icon: <ImBlog /> },
   ];
   const activeLink = ({ isActive }) => {
     return {
@@ -145,7 +143,7 @@ export default function Navbar() {
               </ul>
               <div className="text-center">
                 <p className="text-accent">
-                  &copy; Copyright 2024, Showspot. All Rights Reserved
+                  &copy; Copyright 2024, Show Spot. All Rights Reserved
                 </p>
               </div>
             </Drawer>

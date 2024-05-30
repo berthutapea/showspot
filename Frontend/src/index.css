@@ -25,6 +25,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* parent */
 parent {
   padding-right: 8%;
   padding-left: 8%;
@@ -54,6 +55,7 @@ parent {
   align-items: center;
 }
 
+/* Primary Button */
 .primary-button {
   color: #ffffff;
   display: flex;
@@ -73,4 +75,124 @@ parent {
   border-color: #ff651c;
   color: #000000;
   border-width: 2px;
+}
+
+/* Show Case */
+
+.active-btn {
+  color: #ff651c;
+  background-color: transparent;
+}
+
+.item-container {
+  height: 400px;
+  overflow: hidden;
+}
+
+.item {
+  background: transparent;
+  position: relative;
+}
+
+.item img {
+  opacity: 1;
+  transition: opacity 0.35s;
+  object-fit: cover;
+}
+
+.item .overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid #ff651c;
+  border-radius: 5px;
+  content: '';
+  opacity: 0;
+  -webkit-transition:
+    opacity 0.35s,
+    -webkit-transform 0.35s;
+  transition:
+    opacity 0.35s,
+    transform 0.35s;
+  -webkit-transform: scale3d(1.4, 1.4, 1);
+  transform: scale3d(1.4, 1.4, 1);
+}
+
+.item:hover .overlay {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+
+.item:hover .overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.item:hover img {
+  opacity: 0.8;
+}
+
+.project_image {
+  display: inline-block;
+  width: 100%;
+  height: 18rem;
+  border-radius: 0.4rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .project_image {
+    height: 16rem;
+  }
+}
+
+/* Bottom Line */
+
+.side-line {
+  height: 8px;
+  width: 8px;
+  margin: 0 10px;
+  background-color: #ff651c;
+  transform: rotate(45deg);
+}
+
+.middle-line {
+  width: 180px;
+  height: 4px;
+  background-color: #ff651c;
+  border-radius: 4px;
+  position: relative;
+}
+
+.inner-circle {
+  height: 10px;
+  width: 10px;
+  background-color: #ffffff;
+  transform: rotate(45deg);
+  border: 1px solid #ff651c;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  animation: left-right-moving 6s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes left-right-moving {
+  0%,
+  100% {
+    left: 0%;
+  }
+
+  50% {
+    left: 97%;
+  }
 }
