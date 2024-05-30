@@ -25,9 +25,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+parent {
+  padding-right: 8%;
+  padding-left: 8%;
+}
+
+.parent {
+  padding-right: 8%;
+  padding-left: 8%;
+}
+
+@media only screen and (max-width: 600px) {
+  .parent {
+    padding-right: 8%;
+    padding-left: 8%;
+  }
+}
+
+.visible {
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: 40;
+  height: 4rem;
+  transition: 0.3s linear;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
 }
 
 .primary-button {
@@ -37,8 +61,8 @@ code {
   gap: 0.5rem;
   justify-content: center;
   text-align: center;
-  width: 100px;
-  height: 49px;
+  width: 120px;
+  height: 40px;
   background-color: #ff651c;
   transition-duration: 0.5s;
   border-radius: 10px;
