@@ -6,20 +6,38 @@ import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 
+const MainLayout = ({ children }) => {
+  return (
+    <div>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <Router>
-      <div>
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Router>
   );
 };
