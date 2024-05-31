@@ -10,6 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import { MdEmail } from 'react-icons/md';
 import AvatarLogoShowSpot from '../../assets/images/showspot-logo.png';
+import UpButton from '../buttons/up-button';
 
 function Footer() {
   return (
@@ -154,6 +155,7 @@ function Footer() {
           </p>
         </div>
       </footer>
+      <UpButton />
     </div>
   );
 }
