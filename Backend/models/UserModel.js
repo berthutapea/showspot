@@ -46,6 +46,13 @@ class UserModel extends Model {
     };
     return await this.delete(param);
   }
+
+  async changePasswordUser(id, password) {
+    const param = {
+      [this.userId]: id,
+    };
+    return await this.update(param, password);
+  }
 }
 
 module.exports = UserModel;
