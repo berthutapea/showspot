@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import ShowCase from './pages/showcase';
 import ShowcaseDetail from './components/showcase-detail';
 import Contact from './pages/contact';
+import About from './pages/about';
 
 const MainLayout = ({ children }) => {
   return (
@@ -28,6 +29,14 @@ const App = () => {
           element={
             <MainLayout>
               <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <MainLayout>
+              <About />
             </MainLayout>
           }
         />
