@@ -64,14 +64,7 @@ const App = () => {
             </MainLayout>
           }
         />
-        <Route
-          path="/login"
-          element={
-            <MainLayout>
-              <Login />
-            </MainLayout>
-          }
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
