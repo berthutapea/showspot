@@ -246,7 +246,7 @@ parent {
 
 .input-field:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px #FF651C;;
+  box-shadow: 0 0 5px 2px #ff651c;
 }
 
 input:-webkit-autofill,
@@ -260,10 +260,10 @@ input[data-autocompleted] {
   background-color: transparent !important;
 }
 
-.map-action {
-  top: 15px;
-  height: 400px;
-  z-index: 1;
-  border-radius: 10px;
-  width: 100%;
+/* Login Image */
+.img-login {
+  margin-top: 15px;
+  display: inline-block;
+  width: 380px;
+  height: 380px;
 }
