@@ -14,10 +14,37 @@ class UserModel extends Model {
       [this.userId]: datas.userId,
       [this.fullname]: datas.fullname,
       [this.username]: datas.username,
-      [this.password]: datas.password
+      [this.password]: datas.password,
     };
-    const user = await this.insertOne(userData);
-    return user;
+    return await this.insertOne(userData);
+  }
+
+  async findById(id) {
+    const userData = {
+      [this.userId]: id,
+    };
+    return await this.findOne(userData);
+  }
+
+  async findByName(name) {
+    const userData = {
+      [this.fullname]: name,
+    };
+    return await this.findOne(userData);
+  }
+
+  async updateData(id, datas) {
+    const param = {
+      [this.userId]: id,
+    };
+    return await this.update(param, datas);
+  }
+
+  async deleteData(id) {
+    const param = {
+      [this.userId]: id,
+    };
+    return await this.delete(param);
   }
 }
 
