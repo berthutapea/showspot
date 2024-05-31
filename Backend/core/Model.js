@@ -7,6 +7,7 @@ class Model {
   }
 
   async insertOne(datas) {
+    console.log(datas);
     try {
       await this.database.openConnection();
       const fields = Object.keys(datas);
