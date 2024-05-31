@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        eduBg: "url('/src/assets/blue-shape.png')",
+        eduBg: "url('/src/assets/orange-shape.png')",
       },
     },
   },
@@ -26,3 +26,4 @@ module.exports = {
     ],
   },
 };
+  

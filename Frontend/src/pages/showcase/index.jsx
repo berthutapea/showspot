@@ -38,7 +38,9 @@ const ShowCase = () => {
   };
 
   return (
-    <div className={`${location.pathname !== '/' && 'pt-16'} bg-neutral`}>
+    <div
+      className={`${location.pathname !== '/' && 'pt-20 bg-white'} bg-neutral`}
+    >
       <div className="parent py-12">
         <motion.div
           initial="hidden"
