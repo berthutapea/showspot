@@ -226,3 +226,44 @@ parent {
     left: 97%;
   }
 }
+
+/* Contact */
+
+.input-field {
+  display: inline-block;
+  padding: 9px;
+  border-radius: 7px;
+  box-shadow: 0 0 5px 1px #b8bec9;
+  margin: 12px 0;
+  width: 100%;
+  background-color: #e5e7eb;
+  color: #212121;
+}
+
+.input-field::placeholder {
+  color: #212121;
+}
+
+.input-field:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px #FF651C;;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
+}
+
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
+.map-action {
+  top: 15px;
+  height: 400px;
+  z-index: 1;
+  border-radius: 10px;
+  width: 100%;
+}
