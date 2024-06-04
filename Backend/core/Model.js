@@ -1,4 +1,4 @@
-const { Database } = require('./Database');
+const { Database } = require('./Database.js');
 
 class Model {
   constructor(tableName) {
@@ -7,7 +7,6 @@ class Model {
   }
 
   async insertOne(datas) {
-    console.log(datas);
     try {
       await this.database.openConnection();
       const fields = Object.keys(datas);
@@ -29,9 +28,8 @@ class Model {
   async findAll() {
     try {
       await this.database.openConnection();
-      const [results] = await this.database.connection.query(
-        `SELECT * FROM ${this.tableName}`
-      );
+      let query = `SELECT * FROM ${this.tableName}`;
+      const [results] = await this.database.connection.query(query);
       this.database.closeConnection();
       return results;
     } catch (error) {
@@ -73,7 +71,6 @@ class Model {
       );
 
       const query = `UPDATE ${this.tableName} SET ${setStatement} WHERE ${whereClause}`;
-
       const result = await this.database.connection.query(query);
       this.database.closeConnection();
 
@@ -90,7 +87,9 @@ class Model {
       const param = Object.keys(params);
       const paramValue = Object.values(params);
 
-      const setStatement = param.map((field, index) => `${field} = '${paramValue[index]}'`);
+      const setStatement = param.map(
+        (field, index) => `${field} = '${paramValue[index]}'`
+      );
 
       const query = `DELETE FROM ${this.tableName} WHERE ${setStatement}`;
 

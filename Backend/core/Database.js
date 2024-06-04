@@ -20,7 +20,7 @@ class Database {
       });
 
       if (this.connection) {
-        console.log('Class Database berjalan.. ' + this.database);
+        console.log('Database Connected: ' + this.database);
       }
     } catch (error) {
       console.error('Error connecting to the database: ', error);
