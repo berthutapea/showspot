@@ -73,7 +73,7 @@ export default function Navbar() {
         <div>
           <ul className="lg:flex items-center hidden">
             {navLinks.map((navItem) => (
-              <li className="mx-4" key={navItem.title}>
+              <li className="mx-6" key={navItem.title}>
                 <NavLink
                   to={navItem.link}
                   style={activeLink}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import VisionMissionItems from '../vision-mission-items';
+import VisionMissionItems from '../vision-mission/vision-mission-items';
 import {
   headingAnimation,
   sectionBodyAnimation,

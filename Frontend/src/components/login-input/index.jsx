@@ -1,7 +1,14 @@
 import React from 'react';
 import { FiUser, FiLock } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 function LoginInput() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // Logika login di sini, jika diperlukan
+    navigate('/dashboard/admin');
+  };
   return (
     <form>
       <div className="mb-8">
@@ -33,8 +40,10 @@ function LoginInput() {
 
       <div className="mb-8">
         <input
+          onClick={handleLogin}
           type="submit"
           value="Login"
+          href={'/dashboard/admin'}
           placeholder="Masukkan password"
           className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-transparent hover:text-accent"
         />
