@@ -1,6 +1,6 @@
 import React from 'react';
 import AboutUs from '../../components/about-us';
-import VisionMission from '../../components/vision-mission';
+import VisionMission from '../../components/vision-mission/vision-mission';
 
 const About = () => {
   return (
