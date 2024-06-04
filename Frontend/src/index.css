@@ -12,17 +12,10 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  display: block;
-  background-color: #ffffff;
-  color: white;
-  min-height: 100vh;
-  position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    @apply font-satoshi font-normal text-base text-body bg-white relative z-1;
+  }
 }
 
 /* parent */
@@ -85,7 +78,7 @@ parent {
   gap: 0.5rem;
   justify-content: center;
   text-align: center;
-  width: 120px;
+  width: 130px;
   height: 40px;
   border-color: #ff651c;
   border-width: 2px;

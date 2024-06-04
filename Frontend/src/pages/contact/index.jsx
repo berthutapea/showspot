@@ -52,7 +52,7 @@ const Contact = () => {
     e.target.reset();
   };
   return (
-    <div className="py-16 parent">
+    <div className="py-8 parent">
       <motion.div
         initial="hidden"
         animate={viewDiv && 'visible'}
