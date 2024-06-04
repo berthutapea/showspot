@@ -1,4 +1,5 @@
 const { Model } = require('../core/Model');
+const { HashingService } = require('../services/HashingService');
 
 class UserModel extends Model {
   constructor() {
@@ -10,11 +11,15 @@ class UserModel extends Model {
   }
 
   async insertDataUser(datas) {
+    const hashingService = new HashingService();
+    const patternId = String('user' + Math.floor(Math.random() * 10000) + 1);
+    const userId = patternId;
+    const hashedPassword = await hashingService.generateHash(datas.password);
     const userData = {
-      [this.userId]: datas.userId,
+      [this.userId]: userId,
       [this.fullname]: datas.fullname,
       [this.username]: datas.username,
-      [this.password]: datas.password,
+      [this.password]: hashedPassword,
     };
     return await this.insertOne(userData);
   }
@@ -42,16 +47,21 @@ class UserModel extends Model {
 
   async deleteData(id) {
     const param = {
-      [this.userId]: id,
+      [this.userId]: id
     };
     return await this.delete(param);
   }
 
-  async changePasswordUser(id, password) {
+  async changePasswordUser(id, datas) {
+    const hashingService = new HashingService();
     const param = {
-      [this.userId]: id,
+      [this.userId]: id
     };
-    return await this.update(param, password);
+    const hashedPassword = await hashingService.generateHash(datas.password);
+    const newData = {
+      [this.password]: hashedPassword
+    }
+    return await this.update(param, newData);
   }
 }
 
