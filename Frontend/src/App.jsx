@@ -9,6 +9,7 @@ import ShowCase from './pages/showcase';
 import ShowcaseDetail from './components/showcase-detail';
 import Contact from './pages/contact';
 import About from './pages/about';
+import Dashboard from './pages/dashboard/dashboard';
 
 const MainLayout = ({ children }) => {
   return (
@@ -65,6 +66,7 @@ const App = () => {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/admin" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

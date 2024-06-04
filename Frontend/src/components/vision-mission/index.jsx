@@ -21,7 +21,7 @@ const VisionMission = () => {
     }
   }, [inView, animation]);
   return (
-    <div className="py-16 parent">
+    <div className="py-10 parent">
       <motion.div
         className="mb-12"
         initial="hidden"

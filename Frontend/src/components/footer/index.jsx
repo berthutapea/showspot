@@ -21,7 +21,7 @@ function Footer() {
             <img
               src={AvatarLogoShowSpot}
               alt="Logo Show Spot"
-              className="w-16 sm:w-46 mb-2"
+              className="w-16 sm:w-16 mb-2"
             />
           </Link>
           <h1 className="text-2xl font-bold text-primary mb-4">Show Spot</h1>

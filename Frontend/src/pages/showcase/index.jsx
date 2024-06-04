@@ -66,7 +66,7 @@ const ShowCase = () => {
         >
           <div className="mt-6 mb-10 flex items-center justify-center flex-wrap">
             <button
-              className={`btn btn-sm bg-primary border-2 border-primary text-white hover:bg-transparent hover:border-primary duration-300 mx-3 my-3 sm:my-0 ${
+              className={`btn btn-lg bg-primary border-2 border-primary  hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg  text-white transition hover:bg-transparent hover:text-accent ${
                 activeBtn === 'all' && 'active-btn'
               }`}
               onClick={() => {
@@ -79,7 +79,7 @@ const ShowCase = () => {
               All
             </button>
             <button
-              className={`btn btn-sm bg-primary border-2 border-primary text-white hover:bg-transparent hover:text-accent hover:border-primary duration-300 mx-3 my-3 sm:my-0 ${
+              className={`btn btn-lg bg-primary border-2 border-primary  hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg  text-white transition hover:bg-transparent hover:text-accent ${
                 activeBtn === 'business' && 'active-btn'
               }`}
               onClick={() => {
@@ -90,7 +90,7 @@ const ShowCase = () => {
               The Best
             </button>
             <button
-              className={`btn btn-sm bg-primary border-2 border-primary text-white hover:bg-transparent hover:text-accent  hover:border-primary duration-300 mx-3 my-3 sm:my-0 ${
+              className={`btn btn-lg bg-primary border-2 border-primary  hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg  text-white transition hover:bg-transparent hover:text-accent ${
                 activeBtn === 'personal' && 'active-btn'
               }`}
               onClick={() => {
@@ -101,7 +101,7 @@ const ShowCase = () => {
               Mobile
             </button>
             <button
-              className={`btn btn-sm bg-primary border-2 border-primary text-white hover:bg-transparent hover:text-accent  hover:border-primary duration-300 mx-3 my-3 sm:my-0 ${
+              className={`btn btn-lg bg-primary border-2 border-primary  hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg  text-white transition hover:bg-transparent hover:text-accent ${
                 activeBtn === 'game' && 'active-btn'
               }`}
               onClick={() => {
@@ -141,7 +141,7 @@ const ShowCase = () => {
                       to={`/showcase/${item.id}`}
                       className="mt-3 inline-block"
                     >
-                      <button className="btn btn-sm border-2 border-transparent bg-primary hover:bg-transparent text-white hover:text-accent hover:border-primary duration-500">
+                      <button className="btn btn-lg bg-primary border-2 border-primary  hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-30 h-10 cursor-pointer rounded-lg text-white transition hover:bg-transparent hover:text-accent">
                         See Details
                       </button>
                     </Link>
@@ -157,7 +157,7 @@ const ShowCase = () => {
               to="/showcase"
               className="text-2xl hover:text-primary duration-300"
             >
-              <button className="primary-button font-bold text-xl">
+              <button className="primary-button text-xl">
                 <span>See All</span>
                 <span>
                   <FiArrowRight />
