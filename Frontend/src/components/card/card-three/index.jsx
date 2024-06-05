@@ -11,7 +11,7 @@ const CardThree = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black">8</h4>
-          <span className="text-sm font-medium">Mentor Data</span>
+          <span className="text-sm font-medium">Mentors Data</span>
         </div>
       </div>
     </div>

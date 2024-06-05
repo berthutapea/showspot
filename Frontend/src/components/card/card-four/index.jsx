@@ -13,7 +13,7 @@ const CardFour = () => {
           <h4 className="text-title-md font-bold text-black">
             120
           </h4>
-          <span className="text-sm font-medium">Project Data</span>
+          <span className="text-sm font-medium">Projects Data</span>
         </div>
       </div>
     </div>

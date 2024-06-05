@@ -1,20 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
+import About from './pages/about';
+import ShowCase from './pages/showcase';
+import ShowcaseDetail from './components/showcase-detail';
+import Contact from './pages/contact';
 import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-import ShowCase from './pages/showcase';
-import ShowcaseDetail from './components/showcase-detail';
-import Contact from './pages/contact';
-import About from './pages/about';
 import Dashboard from './pages/dashboard/dashboard';
-import MentorData from './pages/dashboard/admin/master-data/mentor-data';
-import StudentData from './pages/dashboard/admin/master-data/student-data';
-import SopProject from './pages/dashboard/admin/project/sop-project';
-import ShowcaseProject from './pages/dashboard/admin/project/showcase-project';
-import ChangePassword from './pages/dashboard/admin/setting/change-password';
+import MentorsData from './pages/dashboard/admin/master-data/mentors-data';
+import UsersData from './pages/dashboard/admin/master-data/users-data';
+import SopProjects from './pages/dashboard/admin/projects/sop-projects';
+import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
+import ChangePassword from './pages/dashboard/admin/settings/change-password';
 
 const MainLayout = ({ children }) => {
   return (
@@ -75,10 +75,10 @@ const App = () => {
 
         {/* Route Dashboard Admin */}
         <Route path="/dashboard/admin" element={<Dashboard />} />
-        <Route path="/mentor-data" element={<MentorData />} />
-        <Route path="/student-data" element={<StudentData />} />
-        <Route path="/sop-project" element={<SopProject />} />
-        <Route path="/showcase-project" element={<ShowcaseProject />} />
+        <Route path="/mentors-data" element={<MentorsData />} />
+        <Route path="/users-data" element={<UsersData />} />
+        <Route path="/sop-projects" element={<SopProjects />} />
+        <Route path="/showcase-projects" element={<ShowcaseProjects />} />
         <Route path="/change-password/admin" element={<ChangePassword />} />
       </Routes>
     </Router>

@@ -10,7 +10,7 @@ const CardOne = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black">34</h4>
-          <span className="text-sm font-medium">Student Data</span>
+          <span className="text-sm font-medium">Students Data</span>
         </div>
       </div>
     </div>

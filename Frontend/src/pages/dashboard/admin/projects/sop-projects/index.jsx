@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 
-const ShowcaseProject = () => {
+const SopProjects = () => {
   return (
     <Layout>
-      <Breadcrumb pageName="Showcase Project" />
+      <Breadcrumb pageName="Sop Projects" />
     </Layout>
   );
 };
 
-export default ShowcaseProject;
+export default SopProjects;

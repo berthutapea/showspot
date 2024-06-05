@@ -13,7 +13,7 @@ class ChartTwo extends Component {
           type: 'donut',
         },
         colors: ['#ff1900', '#ffae00'],
-        labels: ['Mentor', 'Student'],
+        labels: ['Mentors', 'Students'],
         legend: {
           show: false,
           position: 'bottom',
@@ -59,7 +59,7 @@ class ChartTwo extends Component {
         <div className="mb-3 justify-between gap-4 sm:flex">
           <div>
             <h5 className="text-xl font-semibold text-black">
-              Mentor & Student Status
+              Mentors & Students Status
             </h5>
           </div>
           <div>
@@ -111,7 +111,7 @@ class ChartTwo extends Component {
             <div className="flex w-full items-center">
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-primaryTwo"></span>
               <p className="flex w-full justify-between text-sm font-medium text-black">
-                <span> Mentor </span>
+                <span> Mentors </span>
                 <span> 8 </span>
               </p>
             </div>
@@ -120,7 +120,7 @@ class ChartTwo extends Component {
             <div className="flex w-full items-center">
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-secondaryTwo"></span>
               <p className="flex w-full justify-between text-sm font-medium text-black">
-                <span> Student </span>
+                <span> Students </span>
                 <span> 34 </span>
               </p>
             </div>
