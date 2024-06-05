@@ -139,24 +139,24 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/mentor-data"
+                              to="/mentors-data"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
                               }
                             >
-                              Mentor Data
+                              Mentors Data
                             </NavLink>
                           </li>
                           <li>
                             <NavLink
-                              to="/student-data"
+                              to="/users-data"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
                               }
                             >
-                              Student Data
+                              Students Data
                             </NavLink>
                           </li>
                         </ul>
@@ -168,10 +168,10 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
               </SidebarLinkGroup>
               {/* <!-- Master Data Admin --> */}
 
-              {/* <!-- Project Admin --> */}
+              {/* <!-- Projects Admin --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/project' || pathname.includes('project')
+                  pathname === '/projects' || pathname.includes('projects')
                 }
               >
                 {(handleClick, open) => {
@@ -180,8 +180,8 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:text-accent ${
-                          pathname === '/project' ||
-                          pathname.includes('project')
+                          pathname === '/projects' ||
+                          pathname.includes('projects')
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -191,7 +191,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <GoProject />
-                        Project
+                        Projects
                         <MdKeyboardArrowDown
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current text-2xl ${
                             open && 'rotate-180'
@@ -207,24 +207,24 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/sop-project"
+                              to="/sop-projects"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
                               }
                             >
-                              Sop Project
+                              Sop Projects
                             </NavLink>
                           </li>
                           <li>
                             <NavLink
-                              to="/showcase-project"
+                              to="/showcase-projects"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
                               }
                             >
-                              Showcase Project
+                              Showcase Projects
                             </NavLink>
                           </li>
                         </ul>
@@ -234,12 +234,12 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* <!-- Project Admin --> */}
+              {/* <!-- Projects Admin --> */}
 
-              {/* <!-- Setting Admin --> */}
+              {/* <!-- Settings Admin --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/setting' || pathname.includes('setting')
+                  pathname === '/settings' || pathname.includes('settings')
                 }
               >
                 {(handleClick, open) => {
@@ -248,8 +248,8 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:text-accent ${
-                          (pathname === '/setting' ||
-                            pathname.includes('setting')) &&
+                          (pathname === '/settings' ||
+                            pathname.includes('settings')) &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                         onClick={(e) => {
@@ -260,7 +260,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         }}
                       >
                         <FiSettings />
-                        Setting
+                        Settings
                         <MdKeyboardArrowDown
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current text-2xl ${
                             open && 'rotate-180'
@@ -303,7 +303,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* <!-- Pengaturan Admin --> */}
+              {/* <!-- Settings Admin --> */}
             </ul>
           </div>
         </nav>

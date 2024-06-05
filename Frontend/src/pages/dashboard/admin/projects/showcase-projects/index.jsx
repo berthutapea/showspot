@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 
-const StudentData = () => {
+const ShowcaseProjects = () => {
   return (
     <Layout>
-      <Breadcrumb pageName="Student Data" />
+      <Breadcrumb pageName="Showcase Projects" />
     </Layout>
   );
 };
 
-export default StudentData;
+export default ShowcaseProjects;

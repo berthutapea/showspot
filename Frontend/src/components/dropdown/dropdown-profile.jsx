@@ -76,7 +76,7 @@ const DropdownProfile = () => {
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiSettings className="text-xl" />
-                Setting
+                Settings
               </Link>
             </li>
             <li>

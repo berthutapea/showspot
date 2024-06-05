@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 
-const MentorData = () => {
+const MentorsData = () => {
   return (
     <Layout>
-      <Breadcrumb pageName="Mentor Data" />
+      <Breadcrumb pageName="Mentors Data" />
     </Layout>
   );
 };
 
-export default MentorData;
+export default MentorsData;
