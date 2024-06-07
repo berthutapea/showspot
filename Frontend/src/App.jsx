@@ -15,6 +15,8 @@ import SopProjects from './pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
 import ChangePassword from './pages/dashboard/admin/settings/change-password';
 import UsersDataForm from './components/form/users-data-form';
+import Profile from './pages/dashboard/admin/settings/profile';
+import ProfileForm from './components/form/profile-form';
 
 const MainLayout = ({ children }) => {
   return (
@@ -79,6 +81,8 @@ const App = () => {
         <Route path="/admin/users-data/form" element={<UsersDataForm />} />
         <Route path="/admin/sop-projects" element={<SopProjects />} />
         <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
+        <Route path="/admin/profile" element={<Profile />} />
+        <Route path="/admin/profile/edit" element={<ProfileForm />} />
         <Route path="/admin/change-password" element={<ChangePassword />} />
       </Routes>
     </Router>

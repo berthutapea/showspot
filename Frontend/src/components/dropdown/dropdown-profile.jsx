@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
-import { FiSettings } from 'react-icons/fi';
+import { FiSettings, FiUser } from 'react-icons/fi';
 import SamariaProfile from '../../assets/images/samaria-sianturi-image.jpeg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
@@ -72,7 +72,16 @@ const DropdownProfile = () => {
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
             <li>
               <Link
-                to={'/change-password/admin'}
+                to={'/admin/profile'}
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                <FiUser className="text-xl" />
+                My Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={'/admin/change-password'}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiSettings className="text-xl" />
