@@ -7,7 +7,7 @@ function LoginInput() {
 
   const handleLogin = () => {
     // Logika login di sini, jika diperlukan
-    navigate('/dashboard/admin');
+    navigate('/admin/dashboard');
   };
   return (
     <form>
@@ -43,7 +43,7 @@ function LoginInput() {
           onClick={handleLogin}
           type="submit"
           value="Login"
-          href={'/dashboard/admin'}
+          href={'/admin/dashboard'}
           placeholder="Masukkan password"
           className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-transparent hover:text-accent"
         />
