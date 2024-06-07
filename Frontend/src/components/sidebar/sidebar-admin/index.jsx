@@ -90,7 +90,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
             <ul className="mb-4 flex flex-col gap-6">
               {/* <!--Dashboard Admin--> */}
               <NavLink
-                to="/dashboard/admin"
+                to="/admin/dashboard"
                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium duration-300 ease-in-out hover:text-accent ${
                   pathname.includes('dashboard') && 'bg-graydark'
                 }`}
@@ -139,24 +139,13 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/mentors-data"
+                              to="/admin/users-data"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
                               }
                             >
-                              Mentors Data
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/users-data"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
-                                (isActive && '!text-accent')
-                              }
-                            >
-                              Students Data
+                              Users Data
                             </NavLink>
                           </li>
                         </ul>
@@ -207,7 +196,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/sop-projects"
+                              to="/admin/sop-projects"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
@@ -218,7 +207,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                           </li>
                           <li>
                             <NavLink
-                              to="/showcase-projects"
+                              to="/admin/showcase-projects"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-accent')
@@ -276,7 +265,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/change-password/admin"
+                              to="/admin/change-password"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-white')

@@ -10,11 +10,11 @@ import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Dashboard from './pages/dashboard/dashboard';
-import MentorsData from './pages/dashboard/admin/master-data/mentors-data';
 import UsersData from './pages/dashboard/admin/master-data/users-data';
 import SopProjects from './pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
 import ChangePassword from './pages/dashboard/admin/settings/change-password';
+import UsersDataForm from './components/form/users-data-form';
 
 const MainLayout = ({ children }) => {
   return (
@@ -74,12 +74,12 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
 
         {/* Route Dashboard Admin */}
-        <Route path="/dashboard/admin" element={<Dashboard />} />
-        <Route path="/mentors-data" element={<MentorsData />} />
-        <Route path="/users-data" element={<UsersData />} />
-        <Route path="/sop-projects" element={<SopProjects />} />
-        <Route path="/showcase-projects" element={<ShowcaseProjects />} />
-        <Route path="/change-password/admin" element={<ChangePassword />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/users-data" element={<UsersData />} />
+        <Route path="/admin/users-data/form" element={<UsersDataForm />} />
+        <Route path="/admin/sop-projects" element={<SopProjects />} />
+        <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
+        <Route path="/admin/change-password" element={<ChangePassword />} />
       </Routes>
     </Router>
   );
