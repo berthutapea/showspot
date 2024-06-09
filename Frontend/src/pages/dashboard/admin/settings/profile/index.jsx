@@ -9,10 +9,10 @@ import FourButton from '../../../../../components/buttons/four-button';
 const Profile = () => {
   return (
     <Layout>
-      <Breadcrumb pageName="Profile" />
+      <Breadcrumb pageName="My Profile" />
       <Link to="/admin/profile/edit">
         <FourButton>
-          <span>Edit Users</span>
+          <span>Edit Profile</span>
           <span>
             <FaUserEdit />
           </span>

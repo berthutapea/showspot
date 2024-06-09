@@ -10,13 +10,17 @@ import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Dashboard from './pages/dashboard/dashboard';
-import UsersData from './pages/dashboard/admin/master-data/users-data';
 import SopProjects from './pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
 import ChangePassword from './pages/dashboard/admin/settings/change-password';
-import UsersDataForm from './components/form/users-data-form';
 import Profile from './pages/dashboard/admin/settings/profile';
-import ProfileForm from './components/form/profile-form';
+import MentorsData from './pages/dashboard/admin/master-data/mentors-data';
+import StudentsData from './pages/dashboard/admin/master-data/students-data';
+import AddMentors from './components/form/mentors-data-form/add-mentors';
+import EditMentors from './components/form/mentors-data-form/edit-mentors';
+import AddStudents from './components/form/students-data-form/add-students';
+import EditStudents from './components/form/students-data-form/edit-students';
+import ProfileAdmin from './components/profile/profile-admin';
 
 const MainLayout = ({ children }) => {
   return (
@@ -77,12 +81,16 @@ const App = () => {
 
         {/* Route Dashboard Admin */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/users-data" element={<UsersData />} />
-        <Route path="/admin/users-data/form" element={<UsersDataForm />} />
+        <Route path="/admin/mentors-data" element={<MentorsData />} />
+        <Route path="/admin/mentors-data/add" element={<AddMentors />} />
+        <Route path="/admin/mentors-data/edit" element={<EditMentors />} />
+        <Route path="/admin/students-data" element={<StudentsData />} />
+        <Route path="/admin/students-data/add" element={<AddStudents />} />
+        <Route path="/admin/students-data/edit" element={<EditStudents />} />
         <Route path="/admin/sop-projects" element={<SopProjects />} />
         <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
         <Route path="/admin/profile" element={<Profile />} />
-        <Route path="/admin/profile/edit" element={<ProfileForm />} />
+        <Route path="/admin/profile/edit" element={<ProfileAdmin />} />
         <Route path="/admin/change-password" element={<ChangePassword />} />
       </Routes>
     </Router>
