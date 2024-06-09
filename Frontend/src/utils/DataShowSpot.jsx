@@ -12,7 +12,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Morning',
-    accessRights: 'Mentor',
   },
   {
     id: 2,
@@ -22,7 +21,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web A',
     hakAkses: 'Afternoon',
-    accessRights: 'Student',
   },
   {
     id: 3,
@@ -32,7 +30,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Night',
-    accessRights: 'Mentor',
   },
   {
     id: 4,
@@ -42,7 +39,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web B',
     hakAkses: 'Morning',
-    accessRights: 'Student',
   },
   {
     id: 5,
@@ -52,7 +48,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Afternoon',
-    accessRights: 'Mentor',
   },
   {
     id: 6,
@@ -62,7 +57,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web C',
     hakAkses: 'Night',
-    accessRights: 'Student',
   },
   {
     id: 7,
@@ -72,7 +66,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Morning',
-    accessRights: 'Mentor',
   },
   {
     id: 8,
@@ -82,7 +75,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web A',
     hakAkses: 'Afternoon',
-    accessRights: 'Student',
   },
   {
     id: 9,
@@ -92,7 +84,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Night',
-    accessRights: 'Mentor',
   },
   {
     id: 10,
@@ -102,7 +93,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web B',
     hakAkses: 'Morning',
-    accessRights: 'Student',
   },
   {
     id: 11,
@@ -112,7 +102,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Afternoon',
-    accessRights: 'Mentor',
   },
   {
     id: 12,
@@ -122,7 +111,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web C',
     hakAkses: 'Night',
-    accessRights: 'Student',
   },
   {
     id: 13,
@@ -132,7 +120,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Morning',
-    accessRights: 'Mentor',
   },
   {
     id: 14,
@@ -142,7 +129,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web A',
     hakAkses: 'Afternoon',
-    accessRights: 'Student',
   },
   {
     id: 15,
@@ -152,7 +138,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Night',
-    accessRights: 'Mentor',
   },
   {
     id: 16,
@@ -162,7 +147,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Information Systems',
     status: 'Web B',
     hakAkses: 'Morning',
-    accessRights: 'Student',
   },
   {
     id: 17,
@@ -172,7 +156,6 @@ const DataShowSpot = [
     tanggalMasuk: 'Informatics Engineering',
     status: 'Mobile',
     hakAkses: 'Afternoon',
-    accessRights: 'Mentor',
   },
 ];
 

@@ -1,37 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import Layout from '../../../layout';
-import Breadcrumb from '../../breadcrumb';
-import OneButton from '../../buttons/one-button';
-import TwoButton from '../../buttons/two-button';
-import ThreeButton from '../../buttons/three-button';
+import Layout from '../../../../layout';
+import SamariaProfile from '../../../../assets/images//samaria-sianturi-image.jpeg';
+import Breadcrumb from '../../../breadcrumb';
+import OneButton from '../../../buttons/one-button';
+import ThreeButton from '../../../buttons/three-button';
 
-const UsersDataForm = () => {
+const EditStudents = () => {
   return (
     <Layout>
-      <Breadcrumb pageName="Users Form" />
+      <Breadcrumb pageName="Edit Students" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
-          {/* <!-- Users Form --> */}
+          {/* <!-- Edit Students --> */}
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="border-b border-stroke py-4 px-6.5">
               <h3 className="font-medium text-black">
-                Users Form
+                Personal Information Students
               </h3>
             </div>
             <form action="#">
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Photo <span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      type="file"
-                      className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm file:font-medium focus:border-primary file:focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                    />
+                    <div className="flex items-center gap-6">
+                      <div className="h-25 w-25 rounded-full">
+                        <label className="mb-2 block text-sm font-medium text-black">
+                          Your Foto
+                        </label>
+                        <img src={SamariaProfile} alt="User" />
+                      </div>
+                      <div>
+                        <input
+                          type="file"
+                          className="w-full transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:py-1 file:px-2.5 file:text-sm file:font-medium  file:mb-4"
+                        />
+                        <p className="flex text-sm">
+                          Your profile picture should have a 1:1 ratio and is no
+                          more than 2MB in size.
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="w-full xl:w-1/2">
@@ -39,9 +50,12 @@ const UsersDataForm = () => {
                       Full Name <span className="text-meta-1">*</span>
                     </label>
                     <input
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
+                      name="fullName"
+                      id="fullName"
                       placeholder="Enter full name"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                      defaultValue="Sumiati Samaria Sianturi"
                     />
                   </div>
                 </div>
@@ -52,9 +66,12 @@ const UsersDataForm = () => {
                       Campus <span className="text-meta-1">*</span>
                     </label>
                     <input
+                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
+                      name="phoneNumber"
+                      id="phoneNumber"
                       placeholder="Enter campus"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                      defaultValue="Politeknik Negeri Batam"
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
@@ -62,9 +79,12 @@ const UsersDataForm = () => {
                       Major <span className="text-meta-1">*</span>
                     </label>
                     <input
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
+                      name="fullName"
+                      id="fullName"
                       placeholder="Enter major"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                      defaultValue="Teknik Informatika"
                     />
                   </div>
                 </div>
@@ -75,7 +95,7 @@ const UsersDataForm = () => {
                       Groups Type <span className="text-meta-1">*</span>
                     </label>
                     <div className="relative z-20 bg-transparent">
-                      <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary">
+                      <select className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none">
                         <option value="">Please Select</option>
                         <option value="">Mobile</option>
                         <option value="">Web A</option>
@@ -92,7 +112,7 @@ const UsersDataForm = () => {
                       Class Type <span className="text-meta-1">*</span>
                     </label>
                     <div className="relative z-20 bg-transparent">
-                      <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary">
+                      <select className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none">
                         <option value="">Please Select</option>
                         <option value="">Morning</option>
                         <option value="">Afternoon</option>
@@ -103,60 +123,29 @@ const UsersDataForm = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-
-                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
                       Username <span className="text-meta-1">*</span>
                     </label>
                     <input
-                      type="username"
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      name="username"
+                      id="username"
                       placeholder="Enter username"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                      defaultValue="sumiati88"
                     />
-                  </div>
-
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Password <span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="Enter password"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                    />
-                  </div>
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Access Rights<span className="text-meta-1">*</span>
-                    </label>
-                    <div className="relative z-20 bg-transparent">
-                      <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary">
-                        <option value="">Please Select</option>
-                        <option value="">Mentor</option>
-                        <option value="">Student</option>
-                      </select>
-                      <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
-                        <MdOutlineKeyboardArrowDown />
-                      </span>
-                    </div>
                   </div>
                 </div>
-                {/* <!-- Users Form --> */}
+                {/* <!-- Edit Students --> */}
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <Link to="/admin/users-data/form">
+                  <Link to="/admin/students-data/edit">
                     <OneButton>
-                      <span>Save</span>
+                      <span>Update</span>
                     </OneButton>
                   </Link>
-                  <Link to="/admin/users-data/form">
-                    <TwoButton>
-                      <span>Reset</span>
-                    </TwoButton>
-                  </Link>
-                  <Link to="/admin/users-data">
+                  <Link to="/admin/students-data">
                     <ThreeButton>
                       <span>Back</span>
                     </ThreeButton>
@@ -171,4 +160,4 @@ const UsersDataForm = () => {
   );
 };
 
-export default UsersDataForm;
+export default EditStudents;

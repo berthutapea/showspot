@@ -7,11 +7,10 @@ import { BiSearch } from 'react-icons/bi';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 import OneButton from '../../../../../components/buttons/one-button';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const ITEMS_PER_PAGE = 4;
 
-const UsersData = () => {
+const StudentsData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
@@ -41,10 +40,10 @@ const UsersData = () => {
 
   return (
     <Layout>
-      <Breadcrumb pageName="Users Data" />
-      <Link to="/admin/users-data/form">
+      <Breadcrumb pageName="Students Data" />
+      <Link to="/admin/students-data/add">
         <OneButton>
-          <span>Add Users</span>
+          <span>Add Students</span>
           <span>
             <FaPlus />
           </span>
@@ -52,18 +51,6 @@ const UsersData = () => {
       </Link>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
         <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
-          <div className="relative flex-1 md:mr-2 mb-4 md:mb-0 ">
-            <div className="relative">
-              <span className="absolute top-1/2 left-40 z-30 -translate-y-1/2 text-xl">
-                <MdOutlineKeyboardArrowDown />
-              </span>
-              <select className="relative  appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                <option value="">Acces Rights</option>
-                <option value="">Mentor</option>
-                <option value="">Student</option>
-              </select>
-            </div>
-          </div>
           <div className="relative flex-2 mb-4 md:mb-0">
             <input
               type="text"
@@ -100,9 +87,6 @@ const UsersData = () => {
                 </th>
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                   Class Type
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Access Rights
                 </th>
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                   Actions
@@ -151,15 +135,12 @@ const UsersData = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.accessRights}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <button className="hover:text-black">
-                          <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                        </button>
+                        <Link to={'/admin/students-data/edit'}>
+                          <button className="hover:text-black">
+                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                          </button>
+                        </Link>
                         <button className="hover:text-black">
                           <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
                         </button>
@@ -175,7 +156,7 @@ const UsersData = () => {
         <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-              Showing {startIndex}-{endIndex} of {DataShowSpot.length} Users
+              Showing {startIndex}-{endIndex} of {DataShowSpot.length} Students
               Data
             </span>
           </div>
@@ -251,4 +232,4 @@ const UsersData = () => {
   );
 };
 
-export default UsersData;
+export default StudentsData;
