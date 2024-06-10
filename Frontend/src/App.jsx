@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import About from './pages/about';
 import ShowCase from './pages/showcase';
-import ShowcaseDetail from './components/showcase-detail';
+import ShowcaseDetail from './components/showcase/showcase-detail';
 import Contact from './pages/contact';
 import Login from './pages/login';
 import NotFound from './pages/notfound';

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Slider from 'react-slick';
-import Items from '../../utils/items';
+import Items from '../../../utils/items';
 import { FaLink, FaCode } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import placeholderImage from '../../assets/images/placeholder.jpg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import placeholderImage from '../../../assets/images/placeholder.jpg';
+import ShowcaseYoutube from '../showcase-youtube';
 
 const ShowcaseDetail = () => {
+  const youtubeUrl = 'https://youtu.be/Ztli49M7o2A?si=Tz6lY_ztVAGWDwjY';
+
   const { id } = useParams();
   const [item, setItem] = useState();
   useEffect(() => {
@@ -16,44 +16,29 @@ const ShowcaseDetail = () => {
     setItem(filtered);
   }, [id]);
 
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToScroll: 1,
-    slidesToShow: 2,
-    autoplay: true,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
     <div className="parent py-20">
       <h1 className="text-center text-4xl font-medium mt-8 text-accent">
         {item?.title}
       </h1>
 
-      <Slider {...settings}>
-        {item?.img?.map((image, index) => (
-          <div key={index} className="mt-10">
-            <div className="mx-1 md:mx-4 rounded-lg single-blog cursor-pointer border-2 border-primary flex flex-col justify-between">
-              <LazyLoadImage
-                placeholderSrc={placeholderImage}
-                src={image}
-                className="showcase_image object-cover"
-              />
-            </div>
+      {item?.img?.map((image, index) => (
+        <div key={index} className="mt-10">
+          <div className="mx-1 md:mx-4 rounded-lg single-blog border-2 border-primary flex flex-col justify-between">
+            <LazyLoadImage
+              placeholderSrc={placeholderImage}
+              src={image}
+              className="showcase_image object-cover"
+            />
           </div>
-        ))}
-      </Slider>
+        </div>
+      ))}
+      <div className="mt-10">
+        <h1 className="text-center text-4xl font-medium mt-8 text-accent">
+          Video Project
+        </h1>
+        <ShowcaseYoutube url={youtubeUrl} />
+      </div>
       <p className="text-accent mt-10 mb-6">
         <span className="font-semibold text-xl">Description: </span>{' '}
         {item?.description}
