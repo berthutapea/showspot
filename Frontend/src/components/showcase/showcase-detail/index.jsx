@@ -5,6 +5,7 @@ import { FaLink, FaCode } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import placeholderImage from '../../../assets/images/placeholder.jpg';
 import ShowcaseYoutube from '../showcase-youtube';
+import ShowcaseMembers from '../showcase-members';
 
 const ShowcaseDetail = () => {
   const youtubeUrl = 'https://youtu.be/Ztli49M7o2A?si=Tz6lY_ztVAGWDwjY';
@@ -18,7 +19,7 @@ const ShowcaseDetail = () => {
 
   return (
     <div className="parent py-20">
-      <h1 className="text-center text-4xl font-medium mt-8 text-accent">
+      <h1 className="text-center text-4xl font-semibold mt-8 text-accent">
         {item?.title}
       </h1>
 
@@ -34,16 +35,22 @@ const ShowcaseDetail = () => {
         </div>
       ))}
       <div className="mt-10">
-        <h1 className="text-center text-4xl font-medium mt-8 text-accent">
+        <h1 className="text-center text-4xl font-semibold mt-8 text-accent ">
           Video Project
         </h1>
         <ShowcaseYoutube url={youtubeUrl} />
       </div>
-      <p className="text-accent mt-10 mb-6">
+      <h2 className="text-accent mt-10 mb-6">
         <span className="font-semibold text-xl">Description: </span>{' '}
         {item?.description}
-      </p>
-      <div className="my-6">
+      </h2>
+      <h2 className="text-accent mb-6">
+        <span className="font-semibold text-xl">Groups Name: </span>{' '}
+        {item?.grupsName}
+      </h2>
+      <h2 className="text-xl font-semibold mb-6  text-accent">Members:</h2>
+      <ShowcaseMembers />
+      {/* <div className="my-6">
         <h2 className="text-2xl font-semibold mb-3 text-accent">Features:</h2>
         <ul className="list-disc grid grid-cols-1 md:grid-cols-2 ml-4">
           {item?.features?.map((feature, index) => (
@@ -52,9 +59,9 @@ const ShowcaseDetail = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
-      <div className="my-6">
+      {/* <div className="my-6">
         <h2 className="text-2xl font-semibold mb-3 text-accent">
           Tools & Technologies:
         </h2>
@@ -65,7 +72,7 @@ const ShowcaseDetail = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
       <div className="flex items-center mt-8">
         <a href={item?.liveLink} className="mr-4" target="blank">
           <div className="primary-button">

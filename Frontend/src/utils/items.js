@@ -5,12 +5,6 @@ const Items = [
       'https://res.cloudinary.com/du541igfh/image/upload/v1682699543/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-1_rmh7lp.png',
     img: [
       'https://res.cloudinary.com/du541igfh/image/upload/v1682699543/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-1_rmh7lp.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682699548/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-2_p3chy5.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682699706/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-3_uhtwa6.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682699802/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-4_p404nm.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682700118/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-5_mksj57.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682700238/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-6_jfndeo.png',
-      // 'https://res.cloudinary.com/du541igfh/image/upload/v1682700374/Blog%20Portfolio%20Gilbert/Project/msnproduction/img-7_uhh453.png',
     ],
     features: [
       'Home',
@@ -22,6 +16,7 @@ const Items = [
       'Responsive Design',
       '404 Page and many more.',
     ],
+    role: ['Hustler', 'Scrum Master', 'Hipster', 'Hacker'],
     technologies: [
       'React',
       'TailwindCSS',
@@ -31,9 +26,11 @@ const Items = [
       'Email JS',
       'Framer Motion',
     ],
+
     title: 'Msn Production',
     description:
       'PT. MULIA SEJATI NUSANTARA Established on June 24, 2019, a limited liability company engaged in supplier & contractor services. Then on January 22 2022 PT. MULIA SEJATI NUSANTARA Opening a new business branch in the Technology Sector which includes Website Creation, Mobile Applications, Branding, Creative Content, Digital Marketing & Advertising. This branch is called Mulia Sejati Nusantara Production or in short MSN PRODUCTION.',
+    grupsName: 'Afiliya',
     category: 'business',
     liveLink: 'https://msnproduction.com/',
     codeLink: 'https://github.com/berthutapea/msnproduction.com',
