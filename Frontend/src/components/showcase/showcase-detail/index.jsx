@@ -6,6 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import placeholderImage from '../../../assets/images/placeholder.jpg';
 import ShowcaseYoutube from '../showcase-youtube';
 import ShowcaseMembers from '../showcase-members';
+import Comments from '../showcase-comments/comments';
 
 const ShowcaseDetail = () => {
   const youtubeUrl = 'https://youtu.be/Ztli49M7o2A?si=Tz6lY_ztVAGWDwjY';
@@ -50,33 +51,10 @@ const ShowcaseDetail = () => {
       </h2>
       <h2 className="text-xl font-semibold mb-6  text-accent">Members:</h2>
       <ShowcaseMembers />
-      {/* <div className="my-6">
-        <h2 className="text-2xl font-semibold mb-3 text-accent">Features:</h2>
-        <ul className="list-disc grid grid-cols-1 md:grid-cols-2 ml-4">
-          {item?.features?.map((feature, index) => (
-            <li key={index} className="text-accent">
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
-      {/* <div className="my-6">
-        <h2 className="text-2xl font-semibold mb-3 text-accent">
-          Tools & Technologies:
-        </h2>
-        <ul className="list-disc grid grid-cols-1 md:grid-cols-2 ml-4">
-          {item?.technologies?.map((feature, index) => (
-            <li key={index} className="text-accent">
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div> */}
       <div className="flex items-center mt-8">
         <a href={item?.liveLink} className="mr-4" target="blank">
           <div className="primary-button">
-            <span>Visit Now</span>
+            <span>Hifi Design</span>
             <span>
               <FaLink />
             </span>
@@ -84,12 +62,15 @@ const ShowcaseDetail = () => {
         </a>
         <a href={item?.codeLink} target="blank">
           <div className="secondary-button">
-            <span>Source Code</span>
+            <span>GitHub Link</span>
             <span>
               <FaCode />
             </span>
           </div>
         </a>
+      </div>
+      <div className="mt-10">
+        <Comments />
       </div>
     </div>
   );
