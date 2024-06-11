@@ -15,7 +15,7 @@ const SopProjects = () => {
       <Breadcrumb pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
         <div className="flex gap-3">
-          <Link to="/admin/sop-projects">
+          <Link to="/admin/sop-projects/add">
             <OneButton>
               <span>Add Sop</span>
               <span>
