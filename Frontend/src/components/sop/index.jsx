@@ -1,4 +1,3 @@
-// components/sop/SOP.js
 import React from 'react';
 import { sopData } from '../../utils/sop-data';
 
