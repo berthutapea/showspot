@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom';
 import TwoButton from '../../../../../components/buttons/two-button';
 import FourButton from '../../../../../components/buttons/four-button';
 import { FaEdit, FaPlus } from 'react-icons/fa';
+import ThreeButton from '../../../../../components/buttons/three-button';
 
 const SopProjects = () => {
   return (
     <Layout>
       <Breadcrumb pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-        <div className="flex gap-3">
+        <div className="flex flex-col md:flex-row w-full gap-3">
           <Link to="/admin/sop-projects/add">
             <OneButton>
               <span>Add Sop</span>
@@ -31,15 +32,23 @@ const SopProjects = () => {
               </span>
             </FourButton>
           </Link>
-        </div>
-        <div className="ml-auto">
-          <Link to="/admin/sop-projects">
+          <Link to="/admin/sop-projects/edit">
             <TwoButton>
+              <span>Delete Sop</span>
+              <span>
+                <FaEdit />
+              </span>
+            </TwoButton>
+          </Link>
+        </div>
+        <div className="w-full flex flex-col md:flex-row-4 md:text-right">
+          <Link to="/admin/sop-projects">
+            <ThreeButton>
               <span>Save as PDF</span>
               <span>
                 <TfiPrinter />
               </span>
-            </TwoButton>
+            </ThreeButton>
           </Link>
         </div>
       </div>
