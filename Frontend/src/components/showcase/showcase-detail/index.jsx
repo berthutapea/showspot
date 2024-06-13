@@ -26,7 +26,7 @@ const ShowcaseDetail = () => {
 
       {item?.img?.map((image, index) => (
         <div key={index} className="mt-10">
-          <div className="mx-1 md:mx-4 rounded-lg single-blog border-2 border-primary flex flex-col justify-between">
+          <div className="mx-1 md:mx-4 rounded-lg single-blog flex flex-col justify-between">
             <LazyLoadImage
               placeholderSrc={placeholderImage}
               src={image}
@@ -42,7 +42,7 @@ const ShowcaseDetail = () => {
         <ShowcaseYoutube url={youtubeUrl} />
       </div>
       <h2 className="text-accent mt-10 mb-6">
-        <span className="font-semibold text-xl">Description: </span>{' '}
+        <span className="font-semibold text-xl">Product Description: </span>{' '}
         {item?.description}
       </h2>
       <h2 className="text-accent mb-6">
