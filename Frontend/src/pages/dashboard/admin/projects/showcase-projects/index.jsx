@@ -5,10 +5,11 @@ import { BiSearch } from 'react-icons/bi';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
+import { Link } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 4;
 
-const DataGaji = () => {
+const ShowcaseProjects = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
@@ -46,19 +47,6 @@ const DataGaji = () => {
           </h3>
         </div>
         <div className="flex justify-between items-center mt-6 flex-col md:flex-row md:justify-between">
-          <div className="relative flex-1 md:mr-2 mb-4 md:mb-0 ">
-            <div className="relative">
-              <span className="absolute top-1/2 left-28 z-30 -translate-y-1/2 text-xl">
-                <MdOutlineKeyboardArrowDown />
-              </span>
-              <select className="relative appearance-none rounded border border-stroke bg-transparent py-3 px-8 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                <option value="">Status</option>
-                <option value="">Confirmed</option>
-                <option value="">Pending</option>
-                <option value="">Rejected</option>
-              </select>
-            </div>
-          </div>
           <div className="relative flex-2 mb-4 md:mb-0">
             <input
               type="text"
@@ -124,16 +112,16 @@ const DataGaji = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                      <p className="text-white dark:text-white bg-meta-3 rounded-lg ">
-                        {dataGaji.titleJabatan}
+                      <p className="text-white dark:text-white bg-warning rounded-lg ">
+                        {/* {dataGaji.titleJabatan} */} Pending
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                      {/* <div className="flex items-center"> */}
-                      <button className="hover:text-black">
-                        <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                      </button>
-                      {/* </div> */}
+                      <Link to={'/admin/showcase-projects/latest'}>
+                        <button className="hover:text-black">
+                          <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 );
@@ -224,19 +212,6 @@ const DataGaji = () => {
           </h3>
         </div>
         <div className="flex justify-between items-center mt-6 flex-col md:flex-row md:justify-between">
-          <div className="relative flex-1 md:mr-2 mb-4 md:mb-0 ">
-            <div className="relative">
-              <span className="absolute top-1/2 left-28 z-30 -translate-y-1/2 text-xl">
-                <MdOutlineKeyboardArrowDown />
-              </span>
-              <select className="relative appearance-none rounded border border-stroke bg-transparent py-3 px-8 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                <option value="">Status</option>
-                <option value="">Confirmed</option>
-                <option value="">Pending</option>
-                <option value="">Rejected</option>
-              </select>
-            </div>
-          </div>
           <div className="relative flex-2 mb-4 md:mb-0">
             <input
               type="text"
@@ -302,8 +277,8 @@ const DataGaji = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                      <p className="text-white dark:text-white bg-warning rounded-lg ">
-                        {/* {dataGaji.titleJabatan} */} Pending
+                      <p className="text-white dark:text-white bg-meta-3 rounded-lg ">
+                        {dataGaji.titleJabatan}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
@@ -399,4 +374,4 @@ const DataGaji = () => {
   );
 };
 
-export default DataGaji;
+export default ShowcaseProjects;
