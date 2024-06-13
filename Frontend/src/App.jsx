@@ -24,6 +24,7 @@ import ProfileAdmin from './components/profile/profile-admin';
 import AddSop from './components/form/sop-form/add-sop';
 import EditSop from './components/form/sop-form/edit-sop';
 import ViewShowcaseLatest from './components/form/showcase-projects-form/view-showcase-latest';
+import ViewShowcaseHistory from './components/form/showcase-projects-form/view-showcase-history';
 
 const MainLayout = ({ children }) => {
   return (
@@ -95,6 +96,7 @@ const App = () => {
         <Route path="/admin/sop-projects/edit" element={<EditSop />} />
         <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
         <Route path="/admin/showcase-projects/latest" element={<ViewShowcaseLatest />} />
+        <Route path="/admin/showcase-projects/history" element={<ViewShowcaseHistory />} />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/profile/edit" element={<ProfileAdmin />} />
         <Route path="/admin/change-password" element={<ChangePassword />} />

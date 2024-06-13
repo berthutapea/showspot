@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import DataGajiPegawai from '../.../../../../../../utils/DataGajiPegawai';
 import { FaEye } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 import { Link } from 'react-router-dom';
@@ -282,11 +281,11 @@ const ShowcaseProjects = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                      {/* <div className="flex items-center"> */}
-                      <button className="hover:text-black">
-                        <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                      </button>
-                      {/* </div> */}
+                      <Link to={'/admin/showcase-projects/history'}>
+                        <button className="hover:text-black">
+                          <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 );
