@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import DataGajiPegawai from '../.../../../../../../utils/DataGajiPegawai';
 import { FaEye } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import Layout from '../../../../../layout';
 import Breadcrumb from '../../../../../components/breadcrumb';
 import { Link } from 'react-router-dom';
