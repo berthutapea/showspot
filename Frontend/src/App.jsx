@@ -22,6 +22,7 @@ import AddStudents from './components/form/students-data-form/add-students';
 import EditStudents from './components/form/students-data-form/edit-students';
 import ProfileAdmin from './components/profile/profile-admin';
 import AddSop from './components/form/sop-form/add-sop';
+import EditSop from './components/form/sop-form/edit-sop';
 
 const MainLayout = ({ children }) => {
   return (
@@ -90,6 +91,7 @@ const App = () => {
         <Route path="/admin/students-data/edit" element={<EditStudents />} />
         <Route path="/admin/sop-projects" element={<SopProjects />} />
         <Route path="/admin/sop-projects/add" element={<AddSop />} />
+        <Route path="/admin/sop-projects/edit" element={<EditSop />} />
         <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/profile/edit" element={<ProfileAdmin />} />

@@ -23,7 +23,7 @@ const SopProjects = () => {
               </span>
             </OneButton>
           </Link>
-          <Link to="/admin/sop-projects">
+          <Link to="/admin/sop-projects/edit">
             <FourButton>
               <span>Edit Sop</span>
               <span>

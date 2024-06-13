@@ -14,8 +14,9 @@ import Layout from '../../../../layout';
 import Breadcrumb from '../../../breadcrumb';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import SOP from '../../../sop';
 
-export default function AddSop() {
+export default function EditSop() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -44,13 +45,13 @@ export default function AddSop() {
 
   return (
     <Layout>
-      <Breadcrumb pageName="Add Sop" />
+      <Breadcrumb pageName="Edit Sop" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="border-b border-stroke py-4 px-6.5">
               <h3 className="font-medium text-black">
-                Please fill in to add sop
+                Please fill in to edit sop
               </h3>
             </div>
             <div className="max-w-4xl mx-auto p-6">
@@ -59,9 +60,15 @@ export default function AddSop() {
                   Title <span className="text-meta-1">*</span>
                 </label>
                 <input
-                  className="border rounded-md w-full py-4 px-3 bg-transparent font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default"
-                  placeholder="Enter title"
-                  value={form.title}
+                  //   className="border rounded-md w-full py-4 px-3 bg-transparent font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default"
+                  //   placeholder="Enter title"
+                  className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Enter username"
+                  defaultValue="STANDAR OPERASIONAL PROSEDUR (SOP) PENGUPLOADAN PROYEK"
+                  //   value={form.title}
                   onChange={handleChange}
                 />
               </div>
@@ -71,6 +78,8 @@ export default function AddSop() {
               <div className="border rounded-md p-2 ">
                 <Editor
                   editorState={form.body}
+                  //   placeholder={<SOP></SOP>}
+                  //   defaultValue="STANDAR OPERASIONAL PROSEDUR (SOP) PENGUPLOADAN PROYEK"
                   toolbarClassName="toolbarClassName"
                   wrapperClassName="wrapperClassName"
                   editorClassName="editorClassName"
@@ -78,9 +87,9 @@ export default function AddSop() {
                 />
               </div>
               <div className="flex flex-col md:flex-row w-full gap-3 text-center py-10">
-                <Link to="/admin/sop-projects/add">
+                <Link to="/admin/sop-projects/edit">
                   <OneButton>
-                    <span>Save</span>
+                    <span>Update</span>
                   </OneButton>
                 </Link>
                 <Link to="/admin/sop-projects">
