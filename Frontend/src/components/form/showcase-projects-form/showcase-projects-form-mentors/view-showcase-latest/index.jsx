@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import LayoutAdmin from '../../../../layout/layout-admin';
-import placeholderImage from '../../../../assets/images/placeholder.jpg';
-import SamariaProfile from '../../../../assets/images//samaria-sianturi-image.jpeg';
-import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
-import OneButton from '../../../buttons/one-button';
-import TwoButton from '../../../buttons/two-button';
+import LayoutMentors from '../../../../../layout/layout-mentors';
+import placeholderImage from '../../../../../assets/images/placeholder.jpg';
+import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+import BreadcrumbMentors from '../../../../breadcrumb/breadcrumb-mentors';
+import OneButton from '../../../../buttons/one-button';
+import TwoButton from '../../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import ShowcaseMembers from '../../../showcase/showcase-members';
+import ShowcaseMembers from '../../../../showcase/showcase-members';
 
 const ViewShowcaseLatest = () => {
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="View Showcase Latest" />
+    <LayoutMentors>
+      <BreadcrumbMentors pageName="View Showcase Latest" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -176,12 +176,12 @@ const ViewShowcaseLatest = () => {
                 {/* <!-- View Showcase Latest --> */}
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <Link to="/admin/showcase-projects">
+                  <Link to="/mentors/showcase-projects">
                     <OneButton>
                       <span>Confirmed</span>
                     </OneButton>
                   </Link>
-                  <Link to="/admin/showcase-projects">
+                  <Link to="/mentors/showcase-projects">
                     <TwoButton>
                       <span>Rejected</span>
                     </TwoButton>
@@ -192,7 +192,7 @@ const ViewShowcaseLatest = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </LayoutMentors>
   );
 };
 

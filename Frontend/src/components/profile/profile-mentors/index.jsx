@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import LayoutAdmin from '../../../layout/layout-admin';
+import LayoutMentors from '../../../layout/layout-mentors';
 import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
-import BreadcrumbAdmin from '../../breadcrumb/breadcrumb-admin';
+import BreadcrumbMentors from '../../breadcrumb/breadcrumb-mentors';
 import OneButton from '../../buttons/one-button';
 import ThreeButton from '../../buttons/three-button';
 
-const ProfileAdmin = () => {
+const ProfileMentors = () => {
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Edit My Profile" />
+    <LayoutMentors>
+      <BreadcrumbMentors pageName="Edit My Profile" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -156,8 +156,8 @@ const ProfileAdmin = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </LayoutMentors>
   );
 };
 
-export default ProfileAdmin;
+export default ProfileMentors;
