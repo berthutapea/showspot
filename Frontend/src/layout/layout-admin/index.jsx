@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Header from '../components/header';
-import SidebarAdmin from '../components/sidebar/sidebar-admin';
+import HeaderAdmin from '../../components/header/header-admin';
+import SidebarAdmin from '../../components/sidebar/sidebar-admin';
 
-const Layout = ({ children }) => {
+const LayoutAdmin = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -13,7 +13,10 @@ const Layout = ({ children }) => {
           setSidebarOpen={setSidebarOpen}
         />
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <HeaderAdmin
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
           <main>
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
               {children}
@@ -25,4 +28,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default LayoutAdmin;

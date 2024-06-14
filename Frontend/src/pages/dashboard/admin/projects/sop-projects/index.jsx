@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../../../../../layout';
-import Breadcrumb from '../../../../../components/breadcrumb';
+import LayoutAdmin from '../../../../../layout/layout-admin';
+import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import SOP from '../../../../../components/sop';
 import { TfiPrinter } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
@@ -12,8 +12,8 @@ import ThreeButton from '../../../../../components/buttons/three-button';
 
 const SopProjects = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="Sop Projects" />
+    <LayoutAdmin>
+      <BreadcrumbAdmin pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
         <div className="flex flex-col md:flex-row w-full gap-3">
           <Link to="/admin/sop-projects/add">
@@ -64,7 +64,7 @@ const SopProjects = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutAdmin>
   );
 };
 

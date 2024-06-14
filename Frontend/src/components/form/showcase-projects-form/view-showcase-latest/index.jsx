@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import Layout from '../../../../layout';
+import LayoutAdmin from '../../../../layout/layout-admin';
 import placeholderImage from '../../../../assets/images/placeholder.jpg';
 import SamariaProfile from '../../../../assets/images//samaria-sianturi-image.jpeg';
-import Breadcrumb from '../../../breadcrumb';
+import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import TwoButton from '../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -12,8 +12,8 @@ import ShowcaseMembers from '../../../showcase/showcase-members';
 
 const ViewShowcaseLatest = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="View Showcase Latest" />
+    <LayoutAdmin>
+      <BreadcrumbAdmin pageName="View Showcase Latest" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -192,7 +192,7 @@ const ViewShowcaseLatest = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutAdmin>
   );
 };
 

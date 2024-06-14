@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
 import { FiSettings, FiUser } from 'react-icons/fi';
-import SamariaProfile from '../../assets/images/samaria-sianturi-image.jpeg';
+import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-const DropdownProfile = () => {
+const DropdownProfileAdmin = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -104,4 +104,4 @@ const DropdownProfile = () => {
   );
 };
 
-export default DropdownProfile;
+export default DropdownProfileAdmin;
