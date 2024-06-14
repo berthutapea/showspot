@@ -9,7 +9,7 @@ import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-import Dashboard from './pages/dashboard/dashboard-admin';
+import DashboardAdmin from './pages/dashboard/admin/dashboard-admin';
 import SopProjects from './pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
 import ChangePassword from './pages/dashboard/admin/settings/change-password';
@@ -23,8 +23,16 @@ import EditStudents from './components/form/students-data-form/edit-students';
 import ProfileAdmin from './components/profile/profile-admin';
 import AddSop from './components/form/sop-form/add-sop';
 import EditSop from './components/form/sop-form/edit-sop';
-import ViewShowcaseLatest from './components/form/showcase-projects-form/view-showcase-latest';
-import ViewShowcaseHistory from './components/form/showcase-projects-form/view-showcase-history';
+import ViewShowcaseLatest from './components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-latest';
+import ViewShowcaseHistory from './components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-history';
+import DashboardMentors from './pages/dashboard/mentors/dashboard-mentors';
+import SopProjectsMentors from './pages/dashboard/mentors/projects/sop-projects';
+import ShowcaseProjectsMentors from './pages/dashboard/mentors/projects/showcase-projects';
+import ViewShowcaseLatestMentors from './components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-latest';
+import ViewShowcaseHistoryMentors from './components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-history';
+import ProfileMentors from './pages/dashboard/mentors/settings/profile';
+import ProfileMentorsEdit from './components/profile/profile-mentors';
+import ChangePasswordMentors from './pages/dashboard/mentors/settings/change-password';
 
 const MainLayout = ({ children }) => {
   return (
@@ -84,7 +92,7 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
 
         {/* Route Dashboard Admin */}
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<DashboardAdmin />} />
         <Route path="/admin/mentors-data" element={<MentorsData />} />
         <Route path="/admin/mentors-data/add" element={<AddMentors />} />
         <Route path="/admin/mentors-data/edit" element={<EditMentors />} />
@@ -109,7 +117,26 @@ const App = () => {
         {/* Route Dashboard Admin */}
 
         {/* Route Dashboard Mentors */}
-        <Route path="/mentors/dashboard" element={<Dashboard />} />
+        <Route path="/mentors/dashboard" element={<DashboardMentors />} />
+        <Route
+          path="/mentors/showcase-projects"
+          element={<ShowcaseProjectsMentors />}
+        />
+        <Route path="/mentors/sop-projects" element={<SopProjectsMentors />} />
+        <Route
+          path="/mentors/showcase-projects/latest"
+          element={<ViewShowcaseLatestMentors />}
+        />
+        <Route
+          path="/mentors/showcase-projects/history"
+          element={<ViewShowcaseHistoryMentors />}
+        />
+        <Route path="/mentors/profile" element={<ProfileMentors />} />
+        <Route path="/mentors/profile/edit" element={<ProfileMentorsEdit />} />
+        <Route
+          path="/mentors/change-password"
+          element={<ChangePasswordMentors />}
+        />
         {/* Route Dashboard Mentors */}
       </Routes>
     </Router>

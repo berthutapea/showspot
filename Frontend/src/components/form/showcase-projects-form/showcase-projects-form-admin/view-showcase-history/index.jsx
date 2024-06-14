@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LayoutAdmin from '../../../../layout/layout-admin';
-import placeholderImage from '../../../../assets/images/placeholder.jpg';
-import SamariaProfile from '../../../../assets/images//samaria-sianturi-image.jpeg';
-import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
-import ThreeButton from '../../../buttons/three-button';
-import TwoButton from '../../../buttons/two-button';
+import LayoutAdmin from '../../../../../layout/layout-admin';
+import placeholderImage from '../../../../../assets/images/placeholder.jpg';
+import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
+import ThreeButton from '../../../../buttons/three-button';
+import TwoButton from '../../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import ShowcaseMembers from '../../../showcase/showcase-members';
+import ShowcaseMembers from '../../../../showcase/showcase-members';
 
 const ViewShowcaseHistory = () => {
   return (
