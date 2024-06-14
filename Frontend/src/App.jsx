@@ -33,6 +33,15 @@ import ViewShowcaseHistoryMentors from './components/form/showcase-projects-form
 import ProfileMentors from './pages/dashboard/mentors/settings/profile';
 import ProfileMentorsEdit from './components/profile/profile-mentors';
 import ChangePasswordMentors from './pages/dashboard/mentors/settings/change-password';
+import DashboardStudents from './pages/dashboard/students/dashboard-students';
+import SopProjectsStudents from './pages/dashboard/students/projects/sop-projects';
+import ShowcaseProjectsStudents from './pages/dashboard/students/projects/showcase-projects';
+import ViewShowcaseLatestStudents from './components/form/showcase-projects-form/showcase-projects-form-students/view-showcase-latest';
+import ViewShowcaseHistoryStudents from './components/form/showcase-projects-form/showcase-projects-form-students/view-showcase-history';
+import ProfileStudents from './pages/dashboard/students/settings/profile';
+import ProfileStudentsEdit from './components/profile/profile-students';
+import ChangePasswordStudents from './pages/dashboard/students/settings/change-password';
+import UploadsShowcaseProjects from './components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 
 const MainLayout = ({ children }) => {
   return (
@@ -138,6 +147,39 @@ const App = () => {
           element={<ChangePasswordMentors />}
         />
         {/* Route Dashboard Mentors */}
+
+        {/* Route Dashboard Students */}
+        <Route path="/students/dashboard" element={<DashboardStudents />} />
+        <Route
+          path="/students/showcase-projects"
+          element={<ShowcaseProjectsStudents />}
+        />
+        <Route
+          path="/students/sop-projects"
+          element={<SopProjectsStudents />}
+        />
+        <Route
+          path="/students/showcase-projects/latest"
+          element={<ViewShowcaseLatestStudents />}
+        />
+        <Route
+          path="/students/showcase-projects/uploads"
+          element={<UploadsShowcaseProjects />}
+        />
+        <Route
+          path="/students/showcase-projects/history"
+          element={<ViewShowcaseHistoryStudents />}
+        />
+        <Route path="/students/profile" element={<ProfileStudents />} />
+        <Route
+          path="/students/profile/edit"
+          element={<ProfileStudentsEdit />}
+        />
+        <Route
+          path="/students/change-password"
+          element={<ChangePasswordStudents />}
+        />
+        {/* Route Dashboard Students */}
       </Routes>
     </Router>
   );

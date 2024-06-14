@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const ShowcaseMembers = () => {
+const ShowcaseMembersEdit = () => {
   const rawData = [
     { role: 'Hustler', fullName: 'Lintang Luthfiantoni' },
     { role: 'Scrum Master', fullName: 'Asfia Apriani' },
@@ -16,13 +16,25 @@ const ShowcaseMembers = () => {
     { role: 'Hacker', fullName: 'Khaeril Maswal Zaid' },
   ];
 
-  const groupedData = rawData.reduce((acc, item) => {
-    if (!acc[item.role]) {
-      acc[item.role] = [];
-    }
-    acc[item.role].push(item);
-    return acc;
-  }, {});
+  // Inisialisasi state editedNames sebagai objek
+  const [editedNames, setEditedNames] = useState(
+    rawData.reduce((acc, item) => {
+      if (!acc[item.role]) {
+        acc[item.role] = [];
+      }
+      acc[item.role].push({ ...item }); // Salin data dari rawData
+      return acc;
+    }, {})
+  );
+
+  const handleNameChange = (role, index, newName) => {
+    // Salin data sebelumnya untuk role tertentu
+    const newEditedNames = { ...editedNames };
+    // Perbarui nama sesuai indeks
+    newEditedNames[role][index].fullName = newName;
+    // Set state baru
+    setEditedNames(newEditedNames);
+  };
 
   return (
     <div className="container mx-auto my-4 text-accent">
@@ -34,12 +46,21 @@ const ShowcaseMembers = () => {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(groupedData).map(([role, items], index) => (
+          {Object.entries(editedNames).map(([role, items], index) => (
             <tr key={index} className="border-t">
               <td className="px-4 py-3 border">{role}</td>
               <td className="px-4 py-3 border">
-                {items.map((item, index) => (
-                  <div key={index}>{item.fullName}</div>
+                {items.map((item, itemIndex) => (
+                  <div key={itemIndex}>
+                    <input
+                      type="text"
+                      value={item.fullName}
+                      onChange={(e) =>
+                        handleNameChange(role, itemIndex, e.target.value)
+                      }
+                      className="border border-gray-400 px-2 py-1 rounded-md mr-2 bg-gray mb-4 focus:border-primary focus-visible:outline-none"
+                    />
+                  </div>
                 ))}
               </td>
             </tr>
@@ -50,4 +71,4 @@ const ShowcaseMembers = () => {
   );
 };
 
-export default ShowcaseMembers;
+export default ShowcaseMembersEdit;
