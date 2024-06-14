@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import LayoutMentors from '../../../layout/layout-mentors';
+import LayoutStudents from '../../../layout/layout-students';
 import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
-import BreadcrumbMentors from '../../breadcrumb/breadcrumb-mentors';
+import BreadcrumbStudents from '../../breadcrumb/breadcrumb-students';
 import OneButton from '../../buttons/one-button';
 import ThreeButton from '../../buttons/three-button';
 
-const ProfileMentors = () => {
+const ProfileStudents = () => {
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="Edit My Profile" />
+    <LayoutStudents>
+      <BreadcrumbStudents pageName="Edit My Profile" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -140,12 +140,12 @@ const ProfileMentors = () => {
                 {/* <!-- Profile Admin --> */}
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <Link to="/mentors/profile/edit">
+                  <Link to="/students/students-data/edit">
                     <OneButton>
                       <span>Update</span>
                     </OneButton>
                   </Link>
-                  <Link to="/mentors/profile">
+                  <Link to="/students/profile">
                     <ThreeButton>
                       <span>Back</span>
                     </ThreeButton>
@@ -156,8 +156,8 @@ const ProfileMentors = () => {
           </div>
         </div>
       </div>
-    </LayoutMentors>
+    </LayoutStudents>
   );
 };
 
-export default ProfileMentors;
+export default ProfileStudents;
