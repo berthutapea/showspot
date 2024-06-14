@@ -9,7 +9,7 @@ import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-import Dashboard from './pages/dashboard/dashboard';
+import Dashboard from './pages/dashboard/dashboard-admin';
 import SopProjects from './pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from './pages/dashboard/admin/projects/showcase-projects';
 import ChangePassword from './pages/dashboard/admin/settings/change-password';
@@ -95,11 +95,22 @@ const App = () => {
         <Route path="/admin/sop-projects/add" element={<AddSop />} />
         <Route path="/admin/sop-projects/edit" element={<EditSop />} />
         <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
-        <Route path="/admin/showcase-projects/latest" element={<ViewShowcaseLatest />} />
-        <Route path="/admin/showcase-projects/history" element={<ViewShowcaseHistory />} />
+        <Route
+          path="/admin/showcase-projects/latest"
+          element={<ViewShowcaseLatest />}
+        />
+        <Route
+          path="/admin/showcase-projects/history"
+          element={<ViewShowcaseHistory />}
+        />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/profile/edit" element={<ProfileAdmin />} />
         <Route path="/admin/change-password" element={<ChangePassword />} />
+        {/* Route Dashboard Admin */}
+
+        {/* Route Dashboard Mentors */}
+        <Route path="/mentors/dashboard" element={<Dashboard />} />
+        {/* Route Dashboard Mentors */}
       </Routes>
     </Router>
   );

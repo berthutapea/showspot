@@ -1,9 +1,9 @@
 import React from 'react';
-import LogoShowSpot from '../../assets/images/showspot-logo.png';
+import LogoShowSpot from '../../../assets/images/showspot-logo.png';
 import { Link } from 'react-router-dom';
-import DropdownProfile from '../dropdown/dropdown-profile';
+import DropdownProfileAdmin from '../../dropdown/dropdown-profile-admin';
 
-const Header = (props) => {
+const HeaderAdmin = (props) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
@@ -68,11 +68,11 @@ const Header = (props) => {
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          <DropdownProfile />
+          <DropdownProfileAdmin />
         </div>
       </div>
     </header>
   );
 };
 
-export default Header;
+export default HeaderAdmin;

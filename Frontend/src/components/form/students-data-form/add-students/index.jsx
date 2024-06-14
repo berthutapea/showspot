@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import Layout from '../../../../layout';
-import Breadcrumb from '../../../breadcrumb';
+import LayoutAdmin from '../../../../layout/layout-admin';
+import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
 
 const AddStudents = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="Add Students" />
+    <LayoutAdmin>
+      <BreadcrumbAdmin pageName="Add Students" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -146,7 +146,7 @@ const AddStudents = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutAdmin>
   );
 };
 
