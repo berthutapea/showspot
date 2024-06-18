@@ -1,8 +1,9 @@
-const config = require('../config/ConfDatabase');
+const config = require('../config/configuration');
 const mysql = require('mysql2/promise');
 
 class Database {
   constructor() {
+    this.port = config.db.port;
     this.host = config.db.host;
     this.user = config.db.user;
     this.password = config.db.password;
@@ -14,6 +15,7 @@ class Database {
     try {
       this.connection = await mysql.createConnection({
         host: this.host,
+        port: this.port,
         user: this.user,
         password: this.password,
         database: this.database,

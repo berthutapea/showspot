@@ -1,28 +1,32 @@
 const { Controller } = require('../core/Controller');
+const ResponseHandler = require('../handler/ResponseHandler');
 const { AdminModel } = require('../models/AdminModel');
+const isAuthenticated = require('../middlewares/authMiddleware');
 
 class AdminController extends Controller {
   constructor() {
     super('AdminModel');
     this.mentorModel = 'MentorModel';
-    this.userModel = 'UserModel';
+    this.studentModel = 'StudentModel';
+    this.responseHandler = new ResponseHandler();
   }
   /*=== Admin Entity ===*/
 
   /*=== Mentor Entity ===*/
 
   async createDataMentor(req, res) {
+    isAuthenticated(req, res);
     try {
       const mentor = req.body;
-      const mentorsModel = await this.loadModel('MentorModel');
+      const mentorsModel = await this.loadModel(this.mentorModel);
       const result = await mentorsModel.insertDataMentor(mentor);
-      if (result.length > 0) {
-        res.status(200).json({ message: 'Data Mentor Created' });
+      if (result.affectedRows > 0) {
+        this.responseHandler.success(res, 'Mentor Created');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -30,13 +34,13 @@ class AdminController extends Controller {
     try {
       const mentors = await this.loadModel(this.mentorModel);
       const results = await mentors.findAll();
-      if (results.length > 0) {
-        res.status(200).json(results);
+      if (results) {
+        this.responseHandler.success(res, 'Data Found', results);
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -46,13 +50,13 @@ class AdminController extends Controller {
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.findByMentorId(mentorId);
 
-      if (result.length > 0) {
-        res.status(200).json({ result });
+      if (result.affectedRows > 0) {
+        this.responseHandler.success(res, 'Data Found', result);
       } else {
-        res.status(404).json({ message: `Data with '${mentorId}' Not Found!` });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -62,7 +66,7 @@ class AdminController extends Controller {
       const updatedData = req.body;
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.updateData(mentorId, updatedData);
-      if (result > 0) {
+      if (result[0].affectedRows > 0) {
         res
           .status(201)
           .json({ message: `Data Mentor with ${mentorId} Updated` });
@@ -79,7 +83,7 @@ class AdminController extends Controller {
       const mentorId = req.params.id;
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.deleteData(mentorId);
-      if (result > 0) {
+      if (result[0].affectedRows > 0) {
         res.status(200).json({ message: 'Data Mentor Deleted' });
       } else {
         res.status(400).json({ message: 'Bad Request' });
@@ -101,109 +105,116 @@ class AdminController extends Controller {
     }
   }
 
-  /*=== User Entity ===*/
-  async createDataUser(req, res) {
+  /*=== Student Entity ===*/
+  async createDataStudent(req, res) {
     try {
-      const userData = req.body;
-      const user = await this.loadModel(this.userModel);
-      const result = await user.insertDataUser(userData);
-      if (result.length > 0) {
-        res.status(201).json({ message: 'User Created' });
+      const studentData = req.body;
+      const student = await this.loadModel(this.studentModel);
+      const result = await student.insertDataStudent(studentData);
+      if (result.affectedRows > 0) {
+        this.responseHandler.success(res, 'Student Created');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.error(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
-  async getDataUsers(req, res) {
+  async getDataStudents(req, res) {
     try {
-      const userModel = await this.loadModel(this.userModel);
-      const users = await userModel.findAll();
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(400).json({ message: 'Bad Request' });
-    }
-  }
-
-  async getDataUserById(req, res) {
-    try {
-      const userId = req.params.id;
-      const userModel = await this.loadModel(this.userModel);
-      const user = await userModel.findById(userId);
-      if (user.length > 0) {
-        res.status(200).json(user);
+      const studentModel = await this.loadModel(this.studentModel);
+      const students = await studentModel.findAll();
+      if (students) {
+        this.responseHandler.success(res, 'Data Found', students);
       } else {
-        res.status(404).json({ message: `Data with '${userId}' Not Found!` });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
-  async getDataUserByName(req, res) {
+  async getDataStudentById(req, res) {
     try {
-      const userName = req.params.name;
-      const userModel = await this.loadModel(this.userModel);
-      const user = await userModel.findByName(userName);
-      if (user.length > 0) {
-        res.status(200).json(user);
+      const studentId = req.params.id;
+      const studentModel = await this.loadModel(this.studentModel);
+      const student = await studentModel.findById(studentId);
+      if (student.length > 0) {
+        this.responseHandler.success(res, 'Data Found', student);
       } else {
-        res.status(404).json({ message: `Data with '${userName}' Not Found` });
+        this.responseHandler.notFound(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
-  async updateDataUser(req, res) {
+  async getDataStudentByName(req, res) {
     try {
-      const userId = req.params.id;
+      const studentName = req.params.name;
+      const studentModel = await this.loadModel(this.studentModel);
+      const student = await studentModel.findByName(studentName);
+      if (student.length > 0) {
+        this.responseHandler.success(res, 'Data Found', student);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+
+  async updateDataStudent(req, res) {
+    try {
+      const studentId = req.params.id;
       const updatedData = req.body;
-      const userModel = await this.loadModel(this.userModel);
-      const result = await userModel.updateData(userId, updatedData);
-      if (result.length > 0) {
-        res.status(200).json({ message: 'Data Updated' });
+      const studentModel = await this.loadModel(this.studentModel);
+      const result = await studentModel.updateData(studentId, updatedData);
+      if (result[0].affectedRows > 0) {
+        this.responseHandler.success(res, 'Data Updated');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
-  async changePasswordUser(req, res) {
+  async changePasswordStudent(req, res) {
     try {
-      const userId = req.params.id;
+      const studentId = req.params.id;
       const newPassword = req.body;
-      const userModel = await this.loadModel(this.userModel);
-      const result = await userModel.changePasswordUser(userId, newPassword);
+      const studentModel = await this.loadModel(this.studentModel);
+      const result = await studentModel.changePasswordStudent(
+        studentId,
+        newPassword
+      );
 
       if (result.length > 0) {
-        res.status(200).json({ message: 'Password Changed' });
+        this.responseHandler.success(res, 'Password Changed');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 
-  async deleteDataUser(req, res) {
+  async deleteDataStudent(req, res) {
     try {
-      const userId = req.params.id;
-      const userModel = await this.loadModel(this.userModel);
-      const result = await userModel.deleteData(userId);
-      if (result.length) {
-        res.status(200).json({ message: 'Data Deleted' });
+      const studentId = req.params.id;
+      const studentModel = await this.loadModel(this.studentModel);
+      const result = await studentModel.deleteData(studentId);
+      if (result[0].affectedRows > 0) {
+        this.responseHandler.success(res, 'Data Deleted');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
     }
   }
 }
 
-module.exports = { AdminController };
+module.exports = AdminController;
