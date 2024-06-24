@@ -1,19 +1,29 @@
 const { Route } = require('../core/Route');
+const authMiddleware = require('../middlewares/authMiddleware');
+const authUser = require('../middlewares/authUser');
+const adminOnly = require('../middlewares/adminOnly');
+
 const multer = require('multer');
 const upload = multer();
 
 class AdminRoute extends Route {
-  initializeRoute() {
+  initializeRoute(){
     /* === Mentor Entity === */
     // get data mentors by admin
     this.router.get(
       '/admin/mentors',
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.getDataMentors.bind(this.controller)
     );
 
     // // get data mentor by id by admin
     this.router.get(
       '/admin/mentors/id/:id',
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.getDataMentorById.bind(this.controller)
     );
 
@@ -27,6 +37,9 @@ class AdminRoute extends Route {
     this.router.post(
       '/admin/mentors/create',
       upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.createDataMentor.bind(this.controller)
     );
 
@@ -34,6 +47,9 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/mentors/:id/update',
       upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.updateDataMentor.bind(this.controller)
     );
 
@@ -41,61 +57,88 @@ class AdminRoute extends Route {
     this.router.patch(
       '/admin/mentors/:id/password',
       upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.changePasswordMentor.bind(this.controller)
     );
 
     // delete data mentor by admin
     this.router.delete(
       '/admin/mentors/:id/delete',
+      authMiddleware,
+      authUser,
+      adminOnly,
       this.controller.deleteDataMentor.bind(this.controller)
     );
 
-    /* === User Entity === */
-    // get data users by admin
+    /* === Student Entity === */
+    // get data students by admin
     this.router.get(
-      '/admin/users',
-      this.controller.getDataUsers.bind(this.controller)
+      '/admin/students',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getDataStudents.bind(this.controller)
     );
 
-    // get data user by id by admin
+    // get data student by id by admin
     this.router.get(
-      '/admin/users/id/:id',
-      this.controller.getDataUserById.bind(this.controller)
+      '/admin/students/id/:id',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getDataStudentById.bind(this.controller)
     );
 
-    //get data user by name by admin
+    //get data student by name by admin
     this.router.get(
-      '/admin/users/name/:name',
-      this.controller.getDataUserByName.bind(this.controller)
+      '/admin/students/name/:name',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getDataStudentByName.bind(this.controller)
     );
 
-    // create user by admin
+    // create student by admin
     this.router.post(
-      '/admin/users/create',
+      '/admin/students/create',
       upload.none(),
-      this.controller.createDataUser.bind(this.controller)
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.createDataStudent.bind(this.controller)
     );
 
-    // update data user by admin
+    // update data student by admin
     this.router.put(
-      '/admin/users/:id/update',
+      '/admin/students/:id/update',
       upload.none(),
-      this.controller.updateDataUser.bind(this.controller)
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.updateDataStudent.bind(this.controller)
     );
 
-    // update password user by admin
+    // update password student by admin
     this.router.patch(
-      '/admin/users/:id/password',
+      '/admin/students/:id/password',
       upload.none(),
-      this.controller.changePasswordUser.bind(this.controller)
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.changePasswordStudent.bind(this.controller)
     );
 
-    // delete data user by admin
+    // delete data student by admin
     this.router.delete(
-      '/admin/users/:id/delete',
-      this.controller.deleteDataUser.bind(this.controller)
+      '/admin/students/:id/delete',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.deleteDataStudent.bind(this.controller)
     );
   }
 }
 
-module.exports = { AdminRoute };
+module.exports = AdminRoute;
