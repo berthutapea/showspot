@@ -11,7 +11,6 @@ class Model {
     1 = strict mode (not allow duplicate value)
   */
   async insertOne(datas, mode = 0) {
-    console.log(datas);
     try {
       await this.database.openConnection();
       const fields = Object.keys(datas);

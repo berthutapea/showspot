@@ -12,7 +12,24 @@ class StudentModel extends Model {
     this.major = 'major';
     this.groupTypeId = 'group_type_id';
     this.classTypeId = 'class_type_id';
+    this.photoProfile = 'photo_profile';
   }
+
+async getAllStudentsData() {
+  const datas = await this.findAll();
+  const students = await datas.map((data) => {
+    return {
+      [this.studentId]: data.student_id,
+      [this.fullname]: data.fullname,
+      [this.campus]: data.campus,
+      [this.major]: data.major,
+      [this.groupTypeId]: data.group_type_id,
+      [this.classTypeId]: data.class_type_id,
+      [this.photoProfile]: data.photo_profile,
+    };
+  });
+  return students;
+}
 
   async insertDataStudent(datas) {
     const hashingService = new HashingService();
@@ -28,6 +45,7 @@ class StudentModel extends Model {
       [this.major]: datas.major,
       [this.groupTypeId]: datas.group_type_id,
       [this.classTypeId]: datas.class_type_id,
+      [this.photoProfile]: datas.photo_profile
     };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.insertOne(studentData, 1);

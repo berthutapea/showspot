@@ -1,7 +1,6 @@
 const { Controller } = require('../core/Controller');
-const ResponseHandler = require('../handler/ResponseHandler');
 const { AdminModel } = require('../models/AdminModel');
-const isAuthenticated = require('../middlewares/authMiddleware');
+const ResponseHandler = require('../handler/ResponseHandler');
 
 class AdminController extends Controller {
   constructor() {
@@ -124,7 +123,7 @@ class AdminController extends Controller {
   async getDataStudents(req, res) {
     try {
       const studentModel = await this.loadModel(this.studentModel);
-      const students = await studentModel.findAll();
+      const students = await studentModel.getAllStudentsData();
       if (students) {
         this.responseHandler.success(res, 'Data Found', students);
       } else {

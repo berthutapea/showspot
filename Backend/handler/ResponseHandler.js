@@ -1,5 +1,3 @@
-const { response } = require('express');
-
 class ResponseHandler {
   success(res, message, data = 0) {
     const statusCode = 200;

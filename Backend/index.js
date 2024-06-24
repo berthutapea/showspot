@@ -1,7 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const configServer = require('./config/configuration');
-const configAPI = require('./config/configuration');
+const config = require('./config/configuration');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
@@ -11,11 +10,19 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-  secret: configAPI.api.key,
+  secret: config.api.key,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
 }));
+
+app.use('/api', router);
+// app.use(require('./middlewares/authUser'));
+
+const AuthUserController = require('./controllers/AuthUserController');
+const AuthUserRoute = require('./routes/AuthUserRoute');
+const authUserController = new AuthUserController();
+new AuthUserRoute(router, authUserController);
 
 const AdminController = require('./controllers/AdminController');
 const AdminRoute = require('./routes/AdminRoute');
@@ -27,8 +34,6 @@ const UserRoute = require('./routes/StudentRoute');
 const studentController = new StudentController();
 new UserRoute(router, studentController);
 
-app.use('/api', router);
-
-app.listen(configServer.server.PORT, () => {
-  console.log(`Server is running on port : ${configServer.server.PORT}`);
+app.listen(config.server.PORT, () => {
+  console.log(`Server is running on port : ${config.server.PORT}`);
 });
