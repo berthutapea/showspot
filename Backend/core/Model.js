@@ -56,30 +56,42 @@ class Model {
     0 = default mode (LIKE)
     1 = strict mode (=))
   */
-  async findOne(datas, mode = 0) {
-    try {
-      await this.database.openConnection();
-      const field = Object.keys(datas);
-      const value = Object.values(datas);
-      let query;
-      let formattedValue;
+async findOne(datas, mode = 0, limit = 0, offset = 0, orderBy = 'id') {
+  try {
+    await this.database.openConnection();
+    const field = Object.keys(datas);
+    const value = Object.values(datas);
+    let query;
+    let formattedValue;
 
-      if (mode) {
-        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`
-        formattedValue = value;
+    if (mode) {
+      if (limit > 0 && offset >= 0 && orderBy) {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
+        formattedValue = [value[0], limit, offset];
+      } else {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
+        formattedValue = [value[0]];
+      }
+    } else {
+      if (limit > 0 && offset >= 0) {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
+        formattedValue = [`%${value[0]}%`, limit, offset];
       } else {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
-        formattedValue = `%${value}%`;
+        formattedValue = [`%${value[0]}%`];
       }
-      const [results] = await this.database.connection.query(query, [formattedValue]);
-      return results;
-    } catch (error) {
-      console.error('Error fetching data from the database: ', error);
-      return false;
-    } finally {
-      this.database.closeConnection();
     }
+
+    const [results] = await this.database.connection.query(query, formattedValue);
+    return results;
+  } catch (error) {
+    console.error('Error fetching data from the database: ', error);
+    return false;
+  } finally {
+    await this.database.closeConnection();
   }
+}
+
 
   async update(params, datas) {
     try {

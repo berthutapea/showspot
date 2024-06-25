@@ -27,3 +27,4 @@ dist-ssr
 *.sw?
 # .env
 /tests/
+/assets/images/

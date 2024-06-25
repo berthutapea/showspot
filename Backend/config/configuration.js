@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const config = {
   api : {
-    key: process.env.API_KEY
+    key: process.env.API_KEY,
+    base_url: `${process.env.BASE_URL}`
   },
   db: {
     port: process.env.DB_PORT,
