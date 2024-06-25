@@ -3,6 +3,7 @@ require('dotenv').config();
 const config = require('./config/configuration');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const { LoadImageHandler } = require('./handler/LoadImageHandler');
 
 const app = express();
 const router = express.Router();
@@ -17,7 +18,6 @@ app.use(session({
 }));
 
 app.use('/api', router);
-// app.use(require('./middlewares/authUser'));
 
 const AuthUserController = require('./controllers/AuthUserController');
 const AuthUserRoute = require('./routes/AuthUserRoute');
@@ -34,6 +34,9 @@ const UserRoute = require('./routes/StudentRoute');
 const studentController = new StudentController();
 new UserRoute(router, studentController);
 
+new LoadImageHandler(app);
+
 app.listen(config.server.PORT, () => {
   console.log(`Server is running on port : ${config.server.PORT}`);
+  // console.log(__dirname)
 });

@@ -1,13 +1,46 @@
+const multer = require('multer');
+const upload = multer();
+
 const { Route } = require('../core/Route');
 const authMiddleware = require('../middlewares/authMiddleware');
 const authUser = require('../middlewares/authUser');
 const adminOnly = require('../middlewares/adminOnly');
-
-const multer = require('multer');
-const upload = multer();
+const { FileUploadHandler } = require('../handler/FileUploadHandler');
 
 class AdminRoute extends Route {
   initializeRoute(){
+    this.fileUploadHandler = new FileUploadHandler();
+
+    /* === Admin Entity === */
+    // get my profile admin
+    this.router.get(
+      '/admin/profile/:id',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getMyProfileAdmin.bind(this.controller)
+    );
+
+    // update my profile
+    this.router.put(
+      '/admin/profile/:id/update',
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.updateMyProfileAdmin.bind(this.controller)
+    );
+
+    // change my password
+    this.router.patch(
+      '/admin/password/:id/change',
+      upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.changePasswordMentor.bind(this.controller)
+    );
+
     /* === Mentor Entity === */
     // get data mentors by admin
     this.router.get(
@@ -28,15 +61,18 @@ class AdminRoute extends Route {
     );
 
     // // get data mentor by name by admin
-    // this.router.get(
-    //   '/admin/mentors/name/:id',
-    //   this.controller.getDataMentorByName.bind(this.controller)
-    // );
+    this.router.get(
+      '/admin/mentors/name/:name',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getDataMentorByName.bind(this.controller)
+    );
 
     // create data mentor by admin
     this.router.post(
       '/admin/mentors/create',
-      upload.none(),
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
       authMiddleware,
       authUser,
       adminOnly,
@@ -46,7 +82,7 @@ class AdminRoute extends Route {
     // update data mentor by admin
     this.router.put(
       '/admin/mentors/:id/update',
-      upload.none(),
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
       authMiddleware,
       authUser,
       adminOnly,
@@ -103,7 +139,7 @@ class AdminRoute extends Route {
     // create student by admin
     this.router.post(
       '/admin/students/create',
-      upload.none(),
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
       authMiddleware,
       authUser,
       adminOnly,
@@ -113,7 +149,7 @@ class AdminRoute extends Route {
     // update data student by admin
     this.router.put(
       '/admin/students/:id/update',
-      upload.none(),
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
       authMiddleware,
       authUser,
       adminOnly,
