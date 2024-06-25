@@ -1,5 +1,5 @@
 const { SessionModel } = require('../models/SessionModel');
-const config = require('../config/configuration');
+// const config = require('../config/configuration');
 
 
 module.exports = async function(req, res, next) {
