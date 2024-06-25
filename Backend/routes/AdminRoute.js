@@ -12,6 +12,16 @@ class AdminRoute extends Route {
     this.fileUploadHandler = new FileUploadHandler();
 
     /* === Admin Entity === */
+
+    // Dashboard Admin
+    this.router.get(
+      '/admin/dashboard',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.dashboardAdmin.bind(this.controller)
+    );
+
     // get my profile admin
     this.router.get(
       '/admin/profile/:id',
@@ -173,6 +183,54 @@ class AdminRoute extends Route {
       authUser,
       adminOnly,
       this.controller.deleteDataStudent.bind(this.controller)
+    );
+
+    /* === Project Entity === */
+    // Add SOP Project
+    this.router.put(
+      '/admin/projects/sop-project/add',
+      upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.addSopProject.bind(this.controller)
+    );
+
+    // Get SOP Project
+    this.router.get(
+      '/admin/projects/sop-project',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.getSopProject.bind(this.controller)
+    );
+
+    // Update SOP Project
+    this.router.put(
+      '/admin/projects/sop-project/update',
+      upload.none(),
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.updateSopProject.bind(this.controller)
+    );
+
+    // Delete SOP Project
+    this.router.delete(
+      '/admin/projects/sop-project/delete',
+      authMiddleware,
+      authUser,
+      adminOnly,
+      this.controller.deleteSopProject.bind(this.controller)
+    );
+
+    // ShowCase Project List
+    this.router.get(
+      '/admin/projects/showcase-projects/:statusproject/:page',
+      authMiddleware,
+      // authUser,
+      // adminOnly,
+      this.controller.getShowProjects.bind(this.controller)
     );
   }
 }

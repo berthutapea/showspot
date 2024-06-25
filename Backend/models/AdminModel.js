@@ -23,7 +23,7 @@ class AdminModel extends Model {
     const admin = await this.findOne(myData);
       const data = await admin.map((data) => {
         return {
-          [this.mentorId]: data.mentor_id,
+          [this.adminId]: data.admin_id,
           [this.fullname]: data.fullname,
           [this.campus]: data.campus,
           [this.major]: data.major,
