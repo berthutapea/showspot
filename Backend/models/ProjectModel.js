@@ -1,5 +1,6 @@
 const { Model } = require('../core/Model');
 const StatusProjectModel = require('../models/StatusProjectModel');
+const GroupProjectModel = require('../models/GroupProjectModel');
 
 class ProjectModel extends Model {
   constructor() {
@@ -54,9 +55,35 @@ class ProjectModel extends Model {
     return data;
   }
 
+  async findProjectById(projectId) {
+    const groupProjectModel = new GroupProjectModel();
+    const projectData = {
+      [this.applicationId]: projectId,
+    };
+    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
+    const resultProject = await this.findOne(projectData, 1);
+
+    const groupProjectData = {
+      [groupProjectModel.groupProjectId]: await resultProject[0].group_id,
+    };
+    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
+    const resultGroup = await groupProjectModel.findOne(groupProjectData, 1);
+
+    const result = {
+      project: resultProject,
+      group_project: resultGroup,
+    };
+
+    return result;
+  }
+
   // ===> make a search project by group name
-    async findProjectByGroupName (statusId, page) {
-     
+  async findProjectByGroupName (projectName) {
+    const projectData = {
+      [this.applicationTitle]: projectName,
+    };
+    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
+    return await this.findOne(projectData, 1);
   }
 }
 

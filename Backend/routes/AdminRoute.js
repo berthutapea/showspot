@@ -232,6 +232,25 @@ class AdminRoute extends Route {
       // adminOnly,
       this.controller.getShowProjects.bind(this.controller)
     );
+
+    // Get Project By ID
+    this.router.get(
+      '/admin/projects/showcase-projects/id/:id/detail',
+      authMiddleware,
+      // authUser,
+      // adminOnly,
+      this.controller.findShowProjectById.bind(this.controller)
+    );
+
+    // Get Project By ID
+    this.router.get(
+      '/admin/projects/showcase-projects/:name',
+      authMiddleware,
+      // authUser,
+      // adminOnly,
+      this.controller.findShowProjectByGroupName.bind(this.controller)
+    );
+
   }
 }
 
