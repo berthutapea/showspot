@@ -137,7 +137,7 @@ class AdminRoute extends Route {
       this.controller.getDataStudentById.bind(this.controller)
     );
 
-    //get data student by name by admin
+    // get data student by name by admin
     this.router.get(
       '/admin/students/name/:name',
       authMiddleware,

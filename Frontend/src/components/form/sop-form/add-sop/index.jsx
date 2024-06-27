@@ -10,10 +10,10 @@ import {
 import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
-import LayoutAdmin from '../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import Layout from '../../../../layout';
+import Breadcrumb from '../../../breadcrumb';
 
 export default function AddSop() {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ export default function AddSop() {
   };
 
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Add Sop" />
+    <Layout>
+      <Breadcrumb pageName="Add Sop" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
@@ -93,6 +93,6 @@ export default function AddSop() {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </Layout>
   );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import LogoShowSpot from '../../../assets/images/showspot-logo.png';
+import LogoShowSpot from '../../assets/images/showspot-logo.png';
 import { Link } from 'react-router-dom';
-import DropdownProfileMentors from '../../dropdown/dropdown-profile-mentors';
+import DropdownProfile from '../../components/dropdown-profile';
 
-const HeaderMentors = (props) => {
+const Header = (props) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
@@ -68,11 +68,11 @@ const HeaderMentors = (props) => {
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          <DropdownProfileMentors />
+          <DropdownProfile />
         </div>
       </div>
     </header>
   );
 };
 
-export default HeaderMentors;
+export default Header;

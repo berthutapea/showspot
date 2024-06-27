@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import DataGajiPegawai from '../.../../../../../../utils/DataGajiPegawai';
 import { FaEye, FaUpload } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
-import LayoutStudents from '../../../../../layout/layout-students';
-import BreadcrumbStudents from '../../../../../components/breadcrumb/breadcrumb-students';
 import { Link } from 'react-router-dom';
 import OneButton from '../../../../../components/buttons/one-button';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../../components/breadcrumb';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -38,8 +38,8 @@ const ShowcaseProjects = () => {
   };
 
   return (
-    <LayoutStudents>
-      <BreadcrumbStudents pageName="Showcase Projects" />
+    <Layout>
+      <Breadcrumb pageName="Showcase Projects" />
       <Link to="/students/showcase-projects/uploads">
         <OneButton>
           <span>Upload Projects</span>
@@ -378,7 +378,7 @@ const ShowcaseProjects = () => {
           </div>
         </div>
       </div>
-    </LayoutStudents>
+    </Layout>
   );
 };
 

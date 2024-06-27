@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { FaRegEdit, FaPlus } from 'react-icons/fa';
 import { BsTrash3 } from 'react-icons/bs';
 import { BiSearch } from 'react-icons/bi';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../../components/breadcrumb';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -39,8 +39,8 @@ const MentorsData = () => {
   };
 
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Mentors Data" />
+    <Layout>
+      <Breadcrumb pageName="Mentors Data" />
       <Link to="/admin/mentors-data/add">
         <OneButton>
           <span>Add Mentors</span>
@@ -228,7 +228,7 @@ const MentorsData = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </Layout>
   );
 };
 

@@ -1,17 +1,17 @@
 import React from 'react';
-import LayoutAdmin from '../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../breadcrumb/breadcrumb-admin';
 import CardOne from '../../card/card-one';
 import CardTwo from '../../card/card-two';
 import CardThree from '../../card/card-three';
 import CardFour from '../../card/card-four';
 import ChartOne from '../../chart/chart-one';
 import ChartTwo from '../../chart/chart-two';
+import Layout from '../../../layout';
+import Breadcrumb from '../../breadcrumb';
 
 const DefaultDashboardAdmin = () => {
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Dashboard" />
+    <Layout>
+      <Breadcrumb pageName="Dashboard" />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardOne />
         <CardTwo />
@@ -26,7 +26,7 @@ const DefaultDashboardAdmin = () => {
           <ChartTwo />
         </div>
       </div>
-    </LayoutAdmin>
+    </Layout>
   );
 };
 
