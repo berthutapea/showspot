@@ -43,7 +43,8 @@ class SessionModel extends Model {
     const param = {
       [this.sessionCode]: token,
     };
-    return await this.delete(param);
+    await this.delete(param)
+    return 1;
   }
 }
 

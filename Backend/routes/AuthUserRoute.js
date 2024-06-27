@@ -11,12 +11,12 @@ class AuthUserRoute extends Route {
       upload.none(),
       this.controller.loginUser.bind(this.controller)
     );
-    
+
     // logout user
-    // this.router.get(
-    //   '/logout',
-    //   this.controller.logoutUser.bind(this.controller)
-    // );
+    this.router.delete(
+      '/logout',
+      this.controller.logoutUser.bind(this.controller)
+    );
   }
 }
 

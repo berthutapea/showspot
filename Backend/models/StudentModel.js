@@ -1,5 +1,6 @@
 const { Model } = require('../core/Model');
 const { HashingService } = require('../services/HashingService');
+const config = require('../config/configuration');
 
 class StudentModel extends Model {
   constructor() {
@@ -31,7 +32,8 @@ async getAllStudentsData() {
   return students;
 }
 
-  async insertDataStudent(datas) {
+  async insertDataStudent(datas, filename) {
+    const filePath = `${config.api.base_url}api/images/${filename}`;
     const hashingService = new HashingService();
     const patternId = String('student' + Math.floor(Math.random() * 10000) + 1);
     const studentId = patternId;
@@ -45,7 +47,7 @@ async getAllStudentsData() {
       [this.major]: datas.major,
       [this.groupTypeId]: datas.group_type_id,
       [this.classTypeId]: datas.class_type_id,
-      [this.photoProfile]: datas.photo_profile
+      [this.photoProfile]: filePath
     };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.insertOne(studentData, 1);
@@ -67,11 +69,34 @@ async getAllStudentsData() {
     return await this.findOne(studentData, 1);
   }
 
-  async updateData(id, datas) {
+  async updateData(id, datas, filename) {
     const param = {
       [this.studentId]: id,
     };
-    return await this.update(param, datas);
+    if (filename === null || filename === 0 || filename === '' || filename === undefined) {
+        const data = {
+          [this.fullname] : datas.fullname,
+          [this.username] : datas.username,
+          [this.campus] : datas.campus,
+          [this.major] : datas.major,
+          [this.groupTypeId] : datas.group_type_id,
+          [this.classTypeId] : datas.class_type_id,
+        }
+        return await this.update(param, data);
+    } else {
+        const filePath = `${config.api.base_url}api/images/${filename}`;
+        const data = {
+          [this.fullname] : datas.fullname,
+          [this.username] : datas.username,
+          [this.campus] : datas.campus,
+          [this.major] : datas.major,
+          [this.groupTypeId] : datas.group_type_id,
+          [this.classTypeId] : datas.class_type_id,
+          [this.photoProfile] : filePath,
+        }
+        return await this.update(param, data);
+    }
+    return false;
   }
 
   async deleteData(id) {
