@@ -1,6 +1,4 @@
 import React from 'react';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import SOP from '../../../../../components/sop';
 import { TfiPrinter } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
@@ -9,11 +7,13 @@ import TwoButton from '../../../../../components/buttons/two-button';
 import FourButton from '../../../../../components/buttons/four-button';
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import ThreeButton from '../../../../../components/buttons/three-button';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../../components/breadcrumb';
 
 const SopProjects = () => {
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Sop Projects" />
+    <Layout>
+      <Breadcrumb pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
         <div className="flex flex-col md:flex-row w-full gap-3">
           <Link to="/admin/sop-projects/add">
@@ -64,7 +64,7 @@ const SopProjects = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </Layout>
   );
 };
 

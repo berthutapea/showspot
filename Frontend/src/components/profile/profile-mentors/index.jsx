@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import LayoutMentors from '../../../layout/layout-mentors';
 import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
-import BreadcrumbMentors from '../../breadcrumb/breadcrumb-mentors';
 import OneButton from '../../buttons/one-button';
 import ThreeButton from '../../buttons/three-button';
+import Layout from '../../../layout';
+import Breadcrumb from '../../breadcrumb';
 
 const ProfileMentors = () => {
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="Edit My Profile" />
+    <Layout>
+      <Breadcrumb pageName="Edit My Profile" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -156,7 +156,7 @@ const ProfileMentors = () => {
           </div>
         </div>
       </div>
-    </LayoutMentors>
+    </Layout>
   );
 };
 

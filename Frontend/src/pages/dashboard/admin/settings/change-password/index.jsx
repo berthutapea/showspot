@@ -1,13 +1,13 @@
 import React from 'react';
 import { TfiLock } from 'react-icons/tfi';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../../components/breadcrumb';
 
 const ChangePassword = () => {
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="Change Password" />
+    <Layout>
+      <Breadcrumb pageName="Change Password" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -56,7 +56,7 @@ const ChangePassword = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </Layout>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import LayoutMentors from '../../../layout/layout-mentors';
-import BreadcrumbMentors from '../../breadcrumb/breadcrumb-mentors';
+import Layout from '../../../layout';
+import Breadcrumb from '../../breadcrumb';
 
 const DefaultDashboardMentors = () => {
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="Dashboard" />
+    <Layout>
+      <Breadcrumb pageName="Dashboard" />
       <div className="py-6">
         <h2 className="text-primary font-medium text-center md:text-left">
           Welcome to Your Show Spot Login As Mentor👋
@@ -32,7 +32,7 @@ const DefaultDashboardMentors = () => {
         </p>
         <p className="font-bold text-accent">Group #B5</p>
       </div>
-    </LayoutMentors>
+    </Layout>
   );
 };
 

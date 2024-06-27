@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import LayoutMentors from '../../../../../layout/layout-mentors';
 import placeholderImage from '../../../../../assets/images/placeholder.jpg';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
-import BreadcrumbMentors from '../../../../breadcrumb/breadcrumb-mentors';
 import OneButton from '../../../../buttons/one-button';
 import TwoButton from '../../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ShowcaseMembers from '../../../../showcase/showcase-members';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../breadcrumb';
 
 const ViewShowcaseLatest = () => {
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="View Showcase Latest" />
+    <Layout>
+      <Breadcrumb pageName="View Showcase Latest" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -192,7 +192,7 @@ const ViewShowcaseLatest = () => {
           </div>
         </div>
       </div>
-    </LayoutMentors>
+    </Layout>
   );
 };
 

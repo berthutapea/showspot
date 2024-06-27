@@ -1,15 +1,15 @@
 import React from 'react';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
-import LayoutMentors from '../../../../../layout/layout-mentors';
-import BreadcrumbMentors from '../../../../../components/breadcrumb/breadcrumb-mentors';
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import FourButton from '../../../../../components/buttons/four-button';
+import Layout from '../../../../../layout';
+import Breadcrumb from '../../../../../components/breadcrumb';
 
 const Profile = () => {
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="My Profile" />
+    <Layout>
+      <Breadcrumb pageName="My Profile" />
       <Link to="/mentors/profile/edit">
         <FourButton>
           <span>Edit Profile</span>
@@ -54,7 +54,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </LayoutMentors>
+    </Layout>
   );
 };
 
