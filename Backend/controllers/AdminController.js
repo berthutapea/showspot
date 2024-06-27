@@ -408,6 +408,37 @@ class AdminController extends Controller {
         this.responseHandler.serverError(res, error);
       }
   }
+
+  async findShowProjectById(req, res) {
+    try {
+      const projectId = req.params.id;
+      const projectModel = await this.loadModel(this.projectModel);
+      const project = await projectModel.findProjectById(projectId);
+      console.log(project)
+      if (Object.keys(project).length > 0) {
+        this.responseHandler.success(res, 'Data Found', project);
+      } else {
+        this.responseHandler.notFound(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+
+  async findShowProjectByGroupName(req, res) {
+    try {
+      const groupName = req.params.name;
+      const projectModel = await this.loadModel(this.projectModel);
+      const project = await projectModel.findProjectByGroupName(groupName);
+      if (project.length > 0) {
+        this.responseHandler.success(res, 'Data Found', project);
+      } else {
+        this.responseHandler.notFound(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
 }
 
 module.exports = AdminController;

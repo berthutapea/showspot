@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
 const config = require('./config/configuration');
 const session = require('express-session');
@@ -7,6 +8,7 @@ const { LoadImageHandler } = require('./handler/LoadImageHandler');
 
 const app = express();
 const router = express.Router();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,5 +40,4 @@ new LoadImageHandler(app);
 
 app.listen(config.server.PORT, () => {
   console.log(`Server is running on port : ${config.server.PORT}`);
-  // console.log(__dirname)
 });
