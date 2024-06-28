@@ -35,7 +35,7 @@ function LoginInput() {
           navigate('/student/dashboard');
           break;
         default:
-          navigate('/dashboard'); // Default fallback
+          navigate('/'); 
           break;
       }
     }
