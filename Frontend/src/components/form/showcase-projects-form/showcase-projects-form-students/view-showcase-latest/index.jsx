@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LayoutStudents from '../../../../../layout/layout-students';
 import placeholderImage from '../../../../../assets/images/placeholder.jpg';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
 import OneButton from '../../../../buttons/one-button';
 import ThreeButton from '../../../../buttons/three-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ShowcaseMembersEdit from '../../../../showcase/showcase-members-edit';
-import Layout from '../../../../../layout';
-import Breadcrumb from '../../../../breadcrumb';
 
 const ViewShowcaseLatest = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="View Showcase Latest" />
+    <LayoutStudents>
+      <BreadcrumbStudents pageName="View Showcase Latest" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -144,7 +144,7 @@ const ViewShowcaseLatest = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutStudents>
   );
 };
 

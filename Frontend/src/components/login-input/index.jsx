@@ -11,6 +11,7 @@ function LoginInput() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Mengambil data dari state Redux
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -21,27 +22,42 @@ function LoginInput() {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Berhasil',
-        text: message,
-        timer: 1500,
-      }).then(() => {
-        navigate('/dashboard');
-      });
+    if (isSuccess && user) {
+      // Determine where to redirect based on user role
+      switch (user.role) {
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        case 'mentor':
+          navigate('/mentor/dashboard');
+          break;
+        case 'student':
+          navigate('/student/dashboard');
+          break;
+        default:
+          navigate('/dashboard'); // Default fallback
+          break;
+      }
     }
-  }, [isSuccess, navigate, message]);
+  }, [isSuccess, user, navigate]);
 
   useEffect(() => {
+    // Handle pesan kesalahan atau berhasil
     if (isError) {
       Swal.fire({
         icon: 'error',
         title: 'Login Gagal',
         text: message,
       });
+    } else if (isSuccess && user) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Berhasil',
+        text: message,
+        timer: 1500,
+      });
     }
-  }, [isError, message]);
+  }, [isError, isSuccess, user, message]);
 
   return (
     <form onSubmit={handleLogin}>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LayoutAdmin from '../../../../../layout/layout-admin';
 import placeholderImage from '../../../../../assets/images/placeholder.jpg';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
 import ThreeButton from '../../../../buttons/three-button';
 import TwoButton from '../../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ShowcaseMembers from '../../../../showcase/showcase-members';
-import Layout from '../../../../../layout';
-import Breadcrumb from '../../../../breadcrumb';
 
 const ViewShowcaseHistory = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="View Showcase History" />
+    <LayoutAdmin>
+      <BreadcrumbAdmin pageName="View Showcase History" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -184,7 +184,7 @@ const ViewShowcaseHistory = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutAdmin>
   );
 };
 
