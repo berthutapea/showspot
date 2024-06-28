@@ -1,7 +1,7 @@
 const ResponseHandler = require('../handler/ResponseHandler');
 const { SessionModel } = require('../models/SessionModel');
 const {AuthUserModel} = require('../models/AuthUserModel');
-const authUser = require('../middlewares/authUser');
+
 
 class AuthUserController {
   constructor() {
@@ -18,12 +18,20 @@ class AuthUserController {
         password : req.body.password
       }
 
-      let getSessionUser = await new AuthUserModel(this.models).checkIsUser(userData);
+      let getSessionUser = await new AuthUserModel().checkIsUser(userData);
 
-      if (!getSessionUser.token) {
-        this.responseHandler.badRequest(res, 'Invalid Username &');
+      const sessionToken  = getSessionUser.session_token;
+
+      const instanceSessionModel = new SessionModel();
+      const sessionData = await instanceSessionModel.checkSession(sessionToken);
+
+      if (Object.keys(getSessionUser).length > 0) {
+        this.responseHandler.success(res, 'Login Success', sessionData.access_code, {
+          user_id: sessionData.user_id,
+          session_code: sessionData.session_code,
+        });
       } else {
-        this.responseHandler.success(res, 'Login Success', getSessionUser);
+        this.responseHandler.badRequest(res, 'Invalid Username & Password');
       }
     } catch (error) {
       this.responseHandler.serverError(res, error);

@@ -17,7 +17,7 @@ class StudentModel extends Model {
   }
 
 async getAllStudentsData() {
-  const datas = await this.findAll();
+  const datas = await this.findAll('all');
   const students = await datas.map((data) => {
     return {
       [this.studentId]: data.student_id,
@@ -49,6 +49,7 @@ async getAllStudentsData() {
       [this.classTypeId]: datas.class_type_id,
       [this.photoProfile]: filePath
     };
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.insertOne(studentData, 1);
   }
@@ -58,7 +59,7 @@ async getAllStudentsData() {
       [this.studentId]: id,
     };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    return await this.findOne(studentData, 1);
+    return await this.findOne(studentData, 0, 0, 0, 'fullname');
   }
 
   async findByName(name) {
@@ -66,7 +67,7 @@ async getAllStudentsData() {
       [this.fullname]: name,
     };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    return await this.findOne(studentData, 1);
+    return await this.findOne(studentData, 0, 0, 0, this.fullname);
   }
 
   async updateData(id, datas, filename) {

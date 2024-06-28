@@ -8,12 +8,12 @@ class ProjectModel extends Model {
     this.applicationId = 'application_id';
     this.applicationTitle = 'application_title';
     this.applicationImage = 'application_image';
-    this.grupName = 'grup_name';
+    this.groupName = 'group_name';
     this.linkVideo = 'link_video';
     this.linkDesign = 'link_design';
     this.linkGithub = 'link_github';
     this.description = 'description';
-    this.grup = 'grup_id';
+    this.group = 'group_id';
     this.gradeId = 'grade_id';
     this.projectFilterId = 'project_filter_id';
     this.statusProjectId = 'status_project_id';
@@ -42,17 +42,19 @@ class ProjectModel extends Model {
     const paramProject = {
       [this.statusProjectId]: statusId
     };
-    const projects = await this.findOne(paramProject, 1, 2, offset, 'created_at');
+    const projects = await this.findAll(paramProject, 1, 2, offset, 'created_at');
+    const totalData = await this.findAll(paramProject, 0, 0, 0, 'application_id');
+
     const dataPromises = projects.map(async (project) => {
       return {
         [this.applicationTitle]: project.application_title,
         [this.applicationImage]: project.application_image,
-        [this.grupName]: project.grup_name,
+        [this.groupName]: project.group_name,
         status: await statusProjectModel.findStatusProjectById(statusId),
       };
     });
-    const data = await Promise.all(dataPromises);
-    return data;
+    const datas = await Promise.all(dataPromises);
+    return { data: datas, total: totalData.length };
   }
 
   async findProjectById(projectId) {
@@ -60,14 +62,15 @@ class ProjectModel extends Model {
     const projectData = {
       [this.applicationId]: projectId,
     };
-    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    const resultProject = await this.findOne(projectData, 1);
 
-    const groupProjectData = {
-      [groupProjectModel.groupProjectId]: await resultProject[0].group_id,
-    };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    const resultGroup = await groupProjectModel.findOne(groupProjectData, 1);
+    const resultProject = await this.findOne(projectData, 1, 0, 0, 'group_id');
+    const groupProjectData = {
+      [groupProjectModel.groupProjectId]: await resultProject.group_id,
+    };
+
+    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
+    const resultGroup = await groupProjectModel.findAll(groupProjectData, 1, 0, 0, 'group_project_name');
 
     const result = {
       project: resultProject,
