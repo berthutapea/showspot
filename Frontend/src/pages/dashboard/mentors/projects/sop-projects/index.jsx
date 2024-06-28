@@ -1,15 +1,15 @@
 import React from 'react';
+import LayoutMentors from '../../../../../layout/layout-mentors';
+import BreadcrumbMentors from '../../../../../components/breadcrumb/breadcrumb-mentors';
 import SOP from '../../../../../components/sop';
 import { TfiPrinter } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
 import { Link } from 'react-router-dom';
-import Layout from '../../../../../layout';
-import Breadcrumb from '../../../../../components/breadcrumb';
 
 const SopProjects = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="Sop Projects" />
+    <LayoutMentors>
+      <BreadcrumbMentors pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
         <div className="w-full flex flex-col md:flex-row-4 md:text-right">
           <Link to="/mentors/sop-projects">
@@ -34,7 +34,7 @@ const SopProjects = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutMentors>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import Layout from '../../../layout';
-import Breadcrumb from '../../breadcrumb';
+import LayoutStudents from '../../../layout/layout-students';
+import BreadcrumbStudents from '../../breadcrumb/breadcrumb-students';
 
 const DefaultDashboardStudents = () => {
   return (
-    <Layout>
-      <Breadcrumb pageName="Dashboard" />
+    <LayoutStudents>
+      <BreadcrumbStudents pageName="Dashboard" />
       <div className="py-6">
         <h2 className="text-primary font-medium text-center md:text-left">
           Welcome to Your Show Spot Login As Students👋
@@ -32,7 +32,7 @@ const DefaultDashboardStudents = () => {
         </p>
         <p className="font-bold text-accent">Group #B5</p>
       </div>
-    </Layout>
+    </LayoutStudents>
   );
 };
 
