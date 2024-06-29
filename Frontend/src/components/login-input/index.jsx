@@ -1,3 +1,5 @@
+// src/components/LoginInput.js
+
 import React, { useState, useEffect } from 'react';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +13,6 @@ function LoginInput() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Mengambil data dari state Redux
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -23,39 +24,39 @@ function LoginInput() {
 
   useEffect(() => {
     if (isSuccess && user) {
-      // Determine where to redirect based on user role
+      let redirectPath = '/';
       switch (user.role) {
-        case 'admin':
-          navigate('/admin/dashboard');
+        case 'admins':
+          redirectPath = '/admin/dashboard';
           break;
-        case 'mentor':
-          navigate('/mentor/dashboard');
+        case 'mentors':
+          redirectPath = '/mentors/dashboard';
           break;
-        case 'student':
-          navigate('/student/dashboard');
+        case 'students':
+          redirectPath = '/students/dashboard';
           break;
         default:
-          navigate('/'); 
+          redirectPath = '/';
           break;
       }
+      navigate(redirectPath);
     }
   }, [isSuccess, user, navigate]);
 
   useEffect(() => {
-    // Handle pesan kesalahan atau berhasil
     if (isError) {
       Swal.fire({
         icon: 'error',
         title: 'Login Gagal',
         text: message,
-      });
+      }).then(() => {});
     } else if (isSuccess && user) {
       Swal.fire({
         icon: 'success',
         title: 'Login Berhasil',
         text: message,
         timer: 1500,
-      });
+      }).then(() => {});
     }
   }, [isError, isSuccess, user, message]);
 

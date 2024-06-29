@@ -15,6 +15,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/prop-types': 'off',
+    'camelcase':'off'
   },
   settings: {
     react: {
