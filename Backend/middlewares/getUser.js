@@ -1,7 +1,7 @@
 const { SessionModel } = require('../models/SessionModel');
 
 module.exports = async function getUser (req, res, next) {
-  const sessionToken  = req.rawHeaders[3];
+  const sessionToken  = req;
   const instanceSessionModel = new SessionModel();
   const sessionData = await instanceSessionModel.checkSession(sessionToken);
   let accessCode;
