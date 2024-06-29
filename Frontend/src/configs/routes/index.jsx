@@ -41,6 +41,7 @@ import ProfileStudentsEdit from '../../components/profile/profile-students';
 import ChangePasswordStudents from '../../pages/dashboard/students/settings/change-password';
 import UploadsShowcaseProjects from '../../components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 import MainLayout from '../../layout/main-layout';
+import ProtectedRoute from '../../components/protected-route';
 
 const AppRoutes = () => {
   return (
@@ -89,7 +90,9 @@ const AppRoutes = () => {
       <Route path="*" element={<NotFound />} />
 
       {/* Route Dashboard Admin */}
-      <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+      <Route element={<ProtectedRoute role="admins" redirectPath="/" />}>
+        <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+      </Route>
       <Route path="/mentors-data" element={<MentorsData />} />
       <Route path="/mentors-data/add" element={<AddMentors />} />
       <Route path="/mentors-data/edit" element={<EditMentors />} />
@@ -114,7 +117,9 @@ const AppRoutes = () => {
       {/* Route Dashboard Admin */}
 
       {/* Route Dashboard Mentors */}
-      <Route path="/mentors/dashboard" element={<DashboardMentors />} />
+      <Route element={<ProtectedRoute role="mentors" redirectPath="/" />}>
+        <Route path="/mentors/dashboard" element={<DashboardMentors />} />
+      </Route>
       <Route path="/showcase-projects" element={<ShowcaseProjectsMentors />} />
       <Route path="/sop-projects" element={<SopProjectsMentors />} />
       <Route
@@ -131,7 +136,9 @@ const AppRoutes = () => {
       {/* Route Dashboard Mentors */}
 
       {/* Route Dashboard Students */}
-      <Route path="/students/dashboard" element={<DashboardStudents />} />
+      <Route element={<ProtectedRoute role="students" redirectPath="/" />}>
+        <Route path="/students/dashboard" element={<DashboardStudents />} />
+      </Route>
       <Route path="/showcase-projects" element={<ShowcaseProjectsStudents />} />
       <Route path="/sop-projects" element={<SopProjectsStudents />} />
       <Route
