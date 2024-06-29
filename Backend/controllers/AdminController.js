@@ -24,6 +24,7 @@ class AdminController extends Controller {
       const countStudent = await student.findAll('all');
       const countProject = await project.findAll('all');
       const myData = await admin.findById(myId);
+      // data dashboard
       const dashboardData = {
         admin: {
           admin_id: myData.admin_id,
