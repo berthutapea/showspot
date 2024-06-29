@@ -1,50 +1,64 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, logoutUser } from '../action/authAction';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT,
+} from '../action/authAction';
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState: {
-    user: null,
-    isLoading: false,
-    isError: false,
-    isSuccess: false,
-    message: '',
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
-        state.isSuccess = false;
-        state.message = '';
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload.user;
-        state.message = action.payload.message;
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      .addCase(logoutUser.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.isLoading = false;
-        state.user = null;
-        state.isSuccess = true;
-        state.message = 'Logout berhasil';
-      })
-      .addCase(logoutUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      });
-  },
-});
+// Initial state
+const initialState = {
+  token: sessionStorage.getItem('token') || null,
+  access: sessionStorage.getItem('access') || null,
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  message: null,
+};
 
-export default authSlice.reducer;
+// Reducer function
+const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: null,
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        // token: action.payload.data.session_code,
+        access: action.payload.access,
+        isLoading: false,
+        isSuccess: true,
+        isError: false,
+        message: 'Login berhasil',
+      };
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        isSuccess: false,
+        message: action.payload,
+      };
+    case LOGOUT:
+      sessionStorage.removeItem('token'); // Hapus token dari sessionStorage
+      sessionStorage.removeItem('access'); // Hapus access dari sessionStorage
+      return {
+        ...state,
+        token: null,
+        access: null,
+        isLoading: false,
+        isError: false,
+        isSuccess: false,
+        message: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export default authReducer;

@@ -90,9 +90,9 @@ const AppRoutes = () => {
       <Route path="*" element={<NotFound />} />
 
       {/* Route Dashboard Admin */}
-      <Route element={<ProtectedRoute role="admins" redirectPath="/" />}>
+      {/* <Route element={<ProtectedRoute role="admins" redirectPath="/" />}> */}
         <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-      </Route>
+      {/* </Route> */}
       <Route path="/mentors-data" element={<MentorsData />} />
       <Route path="/mentors-data/add" element={<AddMentors />} />
       <Route path="/mentors-data/edit" element={<EditMentors />} />
@@ -117,9 +117,9 @@ const AppRoutes = () => {
       {/* Route Dashboard Admin */}
 
       {/* Route Dashboard Mentors */}
-      <Route element={<ProtectedRoute role="mentors" redirectPath="/" />}>
+      {/* <Route element={<ProtectedRoute role="mentors" redirectPath="/" />}> */}
         <Route path="/mentors/dashboard" element={<DashboardMentors />} />
-      </Route>
+      {/* </Route> */}
       <Route path="/showcase-projects" element={<ShowcaseProjectsMentors />} />
       <Route path="/sop-projects" element={<SopProjectsMentors />} />
       <Route

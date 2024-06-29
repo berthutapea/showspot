@@ -1,9 +1,7 @@
-// src/components/LoginInput.js
-
 import React, { useState, useEffect } from 'react';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../configs/redux/action/authAction';
+import { loginUser } from '../../configs/redux/action/authAction'; // Sesuaikan dengan path action Anda
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +11,7 @@ function LoginInput() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isError, isSuccess, isLoading, message } = useSelector(
+  const { access, token, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
 
@@ -23,25 +21,33 @@ function LoginInput() {
   };
 
   useEffect(() => {
-    if (isSuccess && user) {
-      let redirectPath = '/';
-      switch (user.role) {
-        case 'admins':
-          redirectPath = '/admin/dashboard';
-          break;
-        case 'mentors':
-          redirectPath = '/mentors/dashboard';
-          break;
-        case 'students':
-          redirectPath = '/students/dashboard';
-          break;
-        default:
-          redirectPath = '/';
-          break;
-      }
-      navigate(redirectPath);
+    if (isSuccess && access) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Berhasil',
+        text: 'Anda akan diarahkan ke dashboard.',
+        timer: 1500,
+      }).then(() => {
+        let redirectPath = '/';
+        console.log(access);
+        switch (access) {
+          case 1:
+            redirectPath = '/admin/dashboard';
+            break;
+          case 2:
+            redirectPath = '/mentors/dashboard';
+            break;
+          case 3:
+            redirectPath = '/students/dashboard';
+            break;
+          default:
+            redirectPath = '/';
+            break;
+        }
+        navigate(redirectPath);
+      });
     }
-  }, [isSuccess, user, navigate]);
+  }, [isSuccess, token, access, navigate]);
 
   useEffect(() => {
     if (isError) {
@@ -49,16 +55,9 @@ function LoginInput() {
         icon: 'error',
         title: 'Login Gagal',
         text: message,
-      }).then(() => {});
-    } else if (isSuccess && user) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Berhasil',
-        text: message,
-        timer: 1500,
-      }).then(() => {});
+      });
     }
-  }, [isError, isSuccess, user, message]);
+  }, [isError, message]);
 
   return (
     <form onSubmit={handleLogin}>

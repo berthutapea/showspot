@@ -1,64 +1,67 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import privateClient from '../../../api/privateClient';
+import privateClient from '../../../utils/privateClient';
 
-export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  async ({ username, password }, thunkAPI) => {
+// Action Types
+const LOGIN_REQUEST = 'LOGIN_REQUEST';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'LOGIN_FAILURE';
+const LOGOUT = 'LOGOUT';
+
+// Action Creators
+const loginRequest = () => ({
+  type: LOGIN_REQUEST,
+});
+
+const loginSuccess = (token, access) => {
+  // Simpan token di sessionStorage
+  sessionStorage.setItem('token', token);
+  sessionStorage.setItem('access', access);
+  return {
+    type: LOGIN_SUCCESS,
+    payload: { token, access },
+  };
+};
+
+const loginFailure = (error) => ({
+  type: LOGIN_FAILURE,
+  payload: error,
+});
+
+const logout = () => {
+  // Hapus token dari sessionStorage
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('access');
+  return {
+    type: LOGOUT,
+  };
+};
+
+// Thunk Action
+const loginUser =
+  ({ username, password }) =>
+  async (dispatch) => {
+    dispatch(loginRequest());
     try {
-      const response = await privateClient.post('/login', {
+      const response = await privateClient.post('login', {
         username,
         password,
       });
-
-      if (response.data.code === 200 && response.data.status === 'success') {
-        const { token, user_id } = response.data.data;
-        const role = getRoleFromUserId(user_id);
-
-        localStorage.setItem('sessionToken', token);
-        return { user: { role }, message: response.data.message };
-      } else {
-        return thunkAPI.rejectWithValue(response.data.message);
-      }
+      const { user_id } = response.data.data;
+      const { session_code } = response.data.data;
+      const { access } = response.data;
+      dispatch(loginSuccess(session_code, access));
     } catch (error) {
-      const message = error.response
-        ? error.response.data.msg
-        : 'Network error';
-      return thunkAPI.rejectWithValue(message);
+      dispatch(loginFailure(error.message));
     }
-  }
-);
+  };
 
-function getRoleFromUserId(user_id) {
-  switch (user_id) {
-    case 1:
-      return 'admin';
-    case 2:
-      return 'mentor';
-    case 3:
-      return 'student';
-    default:
-      return '';
-  }
-}
-
-export const logoutUser = createAsyncThunk(
-  'auth/logoutUser',
-  async (_, thunkAPI) => {
-    try {
-      const token = localStorage.getItem('sessionToken');
-      const response = await privateClient.delete('/logout', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      localStorage.removeItem('sessionToken');
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        const message = error.response.data.msg;
-        return thunkAPI.rejectWithValue(message);
-      }
-      return thunkAPI.rejectWithValue('Network error');
-    }
-  }
-);
+export {
+  loginRequest,
+  loginSuccess,
+  loginFailure,
+  logout,
+  loginUser,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT,
+};
