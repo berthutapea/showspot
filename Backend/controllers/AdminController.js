@@ -1,5 +1,6 @@
 const { Controller } = require('../core/Controller');
 const ResponseHandler = require('../handler/ResponseHandler');
+const getUser = require('../middlewares/getUser');
 
 class AdminController extends Controller {
   constructor() {
@@ -18,16 +19,17 @@ class AdminController extends Controller {
       const mentor = await this.loadModel(this.mentorModel);
       const student = await this.loadModel(this.studentModel);
       const project = await this.loadModel(this.projectModel);
-      const countAdmin = await admin.findAll();
-      const countMentor = await mentor.findAll();
-      const countStudent = await student.findAll();
-      const countProject = await project.findAll();
+      const countAdmin = await admin.findAll('all');
+      const countMentor = await mentor.findAll('all');
+      const countStudent = await student.findAll('all');
+      const countProject = await project.findAll('all');
       const myData = await admin.findById(myId);
+      // data dashboard
       const dashboardData = {
         admin: {
-          admin_id: myData[0].admin_id,
-          fullname: myData[0].fullname,
-          photoProfile: myData[0].photo_profile,
+          admin_id: myData.admin_id,
+          fullname: myData.fullname,
+          photoProfile: myData.photo_profile,
         },
         total: {
           admin: countAdmin.length,
@@ -37,7 +39,7 @@ class AdminController extends Controller {
         }
       };
 
-      this.responseHandler.success(res, 'Dashboard Admin', dashboardData);
+      this.responseHandler.success(res, 'Dashboard Admin', 1, dashboardData);
     } catch (error) {
       this.responseHandler.serverError(res, error);
     }
@@ -98,7 +100,7 @@ class AdminController extends Controller {
       const results = await mentors.findAll('all');
 
       if (results) {
-        this.responseHandler.success(res, 'Data Found', results, 1);
+        this.responseHandler.success(res, 'Data Found', 1, results);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -114,7 +116,7 @@ class AdminController extends Controller {
       const result = await mentor.findByMentorId(mentorId);
 
       if (Object.keys(mentor).length > 0) {
-        this.responseHandler.success(res, 'Data Found', result);
+        this.responseHandler.success(res, 'Data Found', 1, result);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -129,7 +131,7 @@ class AdminController extends Controller {
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.findByMentorName(mentorName);
       if (Object.keys(result).length > 0) {
-        this.responseHandler.success(res, 'Data Found', result);
+        this.responseHandler.success(res, 'Data Found', 1, result);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -146,7 +148,7 @@ class AdminController extends Controller {
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.updateData(mentorId, updatedData, filename);
       if (result.length > 0) {
-        this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`);
+        this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`, 1);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -161,7 +163,7 @@ class AdminController extends Controller {
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.deleteData(mentorId);
       if (result[0].affectedRows > 0) {
-        this.responseHandler.success(res, `Data Deleted`);
+        this.responseHandler.success(res, `Data Deleted`, 1);
       } else {
         this.responseHandler.badRequest(res);
       }

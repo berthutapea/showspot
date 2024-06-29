@@ -20,7 +20,7 @@ class AdminModel extends Model {
     const myData = {
       [this.adminId]: id
     };
-    const admin = await this.findOne(myData, 1, 0, 0, 'fullname');
+    const admin = await this.findOne('strict one', myData);
       const datas = {
           [this.adminId]: admin.admin_id,
           [this.fullname]: admin.fullname,
