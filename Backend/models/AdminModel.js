@@ -20,19 +20,17 @@ class AdminModel extends Model {
     const myData = {
       [this.adminId]: id
     };
-    const admin = await this.findOne(myData);
-      const data = await admin.map((data) => {
-        return {
-          [this.adminId]: data.admin_id,
-          [this.fullname]: data.fullname,
-          [this.campus]: data.campus,
-          [this.major]: data.major,
-          [this.groupTypeId]: data.group_type_id,
-          [this.classTypeId]: data.class_type_id,
-          [this.photoProfile]: data.photo_profile,
-        };
-    });
-    return data;
+    const admin = await this.findOne(myData, 1, 0, 0, 'fullname');
+      const datas = {
+          [this.adminId]: admin.admin_id,
+          [this.fullname]: admin.fullname,
+          [this.campus]: admin.campus,
+          [this.major]: admin.major,
+          [this.groupTypeId]: admin.group_type_id,
+          [this.classTypeId]: admin.class_type_id,
+          [this.photoProfile]: admin.photo_profile,
+      };
+    return datas;
   }
 
   async updateData(id, datas, filename) {

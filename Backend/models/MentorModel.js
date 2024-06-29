@@ -33,45 +33,42 @@ class MentorModel extends Model {
       [this.classTypeId] : datas.class_type_id,
       [this.photoProfile] : filePath,
     };
-    return await this.insertOne(mentorData);
+    return await this.insertOne(mentorData, 1);
   }
 
   async findByMentorId(id) {
     const mentorData = {
       [this.mentorId]: id
     };
-    const mentor = await this.findOne(mentorData);
-      const data = await mentor.map((data) => {
-        return {
-          [this.mentorId]: data.mentor_id,
-          [this.fullname]: data.fullname,
-          [this.campus]: data.campus,
-          [this.major]: data.major,
-          [this.groupTypeId]: data.group_type_id,
-          [this.classTypeId]: data.class_type_id,
-          [this.photoProfile]: data.photo_profile,
-        };
-    });
-    return data;
+    const mentor = await this.findOne(mentorData, 0, 0, 0, 'fullname');
+      const datas =  {
+        [this.mentorId]: mentor.mentor_id,
+        [this.fullname]: mentor.fullname,
+        [this.campus]: mentor.campus,
+        [this.major]: mentor.major,
+        [this.groupTypeId]: mentor.group_type_id,
+        [this.classTypeId]: mentor.class_type_id,
+        [this.photoProfile]: mentor.photo_profile,
+      };
+    return datas;
   }
 
     async findByMentorName(name) {
       const mentorData = {
         [this.fullname]: name
       };
-      const mentor = await this.findOne(mentorData);
-      const data = await mentor.map((data) => {
-        return {
-          [this.mentorId]: data.mentor_id,
-          [this.fullname]: data.fullname,
-          [this.campus]: data.campus,
-          [this.major]: data.major,
-          [this.groupTypeId]: data.group_type_id,
-          [this.classTypeId]: data.class_type_id,
-          [this.photoProfile]: data.photo_profile,
-        };
-    });
-    return data;
+      const mentor = await this.findOne(mentorData, 0, 0, 0, 'fullname');
+      const datas = {
+          [this.mentorId]: mentor.mentor_id,
+          [this.fullname]: mentor.fullname,
+          [this.campus]: mentor.campus,
+          [this.major]: mentor.major,
+          [this.groupTypeId]: mentor.group_type_id,
+          [this.classTypeId]: mentor.class_type_id,
+          [this.photoProfile]: mentor.photo_profile,
+      }
+
+    return datas;
   }
 
   async updateData(id, datas, filename) {

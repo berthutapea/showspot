@@ -21,9 +21,14 @@ class SessionModel extends Model {
       [this.accessCode]: datas.access_code,
       [this.expiredAt]: expired_at
     };
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     const result = await this.insertOne(sessionData, 1)
-    return [result, sessionData];
+    if (result.affectedRows > 0) {
+      return sessionData
+    }
+
+    return false;
   }
 
   async checkSession(token) {
@@ -31,8 +36,8 @@ class SessionModel extends Model {
     const param = {
       [this.sessionCode]: token,
     };
-    const sessionData = await this.findOne(param);
-    const isExpired = sessionData.length == 0 ? false : sessionData[0].expired_at;
+    const sessionData = await this.findOne('strict one', param);
+    const isExpired = sessionData == 0 || sessionData == undefined ? false : sessionData.expired_at;
     if (isExpired < date) {
       await this.deleteSession(token)
     }
@@ -43,7 +48,7 @@ class SessionModel extends Model {
     const param = {
       [this.sessionCode]: token,
     };
-    await this.delete(param)
+    await this.delete('strict one', param)
     return 1;
   }
 }

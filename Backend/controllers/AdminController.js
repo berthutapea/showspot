@@ -1,5 +1,4 @@
 const { Controller } = require('../core/Controller');
-const { AdminModel } = require('../models/AdminModel');
 const ResponseHandler = require('../handler/ResponseHandler');
 
 class AdminController extends Controller {
@@ -49,7 +48,7 @@ class AdminController extends Controller {
       const myId = req.params.id;
       const admin = await this.loadModel(this.BaseModel);
       const result = await admin.findById(myId);
-      if (result.length > 0) {
+      if (Object.keys(result).length > 0) {
         this.responseHandler.success(res, 'Data Found', result);
       } else {
         this.responseHandler.badRequest(res);
@@ -77,7 +76,6 @@ class AdminController extends Controller {
   }
 
   /*=== Mentor Entity ===*/
-
   async createDataMentor(req, res) {
     try {
       const filename = req.file.filename;
@@ -97,9 +95,10 @@ class AdminController extends Controller {
   async getDataMentors(req, res) {
     try {
       const mentors = await this.loadModel(this.mentorModel);
-      const results = await mentors.findAll();
+      const results = await mentors.findAll('all');
+
       if (results) {
-        this.responseHandler.success(res, 'Data Found', results);
+        this.responseHandler.success(res, 'Data Found', results, 1);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -113,7 +112,8 @@ class AdminController extends Controller {
       const mentorId = req.params.id;
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.findByMentorId(mentorId);
-      if (result.length > 0) {
+
+      if (Object.keys(mentor).length > 0) {
         this.responseHandler.success(res, 'Data Found', result);
       } else {
         this.responseHandler.badRequest(res);
@@ -128,7 +128,7 @@ class AdminController extends Controller {
       const mentorName = req.params.name;
       const mentor = await this.loadModel(this.mentorModel);
       const result = await mentor.findByMentorName(mentorName);
-      if (result.length > 0) {
+      if (Object.keys(result).length > 0) {
         this.responseHandler.success(res, 'Data Found', result);
       } else {
         this.responseHandler.badRequest(res);
@@ -222,7 +222,8 @@ class AdminController extends Controller {
       const studentId = req.params.id;
       const studentModel = await this.loadModel(this.studentModel);
       const student = await studentModel.findById(studentId);
-      if (student.length > 0) {
+
+      if (Object.keys(student).length > 0) {
         this.responseHandler.success(res, 'Data Found', student);
       } else {
         this.responseHandler.notFound(res);
@@ -237,7 +238,7 @@ class AdminController extends Controller {
       const studentName = req.params.name;
       const studentModel = await this.loadModel(this.studentModel);
       const student = await studentModel.findByName(studentName);
-      if (student.length > 0) {
+      if (Object.keys(student).length > 0) {
         this.responseHandler.success(res, 'Data Found', student);
       } else {
         this.responseHandler.badRequest(res);
@@ -284,6 +285,7 @@ class AdminController extends Controller {
   }
 
   async deleteDataStudent(req, res) {
+    console.log('delete data student berjalan..')
     try {
       const studentId = req.params.id;
       const studentModel = await this.loadModel(this.studentModel);
@@ -393,14 +395,12 @@ class AdminController extends Controller {
 
       try {
         const projectModel = await this.loadModel(this.projectModel);
-
         const statusProjectData = await projectModel.findProjectStatus(statusProject, page);
-
         const projects = {
-          pending: {
+          [statusProjectData.data[0].status]: {
             page: page,
-            total: statusProjectData.length,
-            project: statusProjectData
+            total: statusProjectData.total,
+            project: statusProjectData.data
           }
         }
         this.responseHandler.success(res, `Data Found`, projects);
@@ -414,7 +414,6 @@ class AdminController extends Controller {
       const projectId = req.params.id;
       const projectModel = await this.loadModel(this.projectModel);
       const project = await projectModel.findProjectById(projectId);
-      console.log(project)
       if (Object.keys(project).length > 0) {
         this.responseHandler.success(res, 'Data Found', project);
       } else {

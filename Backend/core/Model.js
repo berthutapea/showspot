@@ -30,6 +30,7 @@ class Model {
 
       query = `INSERT INTO ${this.tableName} (${fieldsArg}) VALUES (${valuesArg})`;
       const [results] = await this.database.connection.query(query, values);
+
       return results;
     } catch (error) {
       console.error('Error create data from the database: ', error);
@@ -39,16 +40,30 @@ class Model {
     }
   }
 
-  async findAll() {
+  async findAll(mode = 0, datas = 0, limit = 0, offset = 0, orderBy = 'id') {
     try {
+      let query;
+      let formattedValue;
+      const field = Object.keys(datas);
+      const value = Object.values(datas);
       await this.database.openConnection();
-      let query = `SELECT * FROM ${this.tableName}`;
-      const [results] = await this.database.connection.query(query);
-      this.database.closeConnection();
+      if (mode > 0 && limit > 0 && offset >= 0 && orderBy) {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
+        formattedValue = [value[0], limit, offset];
+      } else if (mode === 'where') {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
+        formattedValue = [value[0]];
+      } else if (mode === 'all') {
+        query = `SELECT * FROM ${this.tableName}`;
+      }
+
+      const [results] = await this.database.connection.query(query, formattedValue);
       return results;
     } catch (error) {
       console.error('Error fetching data from the database: ', error);
       return false;
+    } finally {
+      this.database.closeConnection();
     }
   }
 
@@ -56,7 +71,7 @@ class Model {
     0 = default mode (LIKE)
     1 = strict mode (=))
   */
-async findOne(datas, mode = 0, limit = 0, offset = 0, orderBy = 'id') {
+async findOne(mode = 0, datas, limit = 0, offset = 0, orderBy = 'id') {
   try {
     await this.database.openConnection();
     const field = Object.keys(datas);
@@ -65,25 +80,24 @@ async findOne(datas, mode = 0, limit = 0, offset = 0, orderBy = 'id') {
     let formattedValue;
 
     if (mode) {
-      if (limit > 0 && offset >= 0 && orderBy) {
+      if (mode == 'strict all' && limit > 0 && offset >= 0 && orderBy) {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
         formattedValue = [value[0], limit, offset];
-      } else {
+      } else if (mode == 'strict one') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
         formattedValue = [value[0]];
       }
     } else {
-      if (limit > 0 && offset >= 0) {
+      if (mode === 'like' && limit > 0 && offset >= 0) {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
         formattedValue = [`%${value[0]}%`, limit, offset];
-      } else {
+      } else if (mode === 'where') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
         formattedValue = [`%${value[0]}%`];
       }
     }
-
     const [results] = await this.database.connection.query(query, formattedValue);
-    return results;
+    return results[0];
   } catch (error) {
     console.error('Error fetching data from the database: ', error);
     return false;
