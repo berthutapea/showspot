@@ -43,7 +43,7 @@ class AuthUserController {
         const sessionToken  = req.rawHeaders[3];
         const instanceSessionModel = new SessionModel();
         const result = await instanceSessionModel.checkSession(sessionToken);
-        if (result.length > 0) {
+        if (Object.keys(result).length > 0) {
           if(await instanceSessionModel.deleteSession(sessionToken)) {
             this.responseHandler.success(res, 'Logout Success');
           }
