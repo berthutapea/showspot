@@ -2,10 +2,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
 import { FiSettings, FiUser } from 'react-icons/fi';
-import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDashboardAdmin } from '../../../configs/redux/action/dashboardAction';
+// import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 const DropdownProfileAdmin = () => {
+  const dispatch = useDispatch();
+  const { dashboardData } = useSelector((state) => state.dashboardData);
+
+  useEffect(() => {
+    dispatch(fetchDashboardAdmin());
+  }, [dispatch]);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -49,7 +58,7 @@ const DropdownProfileAdmin = () => {
       >
         <span className="hidden lg:block">
           <span className="block text-sm font-medium text-accent">
-            Sumiati Samaria Sianturi
+            {dashboardData?.admin?.fullname}
           </span>
           <span className="block text-xs">Admin</span>
         </span>
@@ -57,7 +66,7 @@ const DropdownProfileAdmin = () => {
         <div className="h-12 w-12 rounded-full overflow-hidden">
           <img
             className="h-full w-full object-cover"
-            src={SamariaProfile}
+            src={dashboardData?.admin?.photoProfile}
             alt="Profile Admin Show Spot"
           />
         </div>
