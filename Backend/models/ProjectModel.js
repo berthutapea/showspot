@@ -36,24 +36,28 @@ class ProjectModel extends Model {
     return await this.insertOne(projectData);
   }
 
+  // mode = 0, datas = 0, limit = 0, offset = 0, orderBy = 'id'
   async findProjectStatus (statusId, page) {
     const statusProjectModel = new StatusProjectModel();
     const offset = (page - 1) * 2;
     const paramProject = {
       [this.statusProjectId]: statusId
     };
-    const projects = await this.findAll(paramProject, 1, 2, offset, 'created_at');
-    const totalData = await this.findAll(paramProject, 0, 0, 0, 'application_id');
-
+    let data;
+    const projects = await this.findAll(1, paramProject, 3, offset, 'created_at');
+    const totalData = await this.findAll('where', paramProject);
+    const statusProject = await statusProjectModel.findStatusProjectById(statusId);
+    console.log(projects)
     const dataPromises = projects.map(async (project) => {
       return {
         [this.applicationTitle]: project.application_title,
         [this.applicationImage]: project.application_image,
         [this.groupName]: project.group_name,
-        status: await statusProjectModel.findStatusProjectById(statusId),
+        status: await statusProject,
       };
     });
     const datas = await Promise.all(dataPromises);
+    console.log(datas)
     return { data: datas, total: totalData.length };
   }
 

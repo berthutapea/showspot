@@ -59,15 +59,16 @@ async getAllStudentsData() {
       [this.studentId]: id,
     };
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    return await this.findOne(studentData, 0, 0, 0, 'fullname');
+    return await this.findOne('strict one', studentData);
   }
 
   async findByName(name) {
     const studentData = {
       [this.fullname]: name,
     };
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    return await this.findOne(studentData, 0, 0, 0, this.fullname);
+    return await this.findOne('where', studentData);
   }
 
   async updateData(id, datas, filename) {

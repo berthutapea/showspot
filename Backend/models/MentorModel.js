@@ -40,16 +40,21 @@ class MentorModel extends Model {
     const mentorData = {
       [this.mentorId]: id
     };
-    const mentor = await this.findOne(mentorData, 0, 0, 0, 'fullname');
-      const datas =  {
-        [this.mentorId]: mentor.mentor_id,
-        [this.fullname]: mentor.fullname,
-        [this.campus]: mentor.campus,
-        [this.major]: mentor.major,
-        [this.groupTypeId]: mentor.group_type_id,
-        [this.classTypeId]: mentor.class_type_id,
-        [this.photoProfile]: mentor.photo_profile,
-      };
+    const mentor = await this.findOne('strict one', mentorData);
+      let datas;
+      if (mentor != undefined) {
+        datas = {
+            [this.mentorId]: mentor.mentor_id,
+            [this.fullname]: mentor.fullname,
+            [this.campus]: mentor.campus,
+            [this.major]: mentor.major,
+            [this.groupTypeId]: mentor.group_type_id,
+            [this.classTypeId]: mentor.class_type_id,
+            [this.photoProfile]: mentor.photo_profile,
+        }
+      } else {
+        return datas = {};
+      }
     return datas;
   }
 
@@ -57,17 +62,21 @@ class MentorModel extends Model {
       const mentorData = {
         [this.fullname]: name
       };
-      const mentor = await this.findOne(mentorData, 0, 0, 0, 'fullname');
-      const datas = {
-          [this.mentorId]: mentor.mentor_id,
-          [this.fullname]: mentor.fullname,
-          [this.campus]: mentor.campus,
-          [this.major]: mentor.major,
-          [this.groupTypeId]: mentor.group_type_id,
-          [this.classTypeId]: mentor.class_type_id,
-          [this.photoProfile]: mentor.photo_profile,
+      const mentor = await this.findOne('where', mentorData);
+      let datas;
+      if (mentor != undefined) {
+        datas = {
+            [this.mentorId]: mentor.mentor_id,
+            [this.fullname]: mentor.fullname,
+            [this.campus]: mentor.campus,
+            [this.major]: mentor.major,
+            [this.groupTypeId]: mentor.group_type_id,
+            [this.classTypeId]: mentor.class_type_id,
+            [this.photoProfile]: mentor.photo_profile,
+        }
+      } else {
+        return datas = {};
       }
-
     return datas;
   }
 

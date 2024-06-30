@@ -11,7 +11,7 @@ class StatusProjectModel extends Model {
     const paramStatusProject = {
       [this.statusProjectId]: statusId
     };
-    const statusProjectData = await this.findOne(paramStatusProject, 0, 0, 0, 'status_project_name');
+    const statusProjectData = await this.findOne('where', paramStatusProject);
     return statusProjectData.status_project_name;
   }
 }
