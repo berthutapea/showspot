@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import LogoShowSpot from '../../../assets/images/showspot-logo.png';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { RxDashboard } from 'react-icons/rx';
@@ -7,10 +7,15 @@ import { FiDatabase, FiSettings } from 'react-icons/fi';
 import { GoProject } from 'react-icons/go';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import SidebarLinkGroup from '../sidebar-link-group';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../../configs/redux/action/authAction';
 
 const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
   const { pathname } = location;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
@@ -18,6 +23,32 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );
+
+  const onLogout = () => {
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Apakah Anda yakin ingin keluar?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logoutUser());
+        Swal.fire({
+          title: 'Logout Berhasil',
+          text: 'Anda telah berhasil keluar.',
+          icon: 'success',
+          timer: 1500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate('/login');
+        });
+      }
+    });
+  };
 
   // close on click outside
   useEffect(() => {
@@ -298,6 +329,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                           </li>
                           <li>
                             <NavLink
+                              onClick={onLogout}
                               to="/login"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +

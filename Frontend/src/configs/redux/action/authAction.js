@@ -24,7 +24,7 @@ const loginFailure = (error) => ({
   payload: error,
 });
 
-const logout = () => {
+const logoutUser = () => {
   sessionStorage.removeItem('userId');
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('access');
@@ -55,8 +55,8 @@ export {
   loginRequest,
   loginSuccess,
   loginFailure,
-  logout,
   loginUser,
+  logoutUser,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
