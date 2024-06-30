@@ -39,15 +39,13 @@ class ProjectModel extends Model {
   // mode = 0, datas = 0, limit = 0, offset = 0, orderBy = 'id'
   async findProjectStatus (statusId, page) {
     const statusProjectModel = new StatusProjectModel();
-    const offset = (page - 1) * 2;
+    const offset = (page - 1) * 5;
     const paramProject = {
       [this.statusProjectId]: statusId
     };
-    let data;
-    const projects = await this.findAll(1, paramProject, 3, offset, 'created_at');
+    const projects = await this.findAll(1, paramProject, 5, offset, 'created_at');
     const totalData = await this.findAll('where', paramProject);
     const statusProject = await statusProjectModel.findStatusProjectById(statusId);
-    console.log(projects)
     const dataPromises = projects.map(async (project) => {
       return {
         [this.applicationTitle]: project.application_title,
@@ -57,7 +55,6 @@ class ProjectModel extends Model {
       };
     });
     const datas = await Promise.all(dataPromises);
-    console.log(datas)
     return { data: datas, total: totalData.length };
   }
 
@@ -68,13 +65,14 @@ class ProjectModel extends Model {
     };
 
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    const resultProject = await this.findOne(projectData, 1, 0, 0, 'group_id');
+    const resultProject = await this.findOne('strict one', projectData);
     const groupProjectData = {
       [groupProjectModel.groupProjectId]: await resultProject.group_id,
     };
 
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    const resultGroup = await groupProjectModel.findAll(groupProjectData, 1, 0, 0, 'group_project_name');
+    const resultGroup = await groupProjectModel.findAll('where', groupProjectData);
 
     const result = {
       project: resultProject,

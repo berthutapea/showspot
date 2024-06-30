@@ -89,7 +89,6 @@ async findOne(mode = 0, datas, limit = 0, offset = 0, orderBy = 'id') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
         formattedValue = [`%${value[0]}%`, limit, offset];
       } else if (mode == 'where') {
-        console.log
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
         formattedValue = [`%${value[0]}%`];
       }
