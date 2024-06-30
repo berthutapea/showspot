@@ -29,7 +29,6 @@ function LoginInput() {
         timer: 1500,
       }).then(() => {
         let redirectPath = '/';
-        console.log(access);
         switch (access) {
           case 1:
             redirectPath = '/admin/dashboard';

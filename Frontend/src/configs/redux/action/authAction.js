@@ -1,23 +1,21 @@
 import privateClient from '../../../utils/privateClient';
 
-// Action Types
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 const LOGOUT = 'LOGOUT';
 
-// Action Creators
 const loginRequest = () => ({
   type: LOGIN_REQUEST,
 });
 
-const loginSuccess = (token, access) => {
-  // Simpan token di sessionStorage
+const loginSuccess = (userId, token, access) => {
+  sessionStorage.setItem('userId', userId);
   sessionStorage.setItem('token', token);
   sessionStorage.setItem('access', access);
   return {
     type: LOGIN_SUCCESS,
-    payload: { token, access },
+    payload: { userId, token, access },
   };
 };
 
@@ -27,7 +25,7 @@ const loginFailure = (error) => ({
 });
 
 const logout = () => {
-  // Hapus token dari sessionStorage
+  sessionStorage.removeItem('userId');
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('access');
   return {
@@ -35,7 +33,6 @@ const logout = () => {
   };
 };
 
-// Thunk Action
 const loginUser =
   ({ username, password }) =>
   async (dispatch) => {
@@ -48,7 +45,7 @@ const loginUser =
       const { user_id } = response.data.data;
       const { session_code } = response.data.data;
       const { access } = response.data;
-      dispatch(loginSuccess(session_code, access));
+      dispatch(loginSuccess(user_id, session_code, access));
     } catch (error) {
       dispatch(loginFailure(error.message));
     }

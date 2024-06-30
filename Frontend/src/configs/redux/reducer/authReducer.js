@@ -5,7 +5,6 @@ import {
   LOGOUT,
 } from '../action/authAction';
 
-// Initial state
 const initialState = {
   token: sessionStorage.getItem('token') || null,
   access: sessionStorage.getItem('access') || null,
@@ -15,7 +14,6 @@ const initialState = {
   message: null,
 };
 
-// Reducer function
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
@@ -29,7 +27,6 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        // token: action.payload.data.session_code,
         access: action.payload.access,
         isLoading: false,
         isSuccess: true,
@@ -45,8 +42,8 @@ const authReducer = (state = initialState, action) => {
         message: action.payload,
       };
     case LOGOUT:
-      sessionStorage.removeItem('token'); // Hapus token dari sessionStorage
-      sessionStorage.removeItem('access'); // Hapus access dari sessionStorage
+      sessionStorage.removeItem('token'); 
+      sessionStorage.removeItem('access'); 
       return {
         ...state,
         token: null,
