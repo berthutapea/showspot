@@ -47,16 +47,15 @@ class Model {
       const field = Object.keys(datas);
       const value = Object.values(datas);
       await this.database.openConnection();
-      if (mode > 0 && limit > 0 && offset >= 0 && orderBy) {
+      if (mode == 1 && limit > 0 && offset >= 0 && orderBy) {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
-        formattedValue = [value[0], limit, offset];
+        formattedValue = [value[0], parseInt(limit), offset];
       } else if (mode === 'where') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
         formattedValue = [value[0]];
       } else if (mode === 'all') {
         query = `SELECT * FROM ${this.tableName}`;
       }
-
       const [results] = await this.database.connection.query(query, formattedValue);
       return results;
     } catch (error) {
@@ -86,16 +85,16 @@ async findOne(mode = 0, datas, limit = 0, offset = 0, orderBy = 'id') {
       } else if (mode == 'strict one') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
         formattedValue = [value[0]];
-      }
-    } else {
-      if (mode === 'like' && limit > 0 && offset >= 0) {
+      } else if (mode == 'like' && limit > 0 && offset >= 0) {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ? ORDER BY ${orderBy} ASC LIMIT ? OFFSET ?`;
         formattedValue = [`%${value[0]}%`, limit, offset];
-      } else if (mode === 'where') {
+      } else if (mode == 'where') {
+        console.log
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
         formattedValue = [`%${value[0]}%`];
       }
     }
+
     const [results] = await this.database.connection.query(query, formattedValue);
     return results[0];
   } catch (error) {

@@ -24,7 +24,7 @@ class AdminController extends Controller {
       const countStudent = await student.findAll('all');
       const countProject = await project.findAll('all');
       const myData = await admin.findById(myId);
-      // data dashboard
+
       const dashboardData = {
         admin: {
           admin_id: myData.admin_id,
@@ -51,7 +51,7 @@ class AdminController extends Controller {
       const admin = await this.loadModel(this.BaseModel);
       const result = await admin.findById(myId);
       if (Object.keys(result).length > 0) {
-        this.responseHandler.success(res, 'Data Found', result);
+        this.responseHandler.success(res, 'Data Found', 1, result);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -118,14 +118,14 @@ class AdminController extends Controller {
       if (Object.keys(mentor).length > 0) {
         this.responseHandler.success(res, 'Data Found', 1, result);
       } else {
-        this.responseHandler.badRequest(res);
+        this.responseHandler.notFound(res);
       }
     } catch (error) {
       this.responseHandler.serverError(res, error);
     }
   }
 
-    async getDataMentorByName(req, res) {
+  async getDataMentorByName(req, res) {
     try {
       const mentorName = req.params.name;
       const mentor = await this.loadModel(this.mentorModel);
@@ -133,7 +133,7 @@ class AdminController extends Controller {
       if (Object.keys(result).length > 0) {
         this.responseHandler.success(res, 'Data Found', 1, result);
       } else {
-        this.responseHandler.badRequest(res);
+        this.responseHandler.notFound(res);
       }
     } catch (error) {
       this.responseHandler.serverError(res, error);
@@ -210,7 +210,7 @@ class AdminController extends Controller {
       const studentModel = await this.loadModel(this.studentModel);
       const students = await studentModel.getAllStudentsData();
       if (students) {
-        this.responseHandler.success(res, 'Data Found', students);
+        this.responseHandler.success(res, 'Data Found', 1, students);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -226,7 +226,7 @@ class AdminController extends Controller {
       const student = await studentModel.findById(studentId);
 
       if (Object.keys(student).length > 0) {
-        this.responseHandler.success(res, 'Data Found', student);
+        this.responseHandler.success(res, 'Data Found', 1, student);
       } else {
         this.responseHandler.notFound(res);
       }
@@ -240,8 +240,9 @@ class AdminController extends Controller {
       const studentName = req.params.name;
       const studentModel = await this.loadModel(this.studentModel);
       const student = await studentModel.findByName(studentName);
+      console.log(student)
       if (Object.keys(student).length > 0) {
-        this.responseHandler.success(res, 'Data Found', student);
+        this.responseHandler.success(res, 'Data Found', 1, student);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -321,10 +322,13 @@ class AdminController extends Controller {
 
   async getSopProject(req, res) {
     try {
+      const project = {
+
+      };
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
-      const sopProject = await sopProjectModel.findAll();
-      if (sopProject) {
-        this.responseHandler.success(res, 'Data Found', sopProject);
+      const sopProject = await sopProjectModel.findAll('all');
+      if (Object.keys(sopProject)) {
+        this.responseHandler.success(res, 'Data Found', 1, sopProject);
       } else {
         this.responseHandler.badRequest(res);
       }

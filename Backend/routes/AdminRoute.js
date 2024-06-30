@@ -50,7 +50,7 @@ class AdminRoute extends Route {
     // get data mentors by admin
     this.router.get(
       '/admin/mentors',
-      // authMiddleware,
+      authMiddleware,
       // authUser,
       this.controller.getDataMentors.bind(this.controller)
     );
