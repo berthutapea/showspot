@@ -11,7 +11,6 @@ export const fetchDashboardAdminRequest = () => ({
 export const fetchDashboardAdminSuccess = (dashboardData) => ({
   type: FETCH_DASHBOARD_ADMIN_SUCCESS,
   payload: dashboardData.data,
-  // payload: response.data.data.total,
 });
 
 export const fetchDashboardAdminFailure = (error) => ({

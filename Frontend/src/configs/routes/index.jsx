@@ -90,72 +90,66 @@ const AppRoutes = () => {
       <Route path="*" element={<NotFound />} />
 
       {/* Route Dashboard Admin */}
-      {/* <Route element={<ProtectedRoute role="admins" redirectPath="/" />}> */}
       <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-      {/* </Route> */}
-      <Route path="/mentors-data" element={<MentorsData />} />
-      <Route path="/mentors-data/add" element={<AddMentors />} />
-      <Route path="/mentors-data/edit" element={<EditMentors />} />
-      <Route path="/students-data" element={<StudentsData />} />
-      <Route path="/students-data/add" element={<AddStudents />} />
-      <Route path="/students-data/edit" element={<EditStudents />} />
-      <Route path="/sop-projects" element={<SopProjects />} />
-      <Route path="/sop-projects/add" element={<AddSop />} />
-      <Route path="/sop-projects/edit" element={<EditSop />} />
-      <Route path="/showcase-projects" element={<ShowcaseProjects />} />
+      <Route path="/admin/mentors-data" element={<MentorsData />} />
+      <Route path="/admin/mentors-data/add" element={<AddMentors />} />
+      <Route path="/admin/mentors-data/edit" element={<EditMentors />} />
+      <Route path="/admin/students-data" element={<StudentsData />} />
+      <Route path="/admin/students-data/add" element={<AddStudents />} />
+      <Route path="/admin/students-data/edit" element={<EditStudents />} />
+      <Route path="/admin/sop-projects" element={<SopProjects />} />
+      <Route path="/admin/sop-projects/add" element={<AddSop />} />
+      <Route path="/admin/sop-projects/edit" element={<EditSop />} />
+      <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
       <Route
-        path="/showcase-projects/latest"
+        path="/admin/showcase-projects/latest"
         element={<ViewShowcaseLatest />}
       />
       <Route
-        path="/showcase-projects/history"
+        path="/admin/showcase-projects/history"
         element={<ViewShowcaseHistory />}
       />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/edit" element={<ProfileAdmin />} />
-      <Route path="/change-password" element={<ChangePassword />} />
+      <Route path="/admin/profile" element={<Profile />} />
+      <Route path="/admin/profile/edit" element={<ProfileAdmin />} />
+      <Route path="/admin/change-password" element={<ChangePassword />} />
       {/* Route Dashboard Admin */}
 
       {/* Route Dashboard Mentors */}
-      {/* <Route element={<ProtectedRoute role="mentors" redirectPath="/" />}> */}
       <Route path="/mentors/dashboard" element={<DashboardMentors />} />
-      {/* </Route> */}
-      <Route path="/showcase-projects" element={<ShowcaseProjectsMentors />} />
-      <Route path="/sop-projects" element={<SopProjectsMentors />} />
+      <Route path="/mentors/showcase-projects" element={<ShowcaseProjectsMentors />} />
+      <Route path="/mentors/sop-projects" element={<SopProjectsMentors />} />
       <Route
-        path="/showcase-projects/latest"
+        path="/mentors/showcase-projects/latest"
         element={<ViewShowcaseLatestMentors />}
       />
       <Route
-        path="/showcase-projects/history"
+        path="/mentors/showcase-projects/history"
         element={<ViewShowcaseHistoryMentors />}
       />
-      <Route path="/profile" element={<ProfileMentors />} />
-      <Route path="/profile/edit" element={<ProfileMentorsEdit />} />
-      <Route path="/change-password" element={<ChangePasswordMentors />} />
+      <Route path="/mentors/profile" element={<ProfileMentors />} />
+      <Route path="/mentors/profile/edit" element={<ProfileMentorsEdit />} />
+      <Route path="/mentors/change-password" element={<ChangePasswordMentors />} />
       {/* Route Dashboard Mentors */}
 
       {/* Route Dashboard Students */}
-      {/* <Route element={<ProtectedRoute role="students" redirectPath="/" />}> */}
       <Route path="/students/dashboard" element={<DashboardStudents />} />
-      {/* </Route> */}
-      <Route path="/showcase-projects" element={<ShowcaseProjectsStudents />} />
-      <Route path="/sop-projects" element={<SopProjectsStudents />} />
+      <Route path="/students/showcase-projects" element={<ShowcaseProjectsStudents />} />
+      <Route path="/students/sop-projects" element={<SopProjectsStudents />} />
       <Route
-        path="/showcase-projects/latest"
+        path="/students/showcase-projects/latest"
         element={<ViewShowcaseLatestStudents />}
       />
       <Route
-        path="/showcase-projects/uploads"
+        path="/students/showcase-projects/uploads"
         element={<UploadsShowcaseProjects />}
       />
       <Route
-        path="/showcase-projects/history"
+        path="/students/showcase-projects/history"
         element={<ViewShowcaseHistoryStudents />}
       />
-      <Route path="/profile" element={<ProfileStudents />} />
-      <Route path="/profile/edit" element={<ProfileStudentsEdit />} />
-      <Route path="/change-password" element={<ChangePasswordStudents />} />
+      <Route path="/students/profile" element={<ProfileStudents />} />
+      <Route path="/students/profile/edit" element={<ProfileStudentsEdit />} />
+      <Route path="/students/change-password" element={<ChangePasswordStudents />} />
       {/* Route Dashboard Students */}
     </Routes>
   );

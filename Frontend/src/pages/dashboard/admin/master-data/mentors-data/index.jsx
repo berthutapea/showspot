@@ -7,6 +7,8 @@ import { BiSearch } from 'react-icons/bi';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
+import { useDispatch } from 'react-redux';
+import { fetchMentors } from '../../../../../configs/redux/action/mentorsDataAction';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -15,12 +17,8 @@ const MentorsData = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
   const [dataPegawai, setDataPegawai] = useState([]);
-
   const totalPages = Math.ceil(DataShowSpot.length / ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    setDataPegawai(DataShowSpot.slice(startIndex, endIndex));
-  }, [startIndex, endIndex]);
+  const dispatch = useDispatch();
 
   const goToPrevPage = () => {
     if (currentPage > 1) {
@@ -29,7 +27,7 @@ const MentorsData = () => {
       setEndIndex((prev) => prev - ITEMS_PER_PAGE);
     }
   };
-
+  
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
@@ -38,6 +36,14 @@ const MentorsData = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchMentors());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setDataPegawai(DataShowSpot.slice(startIndex, endIndex));
+  }, [startIndex, endIndex]);
+  
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="Mentors Data" />
