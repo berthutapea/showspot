@@ -49,7 +49,6 @@ class MentorModel extends Model {
             [this.campus]: mentor.campus,
             [this.major]: mentor.major,
             [this.groupTypeId]: mentor.group_type_id,
-            [this.classTypeId]: mentor.class_type_id,
             [this.photoProfile]: mentor.photo_profile,
         }
       } else {
@@ -122,6 +121,8 @@ class MentorModel extends Model {
     const param = {
       [this.mentorId]: id
     }
+
+    console.log(datas)
     const hashedPassword = await hashingService.generateHash(datas.password);
     const newData = {
       [this.password]: hashedPassword
