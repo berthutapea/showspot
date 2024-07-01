@@ -2,7 +2,7 @@ import privateClient from "./src/utils/privateClient.js";
 
 const cobaUser = async () => {
   try {
-    const response = await privateClient.get('admin/dashboard');
+    const response = await privateClient.post('login');
     console.log('Admin Dashboard Data:', response);
   } catch (error) {
     if (error.response) {

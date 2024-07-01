@@ -2,13 +2,15 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from '../action/authAction';
 
 const initialState = {
-  userId: sessionStorage.getItem('userId') || null,
-  token: sessionStorage.getItem('token') || null,
-  access: sessionStorage.getItem('access') || null,
+  userId: localStorage.getItem('userId') || null,
+  token: localStorage.getItem('token') || null,
+  access: localStorage.getItem('access') || null,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -44,7 +46,15 @@ const authReducer = (state = initialState, action) => {
         isSuccess: false,
         message: action.payload,
       };
-    case LOGOUT:
+    case LOGOUT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: null,
+      };
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         userId: null,
@@ -52,8 +62,16 @@ const authReducer = (state = initialState, action) => {
         access: null,
         isLoading: false,
         isError: false,
+        isSuccess: true,
+        message: 'Logout berhasil',
+      };
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
         isSuccess: false,
-        message: null,
+        message: action.payload,
       };
     default:
       return state;
