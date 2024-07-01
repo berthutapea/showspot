@@ -39,8 +39,8 @@ class AuthUserController {
   }
 
    async logoutUser(req, res) {
-    try {
-        const sessionToken  = req.rawHeaders[3];
+     try {
+        const sessionToken  = req.rawHeaders[19];
         const instanceSessionModel = new SessionModel();
         const result = await instanceSessionModel.checkSession(sessionToken);
         if (Object.keys(result).length > 0) {
