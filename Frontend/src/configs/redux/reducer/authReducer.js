@@ -36,7 +36,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isSuccess: true,
         isError: false,
-        message: 'Login berhasil',
+        message: 'Login successful',
       };
     case LOGIN_FAILURE:
       return {
@@ -63,7 +63,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isSuccess: true,
-        message: 'Logout berhasil',
+        message: 'Logout successful',
       };
     case LOGOUT_FAILURE:
       return {

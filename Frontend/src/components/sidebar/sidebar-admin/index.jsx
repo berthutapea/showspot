@@ -7,7 +7,7 @@ import { FiDatabase, FiSettings } from 'react-icons/fi';
 import { GoProject } from 'react-icons/go';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import SidebarLinkGroup from '../sidebar-link-group';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../../configs/redux/action/authAction';
 
@@ -15,7 +15,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
   const { pathname } = location;
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
@@ -24,12 +24,32 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );
 
-  const handleLogout = async () => {
-    await dispatch(logoutUser());
-    console.log(logoutUser);
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to leave?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logoutUser());
+        Swal.fire({
+          title: 'Logout Successful',
+          text: 'You have successfully exited.',
+          icon: 'success',
+          timer: 1500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate('/login');
+        });
+      }
+    });
   };
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!sidebar.current || !trigger.current) return;
@@ -309,7 +329,6 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                           <li>
                             <NavLink
                               onClick={handleLogout}
-                              // to="/login"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-white')
