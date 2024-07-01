@@ -5,6 +5,7 @@ class StudentController extends Controller {
   constructor() {
     super('StudentModel');
     this.projectModel = 'ProjectModel';
+    this.sopProjectModel = 'SopProjectModel';
     this.responseHandler = new ResponseHandler();
   }
 
@@ -66,7 +67,7 @@ class StudentController extends Controller {
       const filename = req.file === undefined ?  0 : req.file.filename;
       const student = await this.loadModel(this.BaseModel);
       const result = await student.updateData(myId, updatedData, filename);
-      if (result.length > 0) {
+      if (result > 0) {
         this.responseHandler.success(res, `Profile Updated`);
       } else {
         this.responseHandler.badRequest(res);
@@ -76,20 +77,50 @@ class StudentController extends Controller {
     }
   }
 
-  /*=== Project Entity ===*/
-  async addProject(req, res) {
+  async changePasswordStudent(req, res) {
     try {
-      const project = req.body;
-      const result = await this.loadModel(this.projectModel).addProject(
-        project
-      );
-      if (result.affectedRows > 0) {
-        res.status(200).json({ message: 'Data Project Added' });
+      const myId = req.params.id;
+      const newPassword = req.body;
+      const student = await this.loadModel(this.BaseModel);
+      const result = await student.changePasswordStudent(myId, newPassword);
+      if (result > 0) {
+        this.responseHandler.success(res, 'Password Changed');
       } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+        this.responseHandler.serverError(res, error);
+    }
+  }
+
+  /*=== Project Entity ===*/
+  async addProjectStudent(req, res) {
+    try {
+      const projectData = req.body;
+      const filename = req.file.filename;
+      const project = await this.loadModel(this.projectModel);
+      const result = await project.addProject(projectData, filename);
+      if (result.affectedRows > 0) {
+        this.responseHandler.success(res, 'Student Created');
+      } else {
+        this.responseHandler.error(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+
+  async getSopProject(req, res) {
+    try {
+      const sopProjectModel = await this.loadModel(this.sopProjectModel);
+      const sopProject = await sopProjectModel.findAll('all');
+      if (Object.keys(sopProject)) {
+        this.responseHandler.success(res, 'Data Found', 1, sopProject);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
     }
   }
 }

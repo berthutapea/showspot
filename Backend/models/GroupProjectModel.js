@@ -8,7 +8,6 @@ class GroupProjectModel extends Model {
     this.studentName = 'student_name';
     this.studentPosition = 'student_position';
     this.createdAt = 'created_at';
-    this.updatedAt = 'updated_at';
   }
 }
 

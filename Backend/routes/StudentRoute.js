@@ -34,13 +34,13 @@ class StudentRoute extends Route {
     );
 
     // change my password
-    // this.router.patch(
-    //   '/admin/password/:id/change',
-    //   upload.none(),
-    //   // authMiddleware,
-    //   // authUser,
-    //   this.controller.changePasswordMentor.bind(this.controller)
-    // );
+    this.router.patch(
+      '/students/password/:id/change',
+      upload.none(),
+      // authMiddleware,
+      // authUser,
+      this.controller.changePasswordStudent.bind(this.controller)
+    );
 
     // get data student by id
     this.router.get(
@@ -50,9 +50,16 @@ class StudentRoute extends Route {
 
     /* === Project Entity === */
     this.router.post(
-      '/students/project/add',
-      upload.none(),
-      this.controller.addProject.bind(this.controller)
+      '/students/projects/add',
+      this.fileUploadHandler.getMulterInstance().single('application_image'),
+      this.controller.addProjectStudent.bind(this.controller)
+    );
+
+    this.router.get(
+      '/students/projects/sop-project',
+      // authMiddleware,
+      // authUser,
+      this.controller.getSopProject.bind(this.controller)
     );
   }
 }
