@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     dashboardData: dashboardReducer,
-    mentorsData: mentorReducer,
+    mentor: mentorReducer,
   },
 });
 

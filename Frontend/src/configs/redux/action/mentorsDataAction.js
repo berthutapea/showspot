@@ -67,17 +67,17 @@ export const createMentor = (mentor, file) => async (dispatch) => {
 };
 
 export const fetchMentors = () => async (dispatch) => {
-  dispatch(mentorRequest(FETCH_MENTORS_REQUEST));
+  dispatch({ type: FETCH_MENTORS_REQUEST });
   try {
     const response = await privateClient.get('admin/mentors');
 
     if (response.status === 200) {
-      dispatch(mentorSuccess(FETCH_MENTORS_SUCCESS, response.data));
+      dispatch({ type: FETCH_MENTORS_SUCCESS, payload: response.data });
     } else {
-      dispatch(mentorFailure(FETCH_MENTORS_FAILURE, response.data.message));
+      dispatch({ type: FETCH_MENTORS_FAILURE, payload: response.data.message });
     }
   } catch (error) {
-    dispatch(mentorFailure(FETCH_MENTORS_FAILURE, error.message));
+    dispatch({ type: FETCH_MENTORS_FAILURE, payload: error.message });
   }
 };
 
