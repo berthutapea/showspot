@@ -35,17 +35,27 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(logoutUser());
-        Swal.fire({
-          title: 'Logout Berhasil',
-          text: 'Anda telah berhasil keluar.',
-          icon: 'success',
-          timer: 1500,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        }).then(() => {
-          navigate('/login');
-        });
+        dispatch(logoutUser())
+          .then(() => {
+            Swal.fire({
+              title: 'Logout Berhasil',
+              text: 'Anda telah berhasil keluar.',
+              icon: 'success',
+              timer: 1500,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            }).then(() => {
+              navigate('/login');
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Logout Gagal',
+              text: error.message,
+              icon: 'error',
+              showConfirmButton: true,
+            });
+          });
       }
     });
   };

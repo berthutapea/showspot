@@ -6,6 +6,7 @@ import {
 } from '../action/authAction';
 
 const initialState = {
+  userId: sessionStorage.getItem('userId') || null,
   token: sessionStorage.getItem('token') || null,
   access: sessionStorage.getItem('access') || null,
   isLoading: false,
@@ -27,6 +28,8 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        userId: action.payload.userId,
+        token: action.payload.token,
         access: action.payload.access,
         isLoading: false,
         isSuccess: true,
@@ -42,10 +45,9 @@ const authReducer = (state = initialState, action) => {
         message: action.payload,
       };
     case LOGOUT:
-      sessionStorage.removeItem('token'); 
-      sessionStorage.removeItem('access'); 
       return {
         ...state,
+        userId: null,
         token: null,
         access: null,
         isLoading: false,
