@@ -19,13 +19,13 @@ class ProjectModel extends Model {
     this.projectFilterId = 'project_filter_id';
     this.statusProjectId = 'status_project_id';
     this.notes = 'notes';
-    this.createdAt = 'created_at';
-    this.updatedAt = 'updated_at';
   }
 
   async addProject(datas, filename) {
+    const groupProjectModel = new GroupProjectModel();
     const filePath = `${config.api.base_url}api/images/${filename}`;
     const patternId = String('project' + Math.floor(Math.random() * 10000) + 1);
+
     const projectId = patternId;
     const projectData = {
       [this.applicationId]: projectId,
@@ -38,7 +38,26 @@ class ProjectModel extends Model {
       [this.description]: datas.description,
       [this.groupId]: `group-${projectId}`,
     };
-    return;
+
+    const groupProject = {
+      Hustler: datas.Hustler,
+      Hipster: datas.Hipster,
+      "Scrum Master": datas["Scrum Master"],
+      Hacker: datas.Hacker,
+    };
+
+    for (let key in groupProject) {
+      if (groupProject.hasOwnProperty(key)) {
+        let groupProjectData = {
+          group_project_id: `group-${projectId}`,
+          group_project_name: datas.group_name,
+          student_name: groupProject[key],
+          student_position: key,
+        };
+        await groupProjectModel.insertOne(groupProjectData);
+      }
+    }
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.insertOne(projectData, 1);
   }
@@ -76,7 +95,6 @@ class ProjectModel extends Model {
     const groupProjectData = {
       [groupProjectModel.groupProjectId]: await resultProject.group_id,
     };
-
 
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     const resultGroup = await groupProjectModel.findAll('where', groupProjectData);

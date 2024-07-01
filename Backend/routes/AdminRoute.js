@@ -15,8 +15,8 @@ class AdminRoute extends Route {
     // Dashboard Admin
     this.router.get(
       '/admin/dashboard',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.dashboardAdmin.bind(this.controller)
     );
 
@@ -50,7 +50,7 @@ class AdminRoute extends Route {
     // get data mentors by admin
     this.router.get(
       '/admin/mentors',
-      authMiddleware,
+      // authMiddleware,
       // authUser,
       this.controller.getDataMentors.bind(this.controller)
     );
@@ -204,7 +204,7 @@ class AdminRoute extends Route {
     // ShowCase Project List
     this.router.get(
       '/admin/projects/showcase-projects/:statusproject/:page',
-      authMiddleware,
+      // authMiddleware,
       // authUser,
       this.controller.getShowProjects.bind(this.controller)
     );
@@ -212,7 +212,7 @@ class AdminRoute extends Route {
     // Get Project By ID
     this.router.get(
       '/admin/projects/showcase-projects/id/:id/detail',
-      authMiddleware,
+      // authMiddleware,
       // authUser,
       this.controller.findShowProjectById.bind(this.controller)
     );
@@ -220,7 +220,7 @@ class AdminRoute extends Route {
     // Get Project By ID
     this.router.get(
       '/admin/projects/showcase-projects/:name',
-      authMiddleware,
+      // authMiddleware,
       // authUser,
       this.controller.findShowProjectByGroupName.bind(this.controller)
     );
