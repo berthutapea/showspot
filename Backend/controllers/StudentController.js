@@ -101,7 +101,7 @@ class StudentController extends Controller {
       const project = await this.loadModel(this.projectModel);
       const result = await project.addProject(projectData, filename);
       if (result.affectedRows > 0) {
-        this.responseHandler.success(res, 'Student Created');
+        this.responseHandler.success(res, 'Project Added');
       } else {
         this.responseHandler.error(res);
       }

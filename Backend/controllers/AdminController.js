@@ -416,7 +416,7 @@ class AdminController extends Controller {
       const projectModel = await this.loadModel(this.projectModel);
       const project = await projectModel.findProjectById(projectId);
       if (Object.keys(project).length > 0) {
-        this.responseHandler.success(res, 'Data Found', project);
+        this.responseHandler.success(res,'Data Found', 1, project);
       } else {
         this.responseHandler.notFound(res);
       }
