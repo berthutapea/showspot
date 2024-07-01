@@ -38,7 +38,7 @@ export const mentorRequest = (actionType) => ({
 
 export const mentorSuccess = (actionType, data) => ({
   type: actionType,
-  payload: data,
+  payload: data.data,
 });
 
 export const mentorFailure = (actionType, error) => ({
@@ -112,7 +112,7 @@ export const deleteMentor = (id) => async (dispatch) => {
   dispatch(mentorRequest(DELETE_MENTOR_REQUEST));
   try {
     const response = await privateClient.delete(`admin/mentors/mentor/${id}/delete`);
-    dispatch(mentorSuccess(DELETE_MENTOR_SUCCESS, id));
+    dispatch(mentorSuccess(DELETE_MENTOR_SUCCESS,  id));
   } catch (error) {
     dispatch(mentorFailure(DELETE_MENTOR_FAILURE, error.message));
   }

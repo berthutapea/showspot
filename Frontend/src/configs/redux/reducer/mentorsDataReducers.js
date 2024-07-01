@@ -24,7 +24,7 @@ import {
 
 const initialState = {
   loading: false,
-  mentors: [],
+  mentorsDataMaster: [],
   mentor: null,
   error: null,
 };
@@ -48,7 +48,7 @@ const mentorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        mentors: [...state.mentors, action.payload],
+        mentorsDataMaster: [...state.mentorsDataMaster, action.payload],
         error: null,
       };
 
@@ -56,7 +56,7 @@ const mentorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        mentors: action.payload,
+        mentorsDataMaster: action.payload,
         error: null,
       };
 
@@ -75,7 +75,7 @@ const mentorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        mentors: state.mentors.filter((mentor) => mentor.id !== action.payload),
+        mentorsDataMaster: state.mentorsDataMaster.filter((mentor) => mentor.id !== action.payload),
         error: null,
       };
 
