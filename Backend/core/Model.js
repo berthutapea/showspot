@@ -53,6 +53,9 @@ class Model {
       } else if (mode === 'where') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} = ?`;
         formattedValue = [value[0]];
+      } else if (mode === 'like') {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
+        formattedValue = [value[0]];
       } else if (mode === 'all') {
         query = `SELECT * FROM ${this.tableName}`;
       }
@@ -122,9 +125,11 @@ async findOne(mode = 0, datas, limit = 0, offset = 0, orderBy = 'id') {
       );
 
       const query = `UPDATE ${this.tableName} SET ${setStatement} WHERE ${whereClause}`;
-      const result = await this.database.connection.query(query);
+
+      const [result] = await this.database.connection.query(query);
       this.database.closeConnection();
-      return result;
+
+      return result.affectedRows;
     } catch (error) {
       console.error('Error from the database: ', error);
       return false;

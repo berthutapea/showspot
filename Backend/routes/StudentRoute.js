@@ -1,27 +1,51 @@
 const { Route } = require('../core/Route');
 const multer = require('multer');
 const upload = multer();
+const { FileUploadHandler } = require('../handler/FileUploadHandler');
 
 class StudentRoute extends Route {
   initializeRoute() {
+    this.fileUploadHandler = new FileUploadHandler();
+
     /* === Student Entity === */
+    // Dashboard Admin
+    this.router.get(
+      '/students/dashboard',
+      // authMiddleware,
+      // authUser,
+      this.controller.dashboardStudent.bind(this.controller)
+    );
+
+    // get my profile student
+    this.router.get(
+      '/students/profile/:id',
+      // authMiddleware,
+      // authUser,
+      this.controller.getMyProfileStudent.bind(this.controller)
+    );
+
+    // update my profile
+    this.router.put(
+      '/students/profile/:id/update',
+      this.fileUploadHandler.getMulterInstance().single('profile_image'),
+      // authMiddleware,
+      // authUser,
+      this.controller.updateMyProfileStudent.bind(this.controller)
+    );
+
+    // change my password
+    // this.router.patch(
+    //   '/admin/password/:id/change',
+    //   upload.none(),
+    //   // authMiddleware,
+    //   // authUser,
+    //   this.controller.changePasswordMentor.bind(this.controller)
+    // );
+
     // get data student by id
     this.router.get(
       '/students/id/:id',
       this.controller.getDataStudentById.bind(this.controller)
-    );
-
-    //get data student by name
-    this.router.get(
-      '/students/name/:name',
-      this.controller.getDataStudentByName.bind(this.controller)
-    );
-
-    // update data student
-    this.router.put(
-      '/students/:id',
-      upload.none(),
-      this.controller.updateDataStudent.bind(this.controller)
     );
 
     /* === Project Entity === */

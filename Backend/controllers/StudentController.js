@@ -1,12 +1,36 @@
 const { Controller } = require('../core/Controller');
+const ResponseHandler = require('../handler/ResponseHandler');
 
 class StudentController extends Controller {
   constructor() {
     super('StudentModel');
     this.projectModel = 'ProjectModel';
+    this.responseHandler = new ResponseHandler();
   }
 
   /*=== Student Entity ===*/
+    async dashboardStudent(req, res) {
+    try {
+      const student = await this.loadModel(this.BaseModel);
+      const myId =  req.rawHeaders[5];
+      const myData = await student.findById(myId);
+
+      let dashboardData;
+      if (Object.keys(myData).length > 0){
+        dashboardData = {
+            student_id: myData.admin_id,
+            fullname: myData.fullname,
+            photoProfile: myData.photo_profile,
+        };
+      this.responseHandler.success(res, 'Dashboard Student', 3, dashboardData);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+
   async getDataStudentById(req, res) {
     try {
       const studentId = req.params.id;
@@ -21,30 +45,34 @@ class StudentController extends Controller {
     }
   }
 
-  async getDataStudentByName(req, res) {
+    async getMyProfileStudent(req, res) {
     try {
-      const userName = req.params.name;
-      const student = await this.model.findByName(userName);
-      if (student.length == 0) {
-        res.status(404).json({ message: 'Data Not Found' });
+      const myId = req.params.id;
+      const student = await this.loadModel(this.BaseModel);
+      const result = await student.findById(myId);
+      if (Object.keys(result).length > 0) {
+        this.responseHandler.success(res, 'Data Found', 3, result);
       } else {
-        res.status(200).json(student);
-      }
-    } catch (error) {}
-  }
-
-  async updateDataStudent(req, res) {
-    try {
-      const studentId = req.params.id;
-      const updatedData = req.body;
-      const result = await this.model.updateData(studentId, updatedData);
-      if (result) {
-        res.status(200).json({ message: 'Data Updated' });
-      } else {
-        res.status(400).json({ message: 'Bad Request' });
+        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      this.responseHandler.serverError(res, error);
+    }
+  }
+  async updateMyProfileStudent(req, res) {
+    try {
+      const myId = req.params.id;
+      const updatedData = req.body;
+      const filename = req.file === undefined ?  0 : req.file.filename;
+      const student = await this.loadModel(this.BaseModel);
+      const result = await student.updateData(myId, updatedData, filename);
+      if (result.length > 0) {
+        this.responseHandler.success(res, `Profile Updated`);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+        this.responseHandler.serverError(res, error);
     }
   }
 

@@ -240,7 +240,6 @@ class AdminController extends Controller {
       const studentName = req.params.name;
       const studentModel = await this.loadModel(this.studentModel);
       const student = await studentModel.findByName(studentName);
-      console.log(student)
       if (Object.keys(student).length > 0) {
         this.responseHandler.success(res, 'Data Found', 1, student);
       } else {
@@ -288,7 +287,6 @@ class AdminController extends Controller {
   }
 
   async deleteDataStudent(req, res) {
-    console.log('delete data student berjalan..')
     try {
       const studentId = req.params.id;
       const studentModel = await this.loadModel(this.studentModel);
@@ -322,9 +320,6 @@ class AdminController extends Controller {
 
   async getSopProject(req, res) {
     try {
-      const project = {
-
-      };
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
       if (Object.keys(sopProject)) {

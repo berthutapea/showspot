@@ -83,12 +83,13 @@ class ProjectModel extends Model {
   }
 
   // ===> make a search project by group name
-  async findProjectByGroupName (projectName) {
+  async findProjectByGroupName (groupName) {
     const projectData = {
-      [this.applicationTitle]: projectName,
+      [this.groupName]: groupName,
     };
+
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
-    return await this.findOne(projectData, 1);
+    return await this.findAll('where', projectData);
   }
 }
 

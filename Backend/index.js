@@ -31,6 +31,11 @@ const AdminRoute = require('./routes/AdminRoute');
 const adminController = new AdminController();
 new AdminRoute(router, adminController);
 
+const MentorController = require('./controllers/MentorController');
+const MentorRoute = require('./routes/MentorRoute');
+const mentorController = new MentorController();
+new MentorRoute(router, mentorController);
+
 const StudentController = require('./controllers/StudentController');
 const UserRoute = require('./routes/StudentRoute');
 const studentController = new StudentController();
