@@ -88,15 +88,6 @@ class MentorRoute extends Route {
       // authUser,
       this.controller.valuationProject.bind(this.controller)
     );
-
-    // update valuation project by mentor
-    // this.router.put(
-    //   '/mentors/projects/:id/update/valuation',
-    //   this.fileUploadHandler.getMulterInstance().single('profile_image'),
-    //   authMiddleware,
-    //   authUser,
-    //   this.controller.updateValuationProject.bind(this.controller)
-    // );
   }
 }
 

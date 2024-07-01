@@ -1,5 +1,4 @@
 const { SessionModel } = require('../models/SessionModel');
-// const config = require('../config/configuration');
 
 
 

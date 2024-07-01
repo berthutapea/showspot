@@ -1,4 +1,5 @@
 const { Model } = require('../core/Model');
+const config = require('../config/configuration');
 const StatusProjectModel = require('../models/StatusProjectModel');
 const GroupProjectModel = require('../models/GroupProjectModel');
 
@@ -13,7 +14,7 @@ class ProjectModel extends Model {
     this.linkDesign = 'link_design';
     this.linkGithub = 'link_github';
     this.description = 'description';
-    this.group = 'group_id';
+    this.groupId = 'group_id';
     this.gradeId = 'grade_id';
     this.projectFilterId = 'project_filter_id';
     this.statusProjectId = 'status_project_id';
@@ -22,18 +23,24 @@ class ProjectModel extends Model {
     this.updatedAt = 'updated_at';
   }
 
-  async addProject(datas) {
-    const patternId = String(
-      'project' + Math.floor(Math.random() * 100000) + 1
-    );
+  async addProject(datas, filename) {
+    const filePath = `${config.api.base_url}api/images/${filename}`;
+    const patternId = String('project' + Math.floor(Math.random() * 10000) + 1);
+    const projectId = patternId;
     const projectData = {
-      [this.projectId]: patternId,
-      [this.projectCtgName]: datas.projectCtgName,
-      [this.projectName]: datas.projectName,
-      [this.teamId]: datas.teamId,
-      [this.linkGitProject]: datas.linkGitProject,
+      [this.applicationId]: projectId,
+      [this.applicationImage]: filePath,
+      [this.applicationTitle]: datas.application_title,
+      [this.groupName]: datas.group_name,
+      [this.linkVideo]: datas.link_video,
+      [this.linkDesign]: datas.link_design,
+      [this.linkGithub]: datas.link_github,
+      [this.description]: datas.description,
+      [this.groupId]: `group-${projectId}`,
     };
-    return await this.insertOne(projectData);
+    return;
+    // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
+    return await this.insertOne(projectData, 1);
   }
 
   // mode = 0, datas = 0, limit = 0, offset = 0, orderBy = 'id'
