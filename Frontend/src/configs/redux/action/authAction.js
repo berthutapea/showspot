@@ -24,12 +24,13 @@ const loginFailure = (error) => ({
   payload: error,
 });
 
-const logoutUser = () => {
+const logoutSuccess = (userId, token, access) => {
   sessionStorage.removeItem('userId');
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('access');
   return {
     type: LOGOUT,
+    payload: { userId, token, access },
   };
 };
 
@@ -46,6 +47,25 @@ const loginUser =
       const { session_code } = response.data.data;
       const { access } = response.data;
       dispatch(loginSuccess(user_id, session_code, access));
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+    }
+  };
+
+const logoutUser =
+  ({ username, password }) =>
+  async (dispatch) => {
+    dispatch(loginRequest());
+    try {
+      const response = await privateClient.delete('logout', {
+        username,
+        password,
+      });
+      const { user_id } = response.data.data;
+      const { session_code } = response.data.data;
+      const { access } = response.data;
+      dispatch(logoutSuccess(user_id, session_code, access));
+      console.log(logoutSuccess);
     } catch (error) {
       dispatch(loginFailure(error.message));
     }
