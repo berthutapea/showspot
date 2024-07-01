@@ -24,8 +24,8 @@ function LoginInput() {
     if (isSuccess && access) {
       Swal.fire({
         icon: 'success',
-        title: 'Login Berhasil',
-        text: 'Anda akan diarahkan ke dashboard.',
+        title: 'Login Successful',
+        text: 'You will be directed to the dashboard.',
         timer: 1500,
       }).then(() => {
         let redirectPath = '/';
@@ -52,7 +52,7 @@ function LoginInput() {
     if (isError) {
       Swal.fire({
         icon: 'error',
-        title: 'Login Gagal',
+        title: 'Login Failed',
         text: message,
       });
     }
