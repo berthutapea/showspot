@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import DataShowSpot from '../../../../../utils/DataShowSpot';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaRegEdit, FaPlus } from 'react-icons/fa';
 import { BsTrash3 } from 'react-icons/bs';
@@ -7,43 +7,40 @@ import { BiSearch } from 'react-icons/bi';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
-import { useDispatch } from 'react-redux';
 import { fetchMentors } from '../../../../../configs/redux/action/mentorsDataAction';
 
 const ITEMS_PER_PAGE = 4;
 
 const MentorsData = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
-  const [dataPegawai, setDataPegawai] = useState([]);
-  const totalPages = Math.ceil(DataShowSpot.length / ITEMS_PER_PAGE);
   const dispatch = useDispatch();
+  const { mentors, loading } = useSelector((state) => state.mentor);
 
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-      setStartIndex((prev) => prev - ITEMS_PER_PAGE);
-      setEndIndex((prev) => prev - ITEMS_PER_PAGE);
-    }
-  };
-  
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-      setStartIndex((prev) => prev + ITEMS_PER_PAGE);
-      setEndIndex((prev) => prev + ITEMS_PER_PAGE);
-    }
-  };
+  // Calculate startIndex and endIndex for current page
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, mentors.length);
 
+  // Fetch mentors data on component mount
   useEffect(() => {
     dispatch(fetchMentors());
   }, [dispatch]);
 
-  useEffect(() => {
-    setDataPegawai(DataShowSpot.slice(startIndex, endIndex));
-  }, [startIndex, endIndex]);
-  
+  // Handle pagination functions
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  // Calculate total pages based on number of mentors
+  const totalPages = Math.ceil(mentors.length / ITEMS_PER_PAGE);
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="Mentors Data" />
@@ -82,79 +79,47 @@ const MentorsData = () => {
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                   Full Name
                 </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Campus
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Major
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Groups Type
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Class Type
-                </th>
+                {/* Add more table headers as per your data */}
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              {dataPegawai.map((dataPegawai, index) => {
-                return (
-                  <tr key={dataPegawai.id}>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white text-center">
-                        {startIndex + index + 1}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark">
-                      <div className="h-12.5 w-15">
-                        <div className="rounded-full overflow-hidden">
-                          {dataPegawai.photo}
-                        </div>
+              {mentors.slice(startIndex, endIndex).map((mentor, index) => (
+                <tr key={mentor.id}>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white text-center">
+                      {startIndex + index + 1}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark">
+                    <div className="h-12.5 w-15">
+                      <div className="rounded-full overflow-hidden">
+                        {mentor.photo}
                       </div>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.namaPegawai}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.jenisKelamin}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.tanggalMasuk}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.status}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {dataPegawai.hakAkses}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <div className="flex items-center space-x-3.5">
-                        <Link to={'/admin/mentors-data/edit'}>
-                          <button className="hover:text-black">
-                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                          </button>
-                        </Link>
+                    </div>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {mentor.namaPegawai}
+                    </p>
+                  </td>
+                  {/* Add more table data cells as per your data */}
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <div className="flex items-center space-x-3.5">
+                      <Link to={`/admin/mentors-data/edit/${mentor.id}`}>
                         <button className="hover:text-black">
-                          <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
+                          <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                      </Link>
+                      <button className="hover:text-black">
+                        <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -162,7 +127,7 @@ const MentorsData = () => {
         <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-              Showing {startIndex}-{endIndex} of {DataShowSpot.length} Mentors
+              Showing {startIndex + 1}-{endIndex} of {mentors.length} Mentors
               Data
             </span>
           </div>
@@ -170,7 +135,7 @@ const MentorsData = () => {
             <button
               disabled={currentPage === 1}
               onClick={goToPrevPage}
-              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary dark:hover:text-white disabled:opacity-50"
+              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
             >
               Prev
             </button>
@@ -227,7 +192,7 @@ const MentorsData = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={goToNextPage}
-              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary dark:hover:text-white disabled:opacity-50"
+              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
             >
               Next
             </button>
