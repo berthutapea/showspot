@@ -117,7 +117,7 @@ class AdminController extends Controller {
           class_type: classTypeName,
         };
       }));
-      if (results) {
+      if (Object.keys(results).length > 0) {
         this.responseHandler.success(res, 'Data Found', 1, results);
       } else {
         this.responseHandler.badRequest(res);
