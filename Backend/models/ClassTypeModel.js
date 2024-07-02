@@ -8,7 +8,6 @@ class ClassTypeModel extends Model {
   }
 
   async findClassTypeById(classTypeId) {
-    console.log('findclass berjalan')
     const params = {
       [this.class_type_id]: classTypeId
     };
