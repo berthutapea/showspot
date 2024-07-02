@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/'; 
-const apiKey = '$11%%22**33++aAbBcCdDeEfFgG33@@??44'; 
+const baseURL = 'http://localhost:5000/api/';
+const apiKey = '$11%%22**33++aAbBcCdDeEfFgG33@@??44';
 
 const privateClient = axios.create({
   baseURL,
@@ -11,7 +11,6 @@ const privateClient = axios.create({
   },
 });
 
-// Add request interceptor
 privateClient.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {

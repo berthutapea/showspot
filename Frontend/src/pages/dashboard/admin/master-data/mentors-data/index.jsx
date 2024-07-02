@@ -53,32 +53,9 @@ const MentorsData = () => {
     }
   };
 
-     const onDeleteMentor = (id) => {
-       Swal.fire({
-         title: 'Konfirmasi',
-         text: 'Apakah Anda yakin ingin Menghapus?',
-         icon: 'question',
-         showCancelButton: true,
-         confirmButtonText: 'Ya',
-         cancelButtonText: 'Tidak',
-         reverseButtons: true,
-       }).then((result) => {
-         if (result.isConfirmed) {
-           dispatch(deleteMentor(id)).then(() => {
-            console.log(deleteMentor);
-             Swal.fire({
-               title: 'Berhasil',
-               text: 'Data mentor berhasil dihapus.',
-               icon: 'success',
-               timer: 1000,
-               timerProgressBar: true,
-               showConfirmButton: false,
-             });
-             dispatch(fetchMentors());
-           });
-         }
-       });
-     };
+  const handleDelete = (id) => {
+    dispatch(deleteMentor(id));
+  };
 
   useEffect(() => {
     dispatch(fetchMentors());
@@ -191,7 +168,12 @@ const MentorsData = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => onDeleteMentor(mentor.id)}
+                          onClick={() => {
+                            console.log(
+                              `Deleting mentor with ID: ${mentor.id}`
+                            );
+                            handleDelete(mentor.id);
+                          }}
                           className="hover:text-black"
                         >
                           <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
@@ -203,60 +185,6 @@ const MentorsData = () => {
             </tbody>
           </table>
         </div>
-
-        {/* <div className="max-w-full overflow-x-auto py-4">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                  No
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                  Photo
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Full Name
-                </th>
-                <th className="py-4 px-4 font-medium text-black dark:text-white">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredDataMentors
-                .slice(startIndex, endIndex)
-                .map((mentor, index) => (
-                  <tr key={mentor.id}>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white text-center">
-                        {startIndex + index + 1}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark">
-                      <div className="h-12.5 w-15">
-                        <div className="rounded-full overflow-hidden">
-                          <img src={mentor.photo_profile}></img>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {mentor.fullname}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <div className="flex items-center space-x-3.5">
-                        <Link to={`/admin/mentors-data/edit/${mentor.id}`}>
-                          <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                        </Link>
-                        <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div> */}
 
         <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
           <div className="flex items-center space-x-2">
