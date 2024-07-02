@@ -9,6 +9,8 @@ class AdminController extends Controller {
     this.studentModel = 'StudentModel';
     this.projectModel = 'ProjectModel';
     this.sopProjectModel = 'SopProjectModel';
+    this.groupTypeModel = 'GroupTypeModel';
+    this.classTypeModel = 'ClassTypeModel';
     this.responseHandler = new ResponseHandler();
   }
   /*=== Admin Entity ===*/
@@ -97,8 +99,24 @@ class AdminController extends Controller {
   async getDataMentors(req, res) {
     try {
       const mentors = await this.loadModel(this.mentorModel);
-      const results = await mentors.findAll('all');
+      const mentorList = await mentors.findAll('all');
 
+      const classTypeModel = await this.loadModel(this.classTypeModel);
+      const groupTypeModel = await this.loadModel(this.groupTypeModel);
+
+      const results = await Promise.all(mentorList.map(async (mentor) => {
+        const classTypeName = await classTypeModel.findClassTypeById(mentor.class_type_id);
+        const groupTypeName = await groupTypeModel.findGroupTypeById(mentor.group_type_id);
+        return {
+          mentor_id: mentor.mentor_id,
+          photo_profile: mentor.photo_profile,
+          fullname: mentor.fullname,
+          campus: mentor.campus,
+          major: mentor.major,
+          group_type: groupTypeName,
+          class_type: classTypeName,
+        };
+      }));
       if (results) {
         this.responseHandler.success(res, 'Data Found', 1, results);
       } else {
