@@ -12,11 +12,11 @@ class AdminRoute extends Route {
 
     /* === Admin Entity === */
 
-    // Dashboard Admin
+    // Dashboard Admin (Disable Auth)
     this.router.get(
       '/admin/dashboard',
-      authMiddleware,
-      authUser,
+      // authMiddleware,
+      // authUser,
       this.controller.dashboardAdmin.bind(this.controller)
     );
 
