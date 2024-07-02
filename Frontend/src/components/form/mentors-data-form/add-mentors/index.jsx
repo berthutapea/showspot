@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
-import Swal from 'sweetalert2';
 import LayoutAdmin from '../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
@@ -68,40 +67,7 @@ const AddMentors = () => {
     newFormData.append('major', major);
     newFormData.append('group_type_id', group_type_id);
     newFormData.append('class_type_id', class_type_id);
-
-    console.log('Submitting form data:', {
-      profile_image: file,
-      fullname,
-      username,
-      password,
-      campus,
-      major,
-      group_type_id,
-      class_type_id,
-    });
-
-    dispatch(createMentor(newFormData, navigate))
-      .then((response) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Berhasil',
-          text: response.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      })
-      .catch((error) => {
-        console.error('Error submitting form:', error);
-
-        const errorMsg =
-          error.response?.data?.msg || error.message || 'Terjadi kesalahan';
-        Swal.fire({
-          icon: 'error',
-          title: 'Gagal',
-          text: errorMsg,
-          confirmButtonText: 'Ok',
-        });
-      });
+    dispatch(createMentor(newFormData, navigate));
   };
 
   const handleChange = (e) => {
@@ -189,10 +155,10 @@ const AddMentors = () => {
                         <option value="" disabled>
                           Please Select
                         </option>
-                        <option value="mobile">Mobile</option>
-                        <option value="web a">Web A</option>
-                        <option value="web b">Web B</option>
-                        <option value="web c">Web C</option>
+                        <option value="1">Mobile</option>
+                        <option value="2">Web A</option>
+                        <option value="3">Web B</option>
+                        <option value="4">Web C</option>
                       </select>
                       <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
                         <MdOutlineKeyboardArrowDown />
@@ -218,9 +184,9 @@ const AddMentors = () => {
                         <option value="" disabled>
                           Please Select
                         </option>
-                        <option value="morning">Morning</option>
-                        <option value="afternoon">Afternoon</option>
-                        <option value="night">Night</option>
+                        <option value="1">Morning</option>
+                        <option value="2">Afternoon</option>
+                        <option value="3">Night</option>
                       </select>
                       <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
                         <MdOutlineKeyboardArrowDown />

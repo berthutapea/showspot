@@ -75,7 +75,9 @@ const mentorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        mentorsDataMaster: state.mentorsDataMaster.filter((mentor) => mentor.id !== action.payload),
+        mentorsDataMaster: state.mentorsDataMaster.filter(
+          (mentor) => mentor.mentor_id !== action.payload
+        ),
         error: null,
       };
 
