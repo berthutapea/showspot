@@ -58,6 +58,7 @@ export const createMentor = (mentor, file) => async (dispatch) => {
     const response = await privateClient.post('admin/mentors/create', formData);
     dispatch(mentorSuccess(CREATE_MENTOR_SUCCESS, response.data));
   } catch (error) {
+    console.error('Error in createMentor:', error.response || error.message);
     dispatch(mentorFailure(CREATE_MENTOR_FAILURE, error.message));
   }
 };
