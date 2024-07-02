@@ -8,7 +8,10 @@ import Swal from 'sweetalert2';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
-import { deleteMentor, fetchMentors } from '../../../../../configs/redux/action/mentorsDataAction';
+import {
+  deleteMentor,
+  fetchMentors,
+} from '../../../../../configs/redux/action/mentorsDataAction';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -17,15 +20,12 @@ const MentorsData = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const dispatch = useDispatch();
-  const { mentorsDataMaster} = useSelector(
-    (state) => state.mentorsDataMaster
-  );
+  const { mentorsDataMaster } = useSelector((state) => state.mentorsDataMaster);
 
-  
   const filteredDataMentors = Array.isArray(mentorsDataMaster)
-  ? mentorsDataMaster.filter((mentor) => {
-    const { fullname, status } = mentor;
-    const keyword = searchKeyword.toLowerCase();
+    ? mentorsDataMaster.filter((mentor) => {
+        const { fullname, status } = mentor;
+        const keyword = searchKeyword.toLowerCase();
         const statusKeyword = filterStatus.toLowerCase();
         return (
           fullname.toLowerCase().includes(keyword) &&
@@ -53,8 +53,32 @@ const MentorsData = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteMentor(id));
+  const onDeleteMentor = (id) => {
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Apakah Anda yakin ingin Menghapus?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+      reverseButtons: true,
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed) {
+        dispatch(deleteMentor(id)).then(() => {
+          Swal.fire({
+            title: 'Berhasil',
+            text: 'Data pegawai berhasil dihapus.',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          });
+          dispatch(fetchMentors());
+          
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -170,9 +194,9 @@ const MentorsData = () => {
                         <button
                           onClick={() => {
                             console.log(
-                              `Deleting mentor with ID: ${mentor.id}`
+                              `Deleting mentor with ID: ${mentor.mentor_id}`
                             );
-                            handleDelete(mentor.id);
+                            onDeleteMentor(mentor.mentor_id);
                           }}
                           className="hover:text-black"
                         >
