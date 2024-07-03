@@ -26,18 +26,21 @@ const EditMentors = () => {
   const [group_type_id, setGroupTypeId] = useState('');
   const [class_type_id, setClassTypeId] = useState('');
   const [preview, setPreview] = useState('');
+  const [file, setFile] = useState(null);
 
   const handleImageUpload = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setPreview(URL.createObjectURL(selectedFile));
+      setFile(selectedFile); 
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('profile_image', File);
+    if (file) {
+      formData.append('profile_image', file); 
+    }
     formData.append('fullname', fullname);
     formData.append('username', username);
     formData.append('campus', campus);

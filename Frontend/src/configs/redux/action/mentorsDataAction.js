@@ -136,7 +136,7 @@ export const fetchMentorById = (id) => async (dispatch) => {
     const response = await privateClient.get(`admin/mentors/id/${id}`);
     dispatch({
       type: FETCH_MENTOR_BY_ID_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
