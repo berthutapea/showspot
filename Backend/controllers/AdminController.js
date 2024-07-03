@@ -131,10 +131,25 @@ class AdminController extends Controller {
     try {
       const mentorId = req.params.id;
       const mentor = await this.loadModel(this.mentorModel);
+      const classTypeModel = await this.loadModel(this.classTypeModel);
+      const groupTypeModel = await this.loadModel(this.groupTypeModel);
       const result = await mentor.findByMentorId(mentorId);
-
+      const classTypeName = await classTypeModel.findClassTypeById(result.class_type_id);
+      const groupTypeName = await groupTypeModel.findGroupTypeById(result.group_type_id);
+      const responseData = {
+        mentor_id: result.mentor_id,
+        fullname: result.fullname,
+        username: result.username,
+        campus: result.campus,
+        major: result.major,
+        class_type: classTypeName,
+        class_type_id: result.class_type_id,
+        group_type: groupTypeName,
+        group_type_id: result.group_type_id,
+        profile_image: result.photo_profile
+      }
       if (Object.keys(mentor).length > 0) {
-        this.responseHandler.success(res, 'Data Found', 1, result);
+        this.responseHandler.success(res, 'Data Found', 1, responseData);
       } else {
         this.responseHandler.notFound(res);
       }
