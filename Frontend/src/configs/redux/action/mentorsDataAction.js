@@ -46,6 +46,16 @@ export const mentorFailure = (actionType, error) => ({
   payload: error,
 });
 
+export const fetchMentors = () => async (dispatch) => {
+  dispatch(mentorRequest(FETCH_MENTORS_REQUEST));
+  try {
+    const response = await privateClient.get('admin/mentors');
+    dispatch(mentorSuccess(FETCH_MENTORS_SUCCESS, response.data));
+  } catch (error) {
+    dispatch(mentorFailure(FETCH_MENTORS_FAILURE, error.message));
+  }
+};
+
 export const createMentor = (formData, navigate) => {
   return async (dispatch) => {
     dispatch({ type: CREATE_MENTOR_REQUEST });
@@ -76,68 +86,40 @@ export const createMentor = (formData, navigate) => {
   };
 };
 
-export const fetchMentors = () => async (dispatch) => {
-  dispatch(mentorRequest(FETCH_MENTORS_REQUEST));
+export const updateMentor = (id, formData, navigate) => async (dispatch) => {
+  dispatch({ type: UPDATE_MENTOR_REQUEST });
   try {
-    const response = await privateClient.get('admin/mentors');
-    dispatch(mentorSuccess(FETCH_MENTORS_SUCCESS, response.data));
-    // console.log(response.data);
-  } catch (error) {
-    dispatch(mentorFailure(FETCH_MENTORS_FAILURE, error.message));
-  }
-};
-
-export const fetchMentorById = (id) => async (dispatch) => {
-  dispatch(mentorRequest(FETCH_MENTOR_BY_ID_REQUEST));
-  try {
-    const response = await privateClient.get(`admin/mentors/${id}`);
-    dispatch(mentorSuccess(FETCH_MENTOR_BY_ID_SUCCESS, response.data));
-  } catch (error) {
-    dispatch(mentorFailure(FETCH_MENTOR_BY_ID_FAILURE, error.message));
-  }
-};
-
-export const fetchMentorByName = (name) => async (dispatch) => {
-  dispatch(mentorRequest(FETCH_MENTOR_BY_NAME_REQUEST));
-  try {
-    const response = await privateClient.get(`admin/mentors/name/${name}`);
-    dispatch(mentorSuccess(FETCH_MENTOR_BY_NAME_SUCCESS, response.data));
-  } catch (error) {
-    dispatch(mentorFailure(FETCH_MENTOR_BY_NAME_FAILURE, error.message));
-  }
-};
-
-export const updateMentor = (id, mentor, file) => async (dispatch) => {
-  dispatch(mentorRequest(UPDATE_MENTOR_REQUEST));
-  try {
-    const formData = new FormData();
-    if (file) formData.append('file', file);
-    for (const key in mentor) {
-      formData.append(key, mentor[key]);
-    }
-
     const response = await privateClient.put(
-      `admin/mentors/mentor/${id}/update`,
-      formData
+      `admin/mentors/${id}/update/`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
-    dispatch(mentorSuccess(UPDATE_MENTOR_SUCCESS, response.data));
+    dispatch({
+      type: UPDATE_MENTOR_SUCCESS,
+      payload: response.data.msg,
+    });
+
+    navigate('/admin/mentors-data');
   } catch (error) {
-    dispatch(mentorFailure(UPDATE_MENTOR_FAILURE, error.message));
+    dispatch({
+      type: UPDATE_MENTOR_FAILURE,
+      payload: error.response.data.msg,
+    });
   }
 };
 
 export const deleteMentor = (id) => {
-  console.log(id);
   return async (dispatch) => {
     try {
-      const response = await privateClient.delete(
-        `admin/mentors/${id}/delete`
-      );
+      const response = await privateClient.delete(`admin/mentors/${id}/delete`);
       dispatch({
         type: DELETE_MENTOR_SUCCESS,
         payload: response.data,
       });
-      console.log(response);
     } catch (error) {
       dispatch({
         type: DELETE_MENTOR_FAILURE,
@@ -147,26 +129,19 @@ export const deleteMentor = (id) => {
   };
 };
 
-// export const deleteMentor = (id) => async (dispatch) => {
-//   dispatch(mentorRequest(DELETE_MENTOR_REQUEST));
-//   try {
-//     const response = await privateClient.delete(
-//       `admin/mentors/mentor/${id}/delete`
-//     );
-//     dispatch(mentorSuccess(DELETE_MENTOR_SUCCESS, response.data));
-//   } catch (error) {
-//     dispatch(mentorFailure(DELETE_MENTOR_FAILURE, error.message));
-//   }
-// };
 
-export const changeMentorPassword = (id, newPassword) => async (dispatch) => {
-  dispatch(mentorRequest(CHANGE_MENTOR_PASSWORD_REQUEST));
+export const fetchMentorById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_MENTOR_BY_ID_REQUEST });
   try {
-    const response = await privateClient.put(`admin/mentors/${id}/password`, {
-      password: newPassword,
+    const response = await privateClient.get(`admin/mentors/id/${id}`);
+    dispatch({
+      type: FETCH_MENTOR_BY_ID_SUCCESS,
+      payload: response.data,
     });
-    dispatch(mentorSuccess(CHANGE_MENTOR_PASSWORD_SUCCESS, response.data));
   } catch (error) {
-    dispatch(mentorFailure(CHANGE_MENTOR_PASSWORD_FAILURE, error.message));
+    dispatch({
+      type: FETCH_MENTOR_BY_ID_FAILURE,
+      payload: error.response.data.msg,
+    });
   }
 };

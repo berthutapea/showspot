@@ -18,19 +18,14 @@ const ITEMS_PER_PAGE = 4;
 const MentorsData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
   const dispatch = useDispatch();
   const { mentorsDataMaster } = useSelector((state) => state.mentorsDataMaster);
 
   const filteredDataMentors = Array.isArray(mentorsDataMaster)
     ? mentorsDataMaster.filter((mentor) => {
-        const { fullname, status } = mentor;
-        const keyword = searchKeyword.toLowerCase();
-        const statusKeyword = filterStatus.toLowerCase();
-        return (
-          fullname.toLowerCase().includes(keyword) &&
-          (filterStatus === '' || status.toLowerCase() === statusKeyword)
-        );
+        const { fullname } = mentor;
+        const keyword = searchKeyword ? searchKeyword.toLowerCase() : '';
+        return fullname && fullname.toLowerCase().includes(keyword);
       })
     : [];
 
@@ -55,27 +50,26 @@ const MentorsData = () => {
 
   const onDeleteMentor = (id) => {
     Swal.fire({
-      title: 'Konfirmasi',
-      text: 'Apakah Anda yakin ingin Menghapus?',
+      title: 'Confirmation',
+      text: 'Are you sure you want to Delete?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Ya',
-      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
       reverseButtons: true,
     }).then((result) => {
       console.log(result);
       if (result.isConfirmed) {
         dispatch(deleteMentor(id)).then(() => {
           Swal.fire({
-            title: 'Berhasil',
-            text: 'Data pegawai berhasil dihapus.',
+            title: 'Success',
+            text: 'Mentor data has been successfully deleted.',
             icon: 'success',
             timer: 1000,
             timerProgressBar: true,
             showConfirmButton: false,
           });
           dispatch(fetchMentors());
-          
         });
       }
     });
@@ -146,7 +140,7 @@ const MentorsData = () => {
               {filteredDataMentors
                 .slice(startIndex, endIndex)
                 .map((mentor, index) => (
-                  <tr key={mentor.id}>
+                  <tr key={mentor.mentor_id}>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white text-center">
                         {startIndex + index + 1}
@@ -186,7 +180,9 @@ const MentorsData = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <Link to={'/admin/mentors-data/edit'}>
+                        <Link
+                          to={`/admin/mentors-data/edit/${mentor.mentor_id}`}
+                        >
                           <button className="hover:text-black">
                             <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                           </button>
