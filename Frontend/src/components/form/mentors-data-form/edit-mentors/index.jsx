@@ -110,7 +110,6 @@ const EditMentors = () => {
                     </label>
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      placeholder="Enter full name"
                       type="text"
                       id="fullname"
                       name="fullname"
@@ -220,7 +219,7 @@ const EditMentors = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-20">
+                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
                   <div>
                     <OneButton>
                       <span>Update</span>
