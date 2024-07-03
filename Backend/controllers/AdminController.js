@@ -164,9 +164,23 @@ class AdminController extends Controller {
       const updatedData = req.body;
       const filename = req.file === undefined ?  0 : req.file.filename;
       const mentor = await this.loadModel(this.mentorModel);
+      const classTypeModel = await this.loadModel(this.classTypeModel);
+      const groupTypeModel = await this.loadModel(this.groupTypeModel);
       const result = await mentor.updateData(mentorId, updatedData, filename);
-      if (result.length > 0) {
-        this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`, 1);
+      const classTypeName = await classTypeModel.findClassTypeById(result.class_type_id);
+      const groupTypeName = await groupTypeModel.findGroupTypeById(result.group_type_id);
+      const responseData = {
+        mentor_id: result.mentor_id,
+        fullname: result.fullname,
+        username: result.username,
+        campus: result.campus,
+        major: result.major,
+        class_type: classTypeName,
+        group_type: groupTypeName,
+        photo_profile: result.photo_profile
+      }
+      if (Object.keys(responseData).length > 0) {
+        this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`, 1, responseData);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -192,11 +206,11 @@ class AdminController extends Controller {
 
   async changePasswordMentor(req, res) {
     try {
-      const myId = req.params.id;
+      const mentorId = req.params.id;
       const newPassword = req.body;
-      const admin = await this.loadModel(this.BaseModel);
-      const result = await admin.changePassword(myId, newPassword);
-      if (result.length > 0) {
+      const mentor = await this.loadModel(this.mentorModel);
+      const result = await mentor.changePasswordMentor(mentorId, newPassword);
+      if (result > 0) {
         this.responseHandler.success(res, 'Password Changed');
       } else {
         this.responseHandler.badRequest(res);
