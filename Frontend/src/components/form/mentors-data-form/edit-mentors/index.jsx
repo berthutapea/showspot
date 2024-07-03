@@ -14,8 +14,9 @@ import {
 const EditMentors = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const navigate = useNavigate();
+  const isOptionVisible = true;
 
   const { mentorsDataMaster } = useSelector((state) => state.mentorsDataMaster);
 
@@ -29,6 +30,7 @@ const EditMentors = () => {
 
   const handleImageUpload = (e) => {
     const selectedFile = e.target.files[0];
+    console.log(selectedFile.name);
     if (selectedFile) {
       setPreview(URL.createObjectURL(selectedFile));
     }
@@ -45,22 +47,25 @@ const EditMentors = () => {
     formData.append('group_type_id', group_type_id);
     formData.append('class_type_id', class_type_id);
 
+    console.log(formData);
     dispatch(updateMentor(id, formData, navigate));
   };
 
   useEffect(() => {
     dispatch(fetchMentorById(id));
   }, [dispatch, id]);
+  // console.log(fetchMentorById(id));
 
   useEffect(() => {
+    // console.log(mentorsDataMaster.data.fullname);
     if (mentorsDataMaster) {
+      setPreview(mentorsDataMaster.photo_profile);
       setFullname(mentorsDataMaster.fullname);
-      setFullname(mentorsDataMaster.username);
       setUsername(mentorsDataMaster.username);
       setCampus(mentorsDataMaster.campus);
       setMajor(mentorsDataMaster.major);
-      setGroupTypeId(mentorsDataMaster.group_type_id);
-      setClassTypeId(mentorsDataMaster.class_type_id);
+      setGroupTypeId(mentorsDataMaster.group_type);
+      setClassTypeId(mentorsDataMaster.class_type);
     }
   }, [mentorsDataMaster]);
 
@@ -86,7 +91,7 @@ const EditMentors = () => {
                           Your Foto
                         </label>
                         <img
-                          src={preview || mentorsDataMaster?.profile_image}
+                          src={preview || mentorsDataMaster.data?.photo_profile}
                           alt="User"
                           className="rounded h-25 w-25 object-cover"
                         />
@@ -175,14 +180,14 @@ const EditMentors = () => {
                         className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
                         id="group_type_id"
                         name="group_type_id"
-                        value={group_type_id}
+                        // value={group_type_id}
                         onChange={(e) => setGroupTypeId(e.target.value)}
                         required={true}
                       >
                         <option value="" disabled={true}>
                           Please Select
                         </option>
-                        <option value="1">Mobile</option>
+                        {isOptionVisible && <option value="1">Mobile</option>}
                         <option value="2">Web A</option>
                         <option value="3">Web B</option>
                         <option value="4">Web C</option>
@@ -201,14 +206,14 @@ const EditMentors = () => {
                         className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
                         id="class_type_id"
                         name="class_type_id"
-                        value={class_type_id}
+                        // value={class_type_id}
                         onChange={(e) => setClassTypeId(e.target.value)}
                         required={true}
                       >
                         <option value="" disabled={true}>
                           Please Select
                         </option>
-                        <option value="1">Morning</option>
+                        {isOptionVisible && <option value="1">Morning</option>}
                         <option value="2">Afternoon</option>
                         <option value="3">Night</option>
                       </select>

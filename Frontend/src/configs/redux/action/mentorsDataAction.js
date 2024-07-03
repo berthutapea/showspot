@@ -53,6 +53,7 @@ export const fetchMentors = () => async (dispatch) => {
     dispatch(mentorSuccess(FETCH_MENTORS_SUCCESS, response.data));
   } catch (error) {
     dispatch(mentorFailure(FETCH_MENTORS_FAILURE, error.message));
+    console.log(error.message);
   }
 };
 
@@ -129,19 +130,19 @@ export const deleteMentor = (id) => {
   };
 };
 
-
 export const fetchMentorById = (id) => async (dispatch) => {
   dispatch({ type: FETCH_MENTOR_BY_ID_REQUEST });
   try {
     const response = await privateClient.get(`admin/mentors/id/${id}`);
     dispatch({
       type: FETCH_MENTOR_BY_ID_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
+    // console.log(response.data);
   } catch (error) {
     dispatch({
       type: FETCH_MENTOR_BY_ID_FAILURE,
-      payload: error.response.data.msg,
+      payload: error.response.data,
     });
   }
 };

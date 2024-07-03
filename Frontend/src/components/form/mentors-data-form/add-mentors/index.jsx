@@ -298,11 +298,11 @@ const AddMentors = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <div>
+                  {/* <div> */}
                     <OneButton>
                       <span>Save</span>
                     </OneButton>
-                  </div>
+                  {/* </div> */}
                   <Link to="/admin/mentors-data">
                     <ThreeButton>
                       <span>Back</span>
