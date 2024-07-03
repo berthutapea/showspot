@@ -67,7 +67,7 @@ const mentorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        mentor: action.payload,
+        mentorsDataMaster: action.payload,
         error: null,
       };
 
