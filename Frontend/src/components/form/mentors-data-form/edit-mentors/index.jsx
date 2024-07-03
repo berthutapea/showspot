@@ -1,41 +1,101 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import LayoutAdmin from '../../../../layout/layout-admin';
-import SamariaProfile from '../../../../assets/images//samaria-sianturi-image.jpeg';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import {
+  fetchMentorById,
+  updateMentor,
+} from '../../../../configs/redux/action/mentorsDataAction';
 
 const EditMentors = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  console.log(id);
+  const navigate = useNavigate();
+
+  const { mentorsDataMaster } = useSelector((state) => state.mentorsDataMaster);
+
+  const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('');
+  const [campus, setCampus] = useState('');
+  const [major, setMajor] = useState('');
+  const [group_type_id, setGroupTypeId] = useState('');
+  const [class_type_id, setClassTypeId] = useState('');
+  const [preview, setPreview] = useState('');
+
+  const handleImageUpload = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setPreview(URL.createObjectURL(selectedFile));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('profile_image', File);
+    formData.append('fullname', fullname);
+    formData.append('username', username);
+    formData.append('campus', campus);
+    formData.append('major', major);
+    formData.append('group_type_id', group_type_id);
+    formData.append('class_type_id', class_type_id);
+
+    dispatch(updateMentor(id, formData, navigate));
+  };
+
+  useEffect(() => {
+    dispatch(fetchMentorById(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (mentorsDataMaster) {
+      setFullname(mentorsDataMaster.fullname);
+      setFullname(mentorsDataMaster.username);
+      setUsername(mentorsDataMaster.username);
+      setCampus(mentorsDataMaster.campus);
+      setMajor(mentorsDataMaster.major);
+      setGroupTypeId(mentorsDataMaster.group_type_id);
+      setClassTypeId(mentorsDataMaster.class_type_id);
+    }
+  }, [mentorsDataMaster]);
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="Edit Mentors" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
-          {/* <!-- Edit Mentors --> */}
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="border-b border-stroke py-4 px-6.5">
               <h3 className="font-medium text-black">
                 Personal Information Mentors
               </h3>
             </div>
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div className="p-6.5">
-                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                <div className="mb-10 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <div className="flex items-center gap-6">
-                      <div className="h-25 w-25 rounded-full">
+                      <div className="h-30 w-30 rounded-full">
                         <label className="mb-2 block text-sm font-medium text-black">
                           Your Foto
                         </label>
-                        <img src={SamariaProfile} alt="User" />
+                        <img
+                          src={preview || mentorsDataMaster?.profile_image}
+                          alt="User"
+                          className="rounded h-25 w-25 object-cover"
+                        />
                       </div>
                       <div>
                         <input
                           type="file"
                           className="w-full transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:py-1 file:px-2.5 file:text-sm file:font-medium  file:mb-4"
+                          onChange={handleImageUpload}
                         />
                         <p className="flex text-sm">
                           Your profile picture should have a 1:1 ratio and is no
@@ -44,18 +104,19 @@ const EditMentors = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
                       Full Name <span className="text-meta-1">*</span>
                     </label>
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      name="fullName"
-                      id="fullName"
                       placeholder="Enter full name"
-                      defaultValue="Sumiati Samaria Sianturi"
+                      type="text"
+                      id="fullname"
+                      name="fullname"
+                      value={fullname}
+                      onChange={(e) => setFullname(e.target.value)}
+                      required={true}
                     />
                   </div>
                 </div>
@@ -63,15 +124,30 @@ const EditMentors = () => {
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
+                      Username <span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      id="username"
+                      name="username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required={true}
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2.5 block text-black">
                       Campus <span className="text-meta-1">*</span>
                     </label>
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
-                      placeholder="Enter campus"
-                      defaultValue="Politeknik Negeri Batam"
+                      id="campus"
+                      name="campus"
+                      value={campus}
+                      onChange={(e) => setCampus(e.target.value)}
+                      required={true}
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
@@ -81,10 +157,11 @@ const EditMentors = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="fullName"
-                      id="fullName"
-                      placeholder="Enter major"
-                      defaultValue="Teknik Informatika"
+                      id="major"
+                      name="major"
+                      value={major}
+                      onChange={(e) => setMajor(e.target.value)}
+                      required={true}
                     />
                   </div>
                 </div>
@@ -95,12 +172,21 @@ const EditMentors = () => {
                       Groups Type <span className="text-meta-1">*</span>
                     </label>
                     <div className="relative z-20 bg-transparent">
-                      <select className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none">
-                        <option value="">Please Select</option>
-                        <option value="">Mobile</option>
-                        <option value="">Web A</option>
-                        <option value="">Web B</option>
-                        <option value="">Web C</option>
+                      <select
+                        className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
+                        id="group_type_id"
+                        name="group_type_id"
+                        value={group_type_id}
+                        onChange={(e) => setGroupTypeId(e.target.value)}
+                        required={true}
+                      >
+                        <option value="" disabled={true}>
+                          Please Select
+                        </option>
+                        <option value="1">Mobile</option>
+                        <option value="2">Web A</option>
+                        <option value="3">Web B</option>
+                        <option value="4">Web C</option>
                       </select>
                       <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
                         <MdOutlineKeyboardArrowDown />
@@ -112,39 +198,34 @@ const EditMentors = () => {
                       Class Type <span className="text-meta-1">*</span>
                     </label>
                     <div className="relative z-20 bg-transparent">
-                      <select className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none">
-                        <option value="">Please Select</option>
-                        <option value="">Morning</option>
-                        <option value="">Afternoon</option>
-                        <option value="">Night</option>
+                      <select
+                        className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
+                        id="class_type_id"
+                        name="class_type_id"
+                        value={class_type_id}
+                        onChange={(e) => setClassTypeId(e.target.value)}
+                        required={true}
+                      >
+                        <option value="" disabled={true}>
+                          Please Select
+                        </option>
+                        <option value="1">Morning</option>
+                        <option value="2">Afternoon</option>
+                        <option value="3">Night</option>
                       </select>
                       <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
                         <MdOutlineKeyboardArrowDown />
                       </span>
                     </div>
                   </div>
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Username <span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      name="username"
-                      id="username"
-                      placeholder="Enter username"
-                      defaultValue="sumiati88"
-                    />
-                  </div>
                 </div>
-                {/* <!-- Edit Mentors --> */}
 
-                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <Link to="/admin/mentors-data/edit">
+                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-20">
+                  <div>
                     <OneButton>
                       <span>Update</span>
                     </OneButton>
-                  </Link>
+                  </div>
                   <Link to="/admin/mentors-data">
                     <ThreeButton>
                       <span>Back</span>

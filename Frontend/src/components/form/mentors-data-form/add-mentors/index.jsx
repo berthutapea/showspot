@@ -7,6 +7,7 @@ import LayoutAdmin from '../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import Swal from 'sweetalert2';
 import { createMentor } from '../../../../configs/redux/action/mentorsDataAction';
 
 const AddMentors = () => {
@@ -67,7 +68,40 @@ const AddMentors = () => {
     newFormData.append('major', major);
     newFormData.append('group_type_id', group_type_id);
     newFormData.append('class_type_id', class_type_id);
-    dispatch(createMentor(newFormData, navigate));
+    dispatch(createMentor(newFormData, navigate))
+      .then((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil',
+          text: response.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        if (error.response && error.response.data && error.response.data.msg) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: error.response.data.msg,
+            confirmButtonText: 'Ok',
+          });
+        } else if (error.message) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: error.message,
+            confirmButtonText: 'Ok',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: 'Terjadi kesalahan',
+            confirmButtonText: 'Ok',
+          });
+        }
+      });
   };
 
   const handleChange = (e) => {
@@ -264,9 +298,11 @@ const AddMentors = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <OneButton>
-                    <span>Save</span>
-                  </OneButton>
+                  <div>
+                    <OneButton>
+                      <span>Save</span>
+                    </OneButton>
+                  </div>
                   <Link to="/admin/mentors-data">
                     <ThreeButton>
                       <span>Back</span>

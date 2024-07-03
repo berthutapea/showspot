@@ -41,7 +41,6 @@ import ProfileStudentsEdit from '../../components/profile/profile-students';
 import ChangePasswordStudents from '../../pages/dashboard/students/settings/change-password';
 import UploadsShowcaseProjects from '../../components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 import MainLayout from '../../layout/main-layout';
-import ProtectedRoute from '../../components/protected-route';
 
 const AppRoutes = () => {
   return (
@@ -93,7 +92,7 @@ const AppRoutes = () => {
       <Route path="/admin/dashboard" element={<DashboardAdmin />} />
       <Route path="/admin/mentors-data" element={<MentorsData />} />
       <Route path="/admin/mentors-data/add" element={<AddMentors />} />
-      <Route path="/admin/mentors-data/edit" element={<EditMentors />} />
+      <Route path="/admin/mentors-data/edit/:id" element={<EditMentors />} />
       <Route path="/admin/students-data" element={<StudentsData />} />
       <Route path="/admin/students-data/add" element={<AddStudents />} />
       <Route path="/admin/students-data/edit" element={<EditStudents />} />
