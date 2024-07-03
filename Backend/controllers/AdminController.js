@@ -176,8 +176,10 @@ class AdminController extends Controller {
         campus: result.campus,
         major: result.major,
         class_type: classTypeName,
+        class_type_id: result.class_type_id,
         group_type: groupTypeName,
-        photo_profile: result.photo_profile
+        group_type_id: result.group_type_id,
+        profile_image: result.photo_profile
       }
       if (Object.keys(responseData).length > 0) {
         this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`, 1, responseData);
