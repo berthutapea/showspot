@@ -1,6 +1,8 @@
 const { Model } = require('../core/Model');
 const { HashingService } = require('../services/HashingService');
 const config = require('../config/configuration');
+const ClassTypeModel = require('./ClassTypeModel');
+const GroupTypeModel = require('./GroupTypeModel');
 
 class StudentModel extends Model {
   constructor() {
@@ -18,18 +20,22 @@ class StudentModel extends Model {
 
 async getAllStudentsData() {
   const datas = await this.findAll('all');
-  const students = await datas.map((data) => {
-    return {
-      [this.studentId]: data.student_id,
-      [this.fullname]: data.fullname,
-      [this.campus]: data.campus,
-      [this.major]: data.major,
-      [this.groupTypeId]: data.group_type_id,
-      [this.classTypeId]: data.class_type_id,
-      [this.photoProfile]: data.photo_profile,
-    };
-  });
-  return students;
+  const classTypeModel = new ClassTypeModel;
+  const groupTypeModel = new GroupTypeModel;
+  const results = await Promise.all(datas.map(async (student) => {
+      const classTypeName = await classTypeModel.findClassTypeById(student.class_type_id);
+      const groupTypeName = await groupTypeModel.findGroupTypeById(student.group_type_id);
+      return {
+        student_id: student.mentor_id,
+        photo_profile: student.photo_profile,
+        fullname: student.fullname,
+        campus: student.campus,
+        major: student.major,
+        group_type: groupTypeName,
+        class_type: classTypeName,
+      };
+    }));
+  return results;
 }
 
   async insertDataStudent(datas, filename) {

@@ -46,9 +46,11 @@ class MentorModel extends Model {
         datas = {
             [this.mentorId]: mentor.mentor_id,
             [this.fullname]: mentor.fullname,
+            [this.username]: mentor.username,
             [this.campus]: mentor.campus,
             [this.major]: mentor.major,
             [this.groupTypeId]: mentor.group_type_id,
+            [this.classTypeId]: mentor.class_type_id,
             [this.photoProfile]: mentor.photo_profile,
         }
       } else {
@@ -67,6 +69,7 @@ class MentorModel extends Model {
         datas = {
             [this.mentorId]: mentor.mentor_id,
             [this.fullname]: mentor.fullname,
+            [this.username]: mentor.username,
             [this.campus]: mentor.campus,
             [this.major]: mentor.major,
             [this.groupTypeId]: mentor.group_type_id,
@@ -83,6 +86,8 @@ class MentorModel extends Model {
     const param = {
       [this.mentorId]: id,
     };
+
+    let result;
     if (filename === null || filename === 0 || filename === '' || filename === undefined) {
         const data = {
           [this.fullname] : datas.fullname,
@@ -92,7 +97,7 @@ class MentorModel extends Model {
           [this.groupTypeId] : datas.group_type_id,
           [this.classTypeId] : datas.class_type_id,
         }
-        return await this.update(param, data);
+        result = await this.update(param, data);
     } else {
         const filePath = `${config.api.base_url}api/images/${filename}`;
         const data = {
@@ -104,9 +109,12 @@ class MentorModel extends Model {
           [this.classTypeId] : datas.class_type_id,
           [this.photoProfile] : filePath,
         }
-        return await this.update(param, data);
+        result = await this.update(param, data);
     }
-    return false;
+    if (result > 0) {
+      return await this.findByMentorId(id);
+    }
+    // return false;
   }
 
   async deleteData(id) {
@@ -117,11 +125,11 @@ class MentorModel extends Model {
   }
 
   async changePasswordMentor(id, datas) {
+    console.log(id)
     const hashingService = new HashingService();
     const param = {
       [this.mentorId]: id
     }
-
     const hashedPassword = await hashingService.generateHash(datas.password);
     const newData = {
       [this.password]: hashedPassword
