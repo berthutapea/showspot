@@ -157,7 +157,7 @@ class AdminController extends Controller {
       this.responseHandler.serverError(res, error);
     }
   }
-
+  //
   async updateDataMentor(req, res) {
     try {
       const mentorId = req.params.id;
