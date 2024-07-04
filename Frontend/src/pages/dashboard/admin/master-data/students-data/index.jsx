@@ -1,42 +1,83 @@
-import { useState, useEffect } from 'react';
-import DataShowSpot from '../../../../../utils/DataShowSpot';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaRegEdit, FaPlus } from 'react-icons/fa';
 import { BsTrash3 } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 import { BiSearch } from 'react-icons/bi';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
+import { deleteStudent, fetchStudents } from '../../../../../configs/redux/action/studentsDataAction';
+
 
 const ITEMS_PER_PAGE = 4;
 
 const StudentsData = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
-  const [dataPegawai, setDataPegawai] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const dispatch = useDispatch();
+  const { studentsDataMaster } = useSelector(
+    (state) => state.studentsDataMaster
+  );
 
-  const totalPages = Math.ceil(DataShowSpot.length / ITEMS_PER_PAGE);
+  const filteredDataStudents = Array.isArray(studentsDataMaster)
+    ? studentsDataMaster.filter((student) => {
+        const { fullname } = student;
+        const keyword = searchKeyword ? searchKeyword.toLowerCase() : '';
+        return fullname && fullname.toLowerCase().includes(keyword);
+      })
+    : [];
 
-  useEffect(() => {
-    setDataPegawai(DataShowSpot.slice(startIndex, endIndex));
-  }, [startIndex, endIndex]);
+  const totalPages = Math.ceil(filteredDataStudents.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(
+    startIndex + ITEMS_PER_PAGE,
+    filteredDataStudents.length
+  );
 
   const goToPrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
-      setStartIndex((prev) => prev - ITEMS_PER_PAGE);
-      setEndIndex((prev) => prev - ITEMS_PER_PAGE);
     }
   };
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
-      setStartIndex((prev) => prev + ITEMS_PER_PAGE);
-      setEndIndex((prev) => prev + ITEMS_PER_PAGE);
     }
   };
+
+  const onDeleteStudent = (id) => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to Delete?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      console.log(result.isConfirmed);
+      if (result.isConfirmed) {
+        dispatch(deleteStudent(id)).then(() => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Students data has been successfully deleted.',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          });
+          dispatch(fetchStudents());
+        });
+      }
+    });
+  };
+
+  useEffect(() => {
+    dispatch(fetchStudents());
+  }, [dispatch]);
 
   return (
     <LayoutAdmin>
@@ -54,7 +95,9 @@ const StudentsData = () => {
           <div className="relative flex-2 mb-4 md:mb-0">
             <input
               type="text"
-              placeholder="Type to search name.."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              placeholder="Search name.."
               className="rounded-lg border-[1.5px] border-stroke bg-transparent py-2 pl-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary left-0"
             />
             <span className="absolute left-2 py-3 text-xl">
@@ -94,9 +137,10 @@ const StudentsData = () => {
               </tr>
             </thead>
             <tbody>
-              {dataPegawai.map((dataPegawai, index) => {
-                return (
-                  <tr key={dataPegawai.id}>
+              {filteredDataStudents
+                .slice(startIndex, endIndex)
+                .map((student, index) => (
+                  <tr key={student.studentid}>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white text-center">
                         {startIndex + index + 1}
@@ -105,50 +149,59 @@ const StudentsData = () => {
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark">
                       <div className="h-12.5 w-15">
                         <div className="rounded-full overflow-hidden">
-                          {dataPegawai.photo}
+                          <img src={student.photo_profile} alt="Photo Profil" />
                         </div>
                       </div>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {dataPegawai.namaPegawai}
+                        {student.fullname}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {dataPegawai.jenisKelamin}
+                        {student.campus}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {dataPegawai.tanggalMasuk}
+                        {student.major}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {dataPegawai.status}
+                        {student.group_type}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {dataPegawai.hakAkses}
+                        {student.class_type}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <Link to={'/admin/students-data/edit'}>
+                        <Link
+                          to={`/admin/students-data/edit/${student.student_id}`}
+                        >
                           <button className="hover:text-black">
                             <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                           </button>
                         </Link>
-                        <button className="hover:text-black">
+                        <button
+                          onClick={() => {
+                              console.log(
+                                `Deleting mentor with ID: ${student.student_id}`
+                              );
+                            onDeleteStudent(student.student_id);
+                          }}
+                          className="hover:text-black"
+                        >
                           <BsTrash3 className="text-danger text-xl hover:text-black dark:hover:text-white" />
                         </button>
                       </div>
                     </td>
                   </tr>
-                );
-              })}
+                ))}
             </tbody>
           </table>
         </div>
@@ -156,72 +209,35 @@ const StudentsData = () => {
         <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-              Showing {startIndex}-{endIndex} of {DataShowSpot.length} Students
-              Data
+              Showing {startIndex + 1}-{endIndex} of{' '}
+              {filteredDataStudents.length} Students Data
             </span>
           </div>
           <div className="flex space-x-2 py-4">
             <button
               disabled={currentPage === 1}
               onClick={goToPrevPage}
-              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary dark:hover:text-white disabled:opacity-50"
+              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
             >
               Prev
             </button>
-            {[...Array(Math.min(totalPages, 5))].map((_, i) => {
-              const page = i + 1;
-              if (page === currentPage) {
-                return (
-                  <div
-                    key={i}
-                    className="py-2 px-4 rounded-lg border border-primary bg-primary text-white font-semibold hover:bg-primary dark:text-white dark:bg-primary dark:hover:bg-primary"
-                  >
-                    {page}
-                  </div>
-                );
-              } else if (page === 2 && currentPage > 4) {
-                return (
-                  <p
-                    key={i}
-                    className="py-2 px-4 border border-gray-2 dark:bg-transparent text-black font-medium bg-gray dark:border-strokedark dark:text-white"
-                  >
-                    ...
-                  </p>
-                );
-              } else if (
-                page === totalPages - 1 &&
-                currentPage < totalPages - 3
-              ) {
-                return (
-                  <p
-                    key={i}
-                    className="py-2 px-4 border border-gray-2 dark:bg-transparent text-black font-medium bg-gray dark:border-strokedark dark:text-white"
-                  >
-                    ...
-                  </p>
-                );
-              } else if (
-                page === 1 ||
-                page === totalPages ||
-                (page >= currentPage - 1 && page <= currentPage + 1)
-              ) {
-                return (
-                  <div
-                    key={i}
-                    className="py-2 px-4 rounded-lg border border-gray-2 text-black dark:bg-transparent bg-gray font-medium dark:border-strokedark dark:text-white"
-                  >
-                    {page}
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`py-2 px-4 rounded-lg border ${
+                  currentPage === i + 1
+                    ? 'bg-primary text-white border-primary'
+                    : 'border-gray-2 text-black dark:text-white dark:border-strokedark'
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
             <button
               disabled={currentPage === totalPages}
               onClick={goToNextPage}
-              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary dark:hover:text-white disabled:opacity-50"
+              className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
             >
               Next
             </button>

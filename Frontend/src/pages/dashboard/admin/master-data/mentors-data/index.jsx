@@ -58,7 +58,6 @@ const MentorsData = () => {
       cancelButtonText: 'No',
       reverseButtons: true,
     }).then((result) => {
-      console.log(result);
       if (result.isConfirmed) {
         dispatch(deleteMentor(id)).then(() => {
           Swal.fire({
@@ -189,9 +188,6 @@ const MentorsData = () => {
                         </Link>
                         <button
                           onClick={() => {
-                            console.log(
-                              `Deleting mentor with ID: ${mentor.mentor_id}`
-                            );
                             onDeleteMentor(mentor.mentor_id);
                           }}
                           className="hover:text-black"
