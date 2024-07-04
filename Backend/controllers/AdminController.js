@@ -371,8 +371,9 @@ class AdminController extends Controller {
     try {
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
+      const datas = sopProject[0];
       if (Object.keys(sopProject)) {
-        this.responseHandler.success(res, 'Data Found', 1, sopProject);
+        this.responseHandler.success(res, 'Data Found', 1, datas);
       } else {
         this.responseHandler.badRequest(res);
       }
