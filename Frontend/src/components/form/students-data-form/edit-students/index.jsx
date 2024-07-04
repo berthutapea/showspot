@@ -77,6 +77,7 @@ const EditStudents = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    console.log(studentsDataMaster);
     if (studentsDataMaster) {
       setFullname(studentsDataMaster.fullname);
       setFullname(studentsDataMaster.username);
@@ -110,7 +111,7 @@ const EditStudents = () => {
                           Your Foto
                         </label>
                         <img
-                          src={preview || studentsDataMaster?.profile_image}
+                          src={preview || studentsDataMaster?.photo_profile}
                           alt="User"
                           className="rounded h-25 w-25 object-cover"
                         />

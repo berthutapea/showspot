@@ -5,18 +5,22 @@ import {
   ContentState,
   convertFromHTML,
   EditorState,
-  convertToRaw,
 } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import { stateToHTML } from 'draft-js-export-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
 import LayoutAdmin from '../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSopProject } from '../../../../configs/redux/action/sopProjectsAction';
 
 export default function AddSop() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.sopProjectReducer);
+  const error = useSelector((state) => state.sopProjectReducer);
 
   const [form, setForm] = useState({
     title: '',
@@ -36,10 +40,12 @@ export default function AddSop() {
   };
 
   const handleSave = () => {
+    console.log(form);
     const { title } = form;
-    const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
-    // addNote({ title, body });
-    navigate('/');
+    const body = stateToHTML(form.body.getCurrentContent());
+    dispatch(addSopProject({ title, body })).then(() => {
+      navigate('/admin/sop-projects');
+    });
   };
 
   return (
@@ -50,7 +56,7 @@ export default function AddSop() {
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="border-b border-stroke py-4 px-6.5">
               <h3 className="font-medium text-black">
-                Please fill in to add sop
+                Please fill in to add SOP
               </h3>
             </div>
             <div className="max-w-4xl mx-auto p-6">
@@ -68,7 +74,7 @@ export default function AddSop() {
               <label className="mb-2.5 block text-black">
                 Content <span className="text-meta-1">*</span>
               </label>
-              <div className="border rounded-md p-2 ">
+              <div className="border rounded-md p-2">
                 <Editor
                   editorState={form.body}
                   toolbarClassName="toolbarClassName"
@@ -77,12 +83,13 @@ export default function AddSop() {
                   onEditorStateChange={onEditorStateChange}
                 />
               </div>
+              {error && (
+                <p className="text-red-500 text-xs italic mt-4">{error}</p>
+              )}
               <div className="flex flex-col md:flex-row w-full gap-3 text-center py-10">
-                <Link to="/admin/sop-projects/add">
-                  <OneButton>
-                    <span>Save</span>
-                  </OneButton>
-                </Link>
+                <OneButton onClick={handleSave} disabled={loading}>
+                  <span>{loading ? 'Saving...' : 'Save'}</span>
+                </OneButton>
                 <Link to="/admin/sop-projects">
                   <ThreeButton>
                     <span>Back</span>
