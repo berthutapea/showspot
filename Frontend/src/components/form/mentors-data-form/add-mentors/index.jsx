@@ -75,6 +75,7 @@ const AddMentors = () => {
           title: 'Berhasil',
           text: response.message,
           showConfirmButton: false,
+          timerProgressBar: true,
           timer: 1500,
         });
       })

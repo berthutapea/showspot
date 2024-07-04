@@ -6,6 +6,7 @@ import LayoutAdmin from '../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
 import ThreeButton from '../../../buttons/three-button';
+import Swal from 'sweetalert2';
 import {
   fetchMentorById,
   updateMentor,
@@ -14,7 +15,6 @@ import {
 const EditMentors = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
 
   const { mentorsDataMaster } = useSelector((state) => state.mentorsDataMaster);
@@ -32,14 +32,15 @@ const EditMentors = () => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setPreview(URL.createObjectURL(selectedFile));
-      setFile(selectedFile); 
+      setFile(selectedFile);
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (file) {
-      formData.append('profile_image', file); 
+      formData.append('profile_image', file);
     }
     formData.append('fullname', fullname);
     formData.append('username', username);
@@ -48,7 +49,25 @@ const EditMentors = () => {
     formData.append('group_type_id', group_type_id);
     formData.append('class_type_id', class_type_id);
 
-    dispatch(updateMentor(id, formData, navigate));
+    dispatch(updateMentor(id, formData, navigate))
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          timer: 1000,
+          timerProgressBar: true,
+          text: 'Mentor has been updated successfully.',
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          timer: 1000,
+          timerProgressBar: true,
+          text: 'There was an error updating the mentor.',
+        });
+      });
   };
 
   useEffect(() => {
