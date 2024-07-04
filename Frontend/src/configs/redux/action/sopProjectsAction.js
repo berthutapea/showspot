@@ -22,7 +22,7 @@ export const fetchSopProjects = () => async (dispatch) => {
     const response = await privateClient.get('admin/projects/sop-project');
     dispatch({
       type: FETCH_SOP_PROJECTS_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({ type: FETCH_SOP_PROJECTS_FAILURE });
@@ -52,23 +52,24 @@ export const addSopProject = (newProjectSop) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({ type: ADD_SOP_PROJECTS_FAILURE, payload: error.message });
-    // console.error('Error adding SOP project:', error);
   }
 };
 
-
-
 // // Delete SOP Project
-// export const deleteSopProject = (sopProjectId) => async (dispatch) => {
-//   dispatch({ type: DELETE_SOP_PROJECT_REQUEST });
-//   try {
-//     const response = await privateClient.deleteSopProject(sopProjectId);
-//     dispatch({
-//       type: DELETE_SOP_PROJECT_SUCCESS,
-//       payload: { sopProjectId },
-//     });
-//   } catch (error) {
-//     dispatch({ type: DELETE_SOP_PROJECT_FAILURE });
-//     console.error('Error deleting SOP project:', error);
-//   }
-// };
+export const deleteSopProject = () => async (dispatch) => {
+  dispatch({ type: DELETE_SOP_PROJECT_REQUEST });
+  try {
+    const response = await privateClient.delete('admin/projects/sop-project/delete');
+    dispatch({
+      type: DELETE_SOP_PROJECT_SUCCESS,
+      payload: { response },
+      headers: {
+          'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+          'Content-Type': 'multipart/form-data',
+        },
+    });
+  } catch (error) {
+    dispatch({ type: DELETE_SOP_PROJECT_FAILURE });
+    console.error('Error deleting SOP project:', error);
+  }
+};

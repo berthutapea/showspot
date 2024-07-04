@@ -25,18 +25,20 @@ export default function EditSop() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.sopProjectReducer);
   const error = useSelector((state) => state.sopProjectReducer);
-  const sopProjectsData = useSelector((state) => state.sopProjectsData);
+  const data = useSelector((state) => state.sopProjectsData);
 
-  console.log(sopProjectsData)
-  const [form, setForm] = useState({
-    title: sopProjectsData.sop_project_content,
-    body: EditorState.createWithContent(
-      ContentState.createFromBlockArray(convertFromHTML('dd'))
-    ),
-  });
   useEffect(() => {
     dispatch(fetchSopProjects());
   }, [dispatch]);
+
+  const [form, setForm] = useState({
+    title: data.sopProjectsData.sop_project_title,
+    body: EditorState.createWithContent(
+      ContentState.createFromBlockArray(
+        convertFromHTML(data.sopProjectsData.sop_project_content)
+      )
+    ),
+  });
 
   const handleChange = (e) => {
     setForm((data) => ({ ...data, title: e.target.value }));
@@ -47,7 +49,6 @@ export default function EditSop() {
   };
 
   const handleSave = () => {
-    console.log(form);
     const { title } = form;
     const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
     dispatch(addSopProject({ title, body })).then(() => {
