@@ -65,101 +65,6 @@ class MentorController extends Controller {
     }
   }
 
-  /*=== Mentor Entity ===*/
-  async createDataMentor(req, res) {
-    try {
-      const filename = req.file.filename;
-      const mentor = req.body;
-      const mentorsModel = await this.loadModel(this.mentorModel);
-      const result = await mentorsModel.insertDataMentor(mentor, filename);
-      if (result.affectedRows > 0) {
-        this.responseHandler.success(res, 'Mentor Created');
-      } else {
-        this.responseHandler.badRequest(res);
-      }
-    } catch (error) {
-      this.responseHandler.serverError(res, error);
-    }
-  }
-
-  async getDataMentors(req, res) {
-    try {
-      const mentors = await this.loadModel(this.mentorModel);
-      const results = await mentors.findAll('all');
-
-      if (results) {
-        this.responseHandler.success(res, 'Data Found', 1, results);
-      } else {
-        this.responseHandler.badRequest(res);
-      }
-    } catch (error) {
-      this.responseHandler.serverError(res, error);
-    }
-  }
-
-  async getDataMentorById(req, res) {
-    try {
-      const mentorId = req.params.id;
-      const mentor = await this.loadModel(this.mentorModel);
-      const result = await mentor.findByMentorId(mentorId);
-
-      if (Object.keys(mentor).length > 0) {
-        this.responseHandler.success(res, 'Data Found', 2, result);
-      } else {
-        this.responseHandler.notFound(res);
-      }
-    } catch (error) {
-      this.responseHandler.serverError(res, error);
-    }
-  }
-
-  async getDataMentorByName(req, res) {
-    try {
-      const mentorName = req.params.name;
-      const mentor = await this.loadModel(this.mentorModel);
-      const result = await mentor.findByMentorName(mentorName);
-      if (Object.keys(result).length > 0) {
-        this.responseHandler.success(res, 'Data Found', 1, result);
-      } else {
-        this.responseHandler.notFound(res);
-      }
-    } catch (error) {
-      this.responseHandler.serverError(res, error);
-    }
-  }
-
-  async updateDataMentor(req, res) {
-    try {
-      const mentorId = req.params.id;
-      const updatedData = req.body;
-      const filename = req.file === undefined ?  0 : req.file.filename;
-      const mentor = await this.loadModel(this.mentorModel);
-      const result = await mentor.updateData(mentorId, updatedData, filename);
-      if (result.length > 0) {
-        this.responseHandler.success(res, `Data Mentor with ${mentorId} Updated`, 1);
-      } else {
-        this.responseHandler.badRequest(res);
-      }
-    } catch (error) {
-        this.responseHandler.serverError(res, error);
-    }
-  }
-
-  async deleteDataMentor(req, res) {
-    try {
-      const mentorId = req.params.id;
-      const mentor = await this.loadModel(this.mentorModel);
-      const result = await mentor.deleteData(mentorId);
-      if (result[0].affectedRows > 0) {
-        this.responseHandler.success(res, `Data Deleted`, 1);
-      } else {
-        this.responseHandler.badRequest(res);
-      }
-    } catch (error) {
-      this.responseHandler.serverError(res, error);
-    }
-  }
-
   async changePasswordMentor(req, res) {
     try {
       const myId = req.params.id;
@@ -182,7 +87,7 @@ class MentorController extends Controller {
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
       if (Object.keys(sopProject)) {
-        this.responseHandler.success(res, 'Data Found', 1, sopProject);
+        this.responseHandler.success(res, 'Data Found', 2, sopProject);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -231,7 +136,7 @@ class MentorController extends Controller {
             project: statusProjectData.data
           }
         }
-        this.responseHandler.success(res, `Data Found`, 1, projects);
+        this.responseHandler.success(res, `Data Found`, 2, projects);
       } catch (error) {
         this.responseHandler.serverError(res, error);
       }

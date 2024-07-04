@@ -115,7 +115,7 @@ class StudentController extends Controller {
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
       if (Object.keys(sopProject)) {
-        this.responseHandler.success(res, 'Data Found', 1, sopProject);
+        this.responseHandler.success(res, 'Data Found', 3, sopProject[0]);
       } else {
         this.responseHandler.badRequest(res);
       }
