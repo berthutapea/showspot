@@ -22,49 +22,41 @@ export const fetchSopProjects = () => async (dispatch) => {
     const response = await privateClient.get('admin/projects/sop-project');
     dispatch({
       type: FETCH_SOP_PROJECTS_SUCCESS,
-      payload: response.data.data,
+      payload: response.data,
     });
-    // console.log(response.data.data);
   } catch (error) {
     dispatch({ type: FETCH_SOP_PROJECTS_FAILURE });
-    console.error('Error fetching SOP projects:', error);
   }
 };
 
-export const addSopProject = (newProject) => async (dispatch) => {
+export const addSopProject = (newProjectSop) => async (dispatch) => {
+  const data = {
+    sop_project_content: newProjectSop.body,
+    sop_project_title: newProjectSop.title,
+  };
   dispatch({ type: ADD_SOP_PROJECTS_REQUEST });
   try {
     const response = await privateClient.put(
       'admin/projects/sop-project/add',
-      newProject
+      data,
+      {
+        headers: {
+          'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
     dispatch({
       type: ADD_SOP_PROJECTS_SUCCESS,
       payload: response.data,
     });
-    console.log(response.data);
   } catch (error) {
     dispatch({ type: ADD_SOP_PROJECTS_FAILURE, payload: error.message });
-    console.error('Error adding SOP project:', error);
+    // console.error('Error adding SOP project:', error);
   }
 };
 
-// // Update SOP Project
-// export const updateSopProject =
-//   (sopProjectId, updatedData) => async (dispatch) => {
-//     dispatch({ type: UPDATE_SOP_PROJECT_REQUEST });
-//     try {
-//       const response = await privateClient.updateSopProject(
-//         sopProjectId,updatedData);
-//       dispatch({
-//         type: UPDATE_SOP_PROJECT_SUCCESS,
-//         payload: response.data,
-//       });
-//     } catch (error) {
-//       dispatch({ type: UPDATE_SOP_PROJECT_FAILURE });
-//       console.error('Error updating SOP project:', error);
-//     }
-//   };
+
 
 // // Delete SOP Project
 // export const deleteSopProject = (sopProjectId) => async (dispatch) => {
