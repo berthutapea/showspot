@@ -26,7 +26,7 @@ async getAllStudentsData() {
       const classTypeName = await classTypeModel.findClassTypeById(student.class_type_id);
       const groupTypeName = await groupTypeModel.findGroupTypeById(student.group_type_id);
       return {
-        student_id: student.mentor_id,
+        student_id: student.student_id,
         photo_profile: student.photo_profile,
         fullname: student.fullname,
         campus: student.campus,
