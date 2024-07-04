@@ -28,7 +28,8 @@ class SopProjectModel extends Model {
     const param = {
       [this.sopProjectId]: id,
     };
-      const datas = {
+    const datas = {
+        [this.sopProjectTitle]: data,
         [this.sopProjectContent] : data,
       }
      await this.update(param, datas);
