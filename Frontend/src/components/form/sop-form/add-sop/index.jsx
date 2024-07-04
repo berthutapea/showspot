@@ -41,11 +41,11 @@ export default function AddSop() {
   };
 
   const handleSave = () => {
-    console.log(form.body);
     const { title } = form;
     const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
-
-    console.log(body);
+    dispatch(addSopProject({ title, body })).then(() => {
+      navigate('/admin/sop-projects');
+    });
   };
 
   return (
