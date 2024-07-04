@@ -357,7 +357,7 @@ class AdminController extends Controller {
       const updatedData = req.body;
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const result = await sopProjectModel.updateData(sopProjectId, updatedData);
-      if (result[0].affectedRows > 0) {
+      if (result > 0) {
         this.responseHandler.success(res, `Data SOP Project Added`);
       } else {
         this.responseHandler.badRequest(res);
@@ -388,7 +388,8 @@ class AdminController extends Controller {
       const updatedData = req.body;
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const result = await sopProjectModel.updateData(sopProjectId, updatedData);
-      if (result[0].affectedRows > 0) {
+      console.log(result)
+      if (result > 0) {
         this.responseHandler.success(res, `Data SOP Project Updated`);
       } else {
         this.responseHandler.badRequest(res);
