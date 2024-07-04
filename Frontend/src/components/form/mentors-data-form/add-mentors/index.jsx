@@ -72,32 +72,32 @@ const AddMentors = () => {
       .then((response) => {
         Swal.fire({
           icon: 'success',
-          title: 'Berhasil',
+          title: 'Success',
           text: response.message,
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 1500,
+          timer: 1000,
         });
       })
       .catch((error) => {
         if (error.response && error.response.data && error.response.data.msg) {
           Swal.fire({
             icon: 'error',
-            title: 'Gagal',
+            title: 'Fail',
             text: error.response.data.msg,
             confirmButtonText: 'Ok',
           });
         } else if (error.message) {
           Swal.fire({
             icon: 'error',
-            title: 'Gagal',
+            title: 'Fail',
             text: error.message,
             confirmButtonText: 'Ok',
           });
         } else {
           Swal.fire({
             icon: 'error',
-            title: 'Gagal',
+            title: 'Fail',
             text: 'Terjadi kesalahan',
             confirmButtonText: 'Ok',
           });

@@ -95,7 +95,7 @@ const AppRoutes = () => {
       <Route path="/admin/mentors-data/edit/:id" element={<EditMentors />} />
       <Route path="/admin/students-data" element={<StudentsData />} />
       <Route path="/admin/students-data/add" element={<AddStudents />} />
-      <Route path="/admin/students-data/edit" element={<EditStudents />} />
+      <Route path="/admin/students-data/edit/:id" element={<EditStudents />} />
       <Route path="/admin/sop-projects" element={<SopProjects />} />
       <Route path="/admin/sop-projects/add" element={<AddSop />} />
       <Route path="/admin/sop-projects/edit" element={<EditSop />} />
