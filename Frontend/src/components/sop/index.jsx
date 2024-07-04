@@ -1,5 +1,15 @@
-import React from 'react';
-import { sopData } from '../../utils/sop-data';
+import React, { useEffect } from 'react';
+import { fetchSopProjects } from '../../configs/redux/action/sopProjectsAction';
+import { useDispatch, useSelector } from 'react-redux';
+// import { sopData } from '../../utils/sop-data';
+
+const SOP = () => {
+  const dispatch = useDispatch();
+  const { sopProjectsData } = useSelector((state) => state.sopProjectsData);
+
+  useEffect(() => {
+    dispatch(fetchSopProjects());
+  }, [dispatch]);
 
 const SOPSection = ({ title, children }) => (
   <div className="mb-8 text-accent">
@@ -8,17 +18,18 @@ const SOPSection = ({ title, children }) => (
   </div>
 );
 
-const SOP = () => (
-  <div className="container mx-auto p-6">
-    <h1 className="text-2xl font-bold mb-8 text-center text-accent">
-      STANDAR OPERASIONAL PROSEDUR (SOP) PENGUPLOADAN PROYEK
-    </h1>
-    {sopData.map((section, index) => (
-      <SOPSection key={index} title={section.title}>
-        {section.content}
-      </SOPSection>
-    ))}
-  </div>
-);
+  return (
+    <div className="container mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-8 text-center text-accent">
+        STANDAR OPERASIONAL PROSEDUR (SOP) PENGUPLOADAN PROYEK
+      </h1>
+      {sopProjectsData.map((section, index) => (
+        <SOPSection key={index} title={section.title}>
+          {section.content}
+        </SOPSection>
+      ))}
+    </div>
+  );
+};
 
 export default SOP;

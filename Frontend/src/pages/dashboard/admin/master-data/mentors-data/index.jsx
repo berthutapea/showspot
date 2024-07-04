@@ -183,7 +183,7 @@ const MentorsData = () => {
                           to={`/admin/mentors-data/edit/${mentor.mentor_id}`}
                         >
                           <button className="hover:text-black">
-                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white mt-2" />
                           </button>
                         </Link>
                         <button

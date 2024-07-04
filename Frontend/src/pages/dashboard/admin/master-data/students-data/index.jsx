@@ -184,14 +184,14 @@ const StudentsData = () => {
                           to={`/admin/students-data/edit/${student.student_id}`}
                         >
                           <button className="hover:text-black">
-                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                            <FaRegEdit className="text-meta-5 text-xl hover:text-black dark:hover:text-white mt-2" />
                           </button>
                         </Link>
                         <button
                           onClick={() => {
-                              console.log(
-                                `Deleting mentor with ID: ${student.student_id}`
-                              );
+                            console.log(
+                              `Deleting mentor with ID: ${student.student_id}`
+                            );
                             onDeleteStudent(student.student_id);
                           }}
                           className="hover:text-black"
