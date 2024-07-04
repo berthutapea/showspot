@@ -5,8 +5,9 @@ import {
   ContentState,
   convertFromHTML,
   EditorState,
+  convertToRaw,
 } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
+import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
 import LayoutAdmin from '../../../../layout/layout-admin';
@@ -40,12 +41,11 @@ export default function AddSop() {
   };
 
   const handleSave = () => {
-    console.log(form);
+    console.log(form.body);
     const { title } = form;
-    const body = stateToHTML(form.body.getCurrentContent());
-    dispatch(addSopProject({ title, body })).then(() => {
-      navigate('/admin/sop-projects');
-    });
+    const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
+
+    console.log(body);
   };
 
   return (
@@ -74,7 +74,7 @@ export default function AddSop() {
               <label className="mb-2.5 block text-black">
                 Content <span className="text-meta-1">*</span>
               </label>
-              <div className="border rounded-md p-2">
+              <div className="border rounded-md p-2 ">
                 <Editor
                   editorState={form.body}
                   toolbarClassName="toolbarClassName"
