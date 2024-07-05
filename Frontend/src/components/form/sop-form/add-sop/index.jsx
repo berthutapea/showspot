@@ -10,6 +10,7 @@ import {
 import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
+import Swal from 'sweetalert2';
 import LayoutAdmin from '../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../breadcrumb/breadcrumb-admin';
 import OneButton from '../../../buttons/one-button';
@@ -43,9 +44,23 @@ export default function AddSop() {
   const handleSave = () => {
     const { title } = form;
     const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
-    dispatch(addSopProject({ title, body })).then(() => {
-      navigate('/admin/sop-projects');
-    });
+    dispatch(addSopProject({ title, body }))
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'SOP added successfully!',
+        }).then(() => {
+          navigate('/admin/sop-projects');
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add SOP. Please try again.',
+        });
+      });
   };
 
   return (

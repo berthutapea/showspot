@@ -55,7 +55,6 @@ export const addSopProject = (newProjectSop) => async (dispatch) => {
   }
 };
 
-// // Delete SOP Project
 export const deleteSopProject = () => async (dispatch) => {
   dispatch({ type: DELETE_SOP_PROJECT_REQUEST });
   try {
@@ -70,6 +69,5 @@ export const deleteSopProject = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({ type: DELETE_SOP_PROJECT_FAILURE });
-    console.error('Error deleting SOP project:', error);
   }
 };
