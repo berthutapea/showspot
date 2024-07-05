@@ -1,22 +1,22 @@
-import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import FourButton from '../../../../../components/buttons/four-button';
-// import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfileAdminAction';
+import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfileAdminAction';
 
 const Profile = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const profileAdminData = useSelector(
+    (state) => state.profileAdminData.profileAdminData
+  );
 
-  // const profileAdminData = useSelector((state) => state.profileAdminData);
-  // console.log(profileAdminData);
-
-  // useEffect(() => {
-  //   dispatch(fetchMyProfileAdmin());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchMyProfileAdmin());
+  }, [dispatch]);
 
   return (
     <LayoutAdmin>
@@ -33,7 +33,7 @@ const Profile = () => {
         <div className="md:w-1/3 w-full px-4 py-4 flex justify-center md:justify-start">
           <img
             className="rounded-xl h-80 w-full md:w-80 object-cover"
-            src={SamariaProfile}
+            src={profileAdminData.photo_profile}
             alt="Samaria Sianturi"
           />
         </div>
@@ -42,27 +42,36 @@ const Profile = () => {
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Full Name</span>
               <span className="inline-block w-7">:</span>{' '}
-              {/* {profileAdminData?.data?.admin_id} */}
+              {profileAdminData.fullname}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Campus</span>
               <span className="inline-block w-7">:</span>{' '}
-              <span className="pl-[-10] md:pl-0">Politeknik Negeri Batam</span>
+              <span className="pl-[-10] md:pl-0">
+                {profileAdminData.campus}
+              </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Major</span>
-              <span className="inline-block w-7">:</span> Teknik Informatika
+              <span className="inline-block w-7">:</span>{' '}
+              {profileAdminData.major}
             </h2>
-            <h2 className="font-medium mb-4 block text-black">
+            {/* <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Groups Type</span>
               <span className="inline-block w-7">:</span>
-              <span className="pl-[-8] md:pl-0"> Mobile</span>
+              <span className="pl-[-8] md:pl-0">
+                {''}
+                {profileAdminData.group_type_id}
+              </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Class Type</span>
               <span className="inline-block w-7">:</span>
-              <span className="pl-[-8] md:pl-0"> Morning</span>
-            </h2>
+              <span className="pl-[-8] md:pl-0">
+                {' '}
+                {profileAdminData.class_type_id}
+              </span>
+            </h2> */}
           </div>
         </div>
       </div>
