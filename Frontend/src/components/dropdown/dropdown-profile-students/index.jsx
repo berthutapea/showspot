@@ -1,14 +1,50 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
 import { FiSettings, FiUser } from 'react-icons/fi';
-import SamariaProfile from '../../../assets/images/samaria-sianturi-image.jpeg';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDashboardStudent } from '../../../configs/redux/action/dashboardAction';
+import Swal from 'sweetalert2';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { logoutUser } from '../../../configs/redux/action/authAction';
 
 const DropdownProfileStudents = () => {
+  const { dashboardData } = useSelector((state) => state.dashboardData);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to leave?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logoutUser());
+        Swal.fire({
+          title: 'Logout Successful',
+          text: 'You have successfully exited.',
+          icon: 'success',
+          timer: 1500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate('/login');
+        });
+      }
+    });
+  };
+
+  useEffect(() => {
+    dispatch(fetchDashboardStudent());
+  }, [dispatch]);
 
   useEffect(() => {
     const clickHandler = (event) => {
@@ -49,16 +85,16 @@ const DropdownProfileStudents = () => {
       >
         <span className="hidden lg:block">
           <span className="block text-sm font-medium text-accent">
-            Sumiati Samaria Sianturi
+            {dashboardData?.fullname}
           </span>
-          <span className="block text-xs">Students</span>
+          <span className="block text-xs">Student</span>
         </span>
 
         <div className="h-12 w-12 rounded-full overflow-hidden">
           <img
             className="h-full w-full object-cover"
-            src={SamariaProfile}
-            alt="Profile Students Show Spot"
+            src={dashboardData?.photoProfile}
+            alt="Profile Admin Show Spot"
           />
         </div>
         <MdKeyboardArrowDown className="text-xl" />
@@ -72,7 +108,7 @@ const DropdownProfileStudents = () => {
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
             <li>
               <Link
-                to={'/students/profile'}
+                to={'/admin/profile'}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiUser className="text-xl" />
@@ -81,7 +117,7 @@ const DropdownProfileStudents = () => {
             </li>
             <li>
               <Link
-                to={'/students/change-password'}
+                to={'/admin/change-password'}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiSettings className="text-xl" />
@@ -91,7 +127,7 @@ const DropdownProfileStudents = () => {
             <li>
               <Link
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                to={'/login'}
+                onClick={handleLogout}
               >
                 <BiLogOut className="text-xl" />
                 Logout
