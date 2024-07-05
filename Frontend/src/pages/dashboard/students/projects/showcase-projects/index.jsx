@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import DataGajiPegawai from '../.../../../../../../utils/DataGajiPegawai';
 import { FaEye, FaUpload } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
 import LayoutStudents from '../../../../../layout/layout-students';

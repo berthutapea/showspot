@@ -77,7 +77,6 @@ const EditStudents = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    console.log(studentsDataMaster);
     if (studentsDataMaster) {
       setFullname(studentsDataMaster.fullname);
       setFullname(studentsDataMaster.username);

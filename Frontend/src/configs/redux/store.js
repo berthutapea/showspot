@@ -5,7 +5,7 @@ import mentorReducer from './reducer/mentorsDataReducer';
 import studentReducer from './reducer/studentsDataReducer';
 import sopProjectReducer from './reducer/sopProjectsReducer';
 import adminProfileReducer from './reducer/myProfileAdminReducer';
-// import showcaseReducer from './reducer/showcaseProjectsReducer';
+import showcaseReducer from './reducer/showcaseProjectsReducer';
 // import changeReducer from './reducer/changePasswordReducer';
 
 const store = configureStore({
@@ -15,7 +15,7 @@ const store = configureStore({
     mentorsDataMaster: mentorReducer,
     studentsDataMaster: studentReducer,
     sopProjectsData: sopProjectReducer,
-    // showcaseProjectsReducer: showcaseReducer,
+    showcaseProjectsData: showcaseReducer,
     profileAdminData: adminProfileReducer,
     // changePasswordReducer: changeReducer,
   },
