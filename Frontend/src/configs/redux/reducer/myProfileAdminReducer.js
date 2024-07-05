@@ -1,5 +1,3 @@
-// adminProfileReducer.js
-
 import {
   FETCH_MY_PROFILE_ADMIN_REQUEST,
   FETCH_MY_PROFILE_ADMIN_SUCCESS,
