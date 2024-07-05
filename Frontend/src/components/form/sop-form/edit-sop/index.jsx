@@ -8,6 +8,7 @@ import {
   convertToRaw,
 } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import Swal from 'sweetalert2';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
 import LayoutAdmin from '../../../../layout/layout-admin';
@@ -51,9 +52,23 @@ export default function EditSop() {
   const handleSave = () => {
     const { title } = form;
     const body = draftToHtml(convertToRaw(form.body.getCurrentContent()));
-    dispatch(addSopProject({ title, body })).then(() => {
-      navigate('/admin/sop-projects');
-    });
+    dispatch(addSopProject({ title, body }))
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'SOP added successfully!',
+        }).then(() => {
+          navigate('/admin/sop-projects');
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add SOP. Please try again.',
+        });
+      });
   };
 
   return (
