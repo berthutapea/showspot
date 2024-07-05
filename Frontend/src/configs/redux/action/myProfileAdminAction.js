@@ -10,9 +10,9 @@ export const fetchMyProfileAdmin = (id) => async (dispatch) => {
     const response = await privateClient.get(`admin/profile/${id}`);
     dispatch({
       type: FETCH_MY_PROFILE_ADMIN_SUCCESS,
-      payload: response.data.data,
+      payload: response.data,
     });
-    console.log(response.data.data);
+    console.log(response);
   } catch (error) {
     dispatch({
       type: FETCH_MY_PROFILE_ADMIN_FAILURE,

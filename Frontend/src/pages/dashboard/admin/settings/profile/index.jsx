@@ -1,12 +1,23 @@
 import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import FourButton from '../../../../../components/buttons/four-button';
+// import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfileAdminAction';
 
 const Profile = () => {
+  // const dispatch = useDispatch();
+
+  // const profileAdminData = useSelector((state) => state.profileAdminData);
+  // console.log(profileAdminData);
+
+  // useEffect(() => {
+  //   dispatch(fetchMyProfileAdmin());
+  // }, [dispatch]);
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="My Profile" />
@@ -30,7 +41,8 @@ const Profile = () => {
           <div className="w-full md:text-lg">
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Full Name</span>
-              <span className="inline-block w-7">:</span> Samaria Sianturi
+              <span className="inline-block w-7">:</span>{' '}
+              {/* {profileAdminData?.data?.admin_id} */}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Campus</span>

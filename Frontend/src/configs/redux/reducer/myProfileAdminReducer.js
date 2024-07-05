@@ -7,7 +7,7 @@ import {
 } from '../action/myProfileAdminAction';
 
 const initialState = {
-  profileAdminData: null,
+  profileAdminData: [],
   loading: false,
   error: null,
 };
