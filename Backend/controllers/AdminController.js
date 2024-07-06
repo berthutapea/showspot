@@ -455,7 +455,7 @@ class AdminController extends Controller {
             project: statusProjectData.data
           }
         }
-        this.responseHandler.success(res, `Data Found`, projects);
+        this.responseHandler.success(res, `Data Found`, 1, projects);
       } catch (error) {
         this.responseHandler.serverError(res, error);
       }
