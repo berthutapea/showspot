@@ -116,7 +116,7 @@ class StudentController extends Controller {
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
       if (Object.keys(sopProject)) {
-        this.responseHandler.success(res, 'Data Found', 2, sopProject);
+        this.responseHandler.success(res, 'Data Found', 3, sopProject);
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -155,7 +155,7 @@ class StudentController extends Controller {
 
   async getShowCaseProjectStudentByGroupProjectId(req, res) {
     const groupProjectId = req.params.groupid;
-  
+
     const params = {
       group_project_id: groupProjectId
     };
