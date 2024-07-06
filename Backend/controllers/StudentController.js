@@ -5,6 +5,7 @@ class StudentController extends Controller {
   constructor() {
     super('StudentModel');
     this.projectModel = 'ProjectModel';
+    this.groupProjectModel = 'GroupProjectModel';
     this.sopProjectModel = 'SopProjectModel';
     this.responseHandler = new ResponseHandler();
   }
@@ -115,7 +116,56 @@ class StudentController extends Controller {
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const sopProject = await sopProjectModel.findAll('all');
       if (Object.keys(sopProject)) {
-        this.responseHandler.success(res, 'Data Found', 3, sopProject[0]);
+        this.responseHandler.success(res, 'Data Found', 2, sopProject);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+  async getShowCaseProjectStudent(req, res) {
+    const studentId = req.rawHeaders[7];
+    const studentModel = await this.loadModel(this.BaseModel)
+    const student = await studentModel.findById(studentId);
+
+    const params = {
+      student_name: student.fullname
+    };
+
+    const groupProjectModel = await this.loadModel(this.groupProjectModel);
+    const groupProjectStudent = await groupProjectModel.findOne('student in group', params);
+
+    const paramsGroup = {
+      group_project_name: groupProjectStudent.group_project_name
+    }
+
+    const groupProject = await groupProjectModel.findOne('student group', paramsGroup);
+
+    try {
+      if (Object.keys(groupProject)) {
+        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudent);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
+
+  async getShowCaseProjectStudentByGroupProjectId(req, res) {
+    const groupProjectId = req.params.groupid;
+  
+    const params = {
+      group_project_id: groupProjectId
+    };
+
+    const groupProjectModel = await this.loadModel(this.groupProjectModel);
+    const groupProjectStudent = await groupProjectModel.findOne('student group', params);
+
+    try {
+      if (Object.keys(groupProjectStudent)) {
+        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudent);
       } else {
         this.responseHandler.badRequest(res);
       }
