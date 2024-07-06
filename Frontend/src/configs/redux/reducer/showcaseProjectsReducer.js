@@ -1,30 +1,19 @@
 import {
-
   FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST,
   FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE,
-} from '../action/showcaseProjectsAction';
-
-const initialState = {
-  loading: false,
-  showcaseProjectsReducer: [],
-  pending: null,
-
-FETCH_SHOWCASE_PROJECTS_REQUEST,
-FETCH_SHOWCASE_PROJECTS_SUCCESS,
-FETCH_SHOWCASE_PROJECTS_FAILURE,
-
-ADD_PROJECT_REQUEST,
-ADD_PROJECT_SUCCESS,
-ADD_PROJECT_FAILURE,
-
-UPDATE_PROJECT_REQUEST,
-UPDATE_PROJECT_SUCCESS,
-UPDATE_PROJECT_FAILURE,
-
-DELETE_PROJECT_REQUEST,
-DELETE_PROJECT_SUCCESS,
-DELETE_PROJECT_FAILURE
+  FETCH_SHOWCASE_PROJECTS_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_FAILURE,
+  ADD_PROJECT_REQUEST,
+  ADD_PROJECT_SUCCESS,
+  ADD_PROJECT_FAILURE,
+  UPDATE_PROJECT_REQUEST,
+  UPDATE_PROJECT_SUCCESS,
+  UPDATE_PROJECT_FAILURE,
+  DELETE_PROJECT_REQUEST,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAILURE,
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
@@ -35,7 +24,6 @@ const initialState = {
 
 const showcaseReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_REQUEST:
     case ADD_PROJECT_REQUEST:
@@ -51,7 +39,7 @@ const showcaseReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        showcaseProjectsReducer: action.payload,
+        showCaseProjectData: action.payload,
         error: null,
       };
 

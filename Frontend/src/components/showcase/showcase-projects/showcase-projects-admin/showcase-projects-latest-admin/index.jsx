@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaEye } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchShowcaseProjectsPending } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
 const ITEMS_PER_PAGE = 4;
 
 const ShowcaseProjectsLatestAdmin = () => {
-  const { page } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
   const dispatch = useDispatch();
   const showcaseProjects = useSelector(
-    (state) => state.showcaseProjectsReducer.access?.pending?.project || []
+    (state) => state.showCaseProjectData?.access?.pending?.project || []
   );
 
   const filteredShowcaseProjects = showcaseProjects.filter((project) => {
@@ -106,7 +105,7 @@ const ShowcaseProjectsLatestAdmin = () => {
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
                     <div className="h-12.5 w-15 overflow-hidden">
                       <img
-                        src={filteredShowcaseProjects.application_image}
+                        src={project.application_image}
                         alt="Project Cover"
                         className="object-cover h-full w-full"
                       />
