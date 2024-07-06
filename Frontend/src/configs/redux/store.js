@@ -16,6 +16,7 @@ const store = configureStore({
     studentsDataMaster: studentReducer,
     sopProjectsData: sopProjectReducer,
     showcaseProjectsReducer: showcaseReducer,
+    showcaseProjectsData: showcaseReducer,
     profileAdminData: adminProfileReducer,
     // changePasswordReducer: changeReducer,
   },

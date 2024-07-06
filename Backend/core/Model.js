@@ -94,9 +94,14 @@ async findOne(mode = 0, datas, limit = 0, offset = 0, orderBy = 'id') {
       } else if (mode == 'where') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
         formattedValue = [`%${value[0]}%`];
+      } else if (mode == 'student in group') {
+        query = `SELECT * FROM group_project WHERE student_name LIKE "%${value[0]}%"`;
+      } else if (mode == 'student group') {
+        query = `SELECT * FROM group_project WHERE group_project_id LIKE "%${value[0]}%"`;
+        let [results] = await this.database.connection.query(query);
+        return results;
       }
     }
-
     const [results] = await this.database.connection.query(query, formattedValue);
     return results[0];
   } catch (error) {
