@@ -402,7 +402,7 @@ class AdminController extends Controller {
     async deleteSopProject(req, res) {
     try {
       const sopProjectId = 1;
-      const data = '';
+      const data = 0;
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const result = await sopProjectModel.deleteData(sopProjectId, data);
       if (result > 0) {

@@ -56,6 +56,20 @@ class StudentRoute extends Route {
     );
 
     this.router.get(
+      '/students/projects/showcase-project',
+      // authMiddleware,
+      // authUser,
+      this.controller.getShowCaseProjectStudent.bind(this.controller)
+    );
+
+    this.router.get(
+      '/students/projects/showcase-project/id/:groupid',
+      // authMiddleware,
+      // authUser,
+      this.controller.getShowCaseProjectStudentByGroupProjectId.bind(this.controller)
+    );
+
+    this.router.get(
       '/students/projects/sop-project',
       // authMiddleware,
       // authUser,
