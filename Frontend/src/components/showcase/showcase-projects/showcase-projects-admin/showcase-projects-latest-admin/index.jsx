@@ -5,46 +5,21 @@ import { BiSearch } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { fetchShowcaseProjectsPending } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
-const ITEMS_PER_PAGE = 4;
-
 const ShowcaseProjectsLatestAdmin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
   const dispatch = useDispatch();
-  const showcaseProjects = useSelector(
-    (state) => state.showCaseProjectData?.access?.pending?.project || []
+  const { pending, total, page } = useSelector(
+    (state) => state.showCaseProjectsData
   );
 
-  const filteredShowcaseProjects = showcaseProjects.filter((project) => {
-    const { group_name } = project;
-    const keyword = searchKeyword.toLowerCase();
-    return group_name.toLowerCase().includes(keyword);
-  });
-
-  const totalPages = Math.ceil(
-    filteredShowcaseProjects.length / ITEMS_PER_PAGE
-  );
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = Math.min(
-    startIndex + ITEMS_PER_PAGE,
-    filteredShowcaseProjects.length
-  );
-
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
+  const onPageChange = (page) => {
+    setCurrentPage(page);
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsPending());
-  }, [dispatch]);
+    dispatch(fetchShowcaseProjectsPending(page));
+  }, [dispatch, page]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
@@ -93,13 +68,12 @@ const ShowcaseProjectsLatestAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredShowcaseProjects
-              .slice(startIndex, endIndex)
-              .map((project, index) => (
-                <tr key={index}>
+            {Array.isArray(pending) && pending.length > 0 ? (
+              pending.map((project, index) => (
+                <tr key={project._id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
-                      {startIndex + index + 1}
+                      {index + 1}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
@@ -134,7 +108,19 @@ const ShowcaseProjectsLatestAdmin = () => {
                     </Link>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="6"
+                  className="border-b border-[#eee] py-5 px-4 dark:border-strokedark"
+                >
+                  <p className="text-black dark:text-white text-center">
+                    No Showcase Projects Latest Found
+                  </p>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -142,22 +128,21 @@ const ShowcaseProjectsLatestAdmin = () => {
       <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
         <div className="flex items-center space-x-2">
           <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-            Showing {startIndex + 1}-{endIndex} of{' '}
-            {filteredShowcaseProjects.length} Projects
+            Showing {currentPage}-{total} of {total} Projects
           </span>
         </div>
         <div className="flex space-x-2 py-4">
           <button
             disabled={currentPage === 1}
-            onClick={goToPrevPage}
+            onClick={() => onPageChange(currentPage - 1)}
             className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
           >
             Prev
           </button>
-          {[...Array(totalPages)].map((_, i) => (
+          {[...Array(total)].map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrentPage(i + 1)}
+              onClick={() => onPageChange(i + 1)}
               className={`py-2 px-4 rounded-lg border ${
                 currentPage === i + 1
                   ? 'bg-primary text-white border-primary'
@@ -168,8 +153,8 @@ const ShowcaseProjectsLatestAdmin = () => {
             </button>
           ))}
           <button
-            disabled={currentPage === totalPages}
-            onClick={goToNextPage}
+            disabled={currentPage === total}
+            onClick={() => onPageChange(currentPage + 1)}
             className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
           >
             Next

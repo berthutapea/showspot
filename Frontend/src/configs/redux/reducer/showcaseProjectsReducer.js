@@ -17,7 +17,10 @@ import {
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
-  showCaseProjectData: [],
+  showCaseProjectsData: [],
+  pending: [],
+  total: [],
+  page: [],
   loading: false,
   error: null,
 };
@@ -39,7 +42,9 @@ const showcaseReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        showCaseProjectData: action.payload,
+        pending: action.payload,
+        total: action.payload,
+        page: action.payload,
         error: null,
       };
 
@@ -47,13 +52,13 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_SUCCESS:
       return {
         ...state,
-        showCaseProjectData: action.payload,
+        showCaseProjectsData: action.payload,
         loading: false,
       };
     case UPDATE_PROJECT_SUCCESS:
       return {
         ...state,
-        showCaseProjectData: state.showCaseProjectData.map((project) =>
+        showCaseProjectsData: state.showCaseProjectsData.map((project) =>
           project.id === action.payload.id ? action.payload : project
         ),
         loading: false,
@@ -61,7 +66,7 @@ const showcaseReducer = (state = initialState, action) => {
     case DELETE_PROJECT_SUCCESS:
       return {
         ...state,
-        showCaseProjectData: state.showCaseProjectData.filter(
+        showCaseProjectsData: state.showCaseProjectsData.filter(
           (project) => project.id !== action.payload.sopProjectId
         ),
         loading: false,
@@ -69,7 +74,7 @@ const showcaseReducer = (state = initialState, action) => {
     case ADD_PROJECT_SUCCESS:
       return {
         ...state,
-        showCaseProjectData: [...state.showCaseProjectData, action.payload],
+        showCaseProjectsData: [...state.showCaseProjectsData, action.payload],
         loading: false,
       };
     case FETCH_SHOWCASE_PROJECTS_FAILURE:
