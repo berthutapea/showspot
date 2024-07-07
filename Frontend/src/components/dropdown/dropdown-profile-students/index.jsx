@@ -94,7 +94,7 @@ const DropdownProfileStudents = () => {
           <img
             className="h-full w-full object-cover"
             src={dashboardData?.photoProfile}
-            alt="Profile Admin Show Spot"
+            alt="Profile Student Show Spot"
           />
         </div>
         <MdKeyboardArrowDown className="text-xl" />
@@ -117,7 +117,7 @@ const DropdownProfileStudents = () => {
             </li>
             <li>
               <Link
-                to={'/admin/change-password'}
+                to={'/students/change-password'}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiSettings className="text-xl" />
