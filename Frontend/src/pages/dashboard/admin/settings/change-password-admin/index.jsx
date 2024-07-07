@@ -1,10 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { TfiLock } from 'react-icons/tfi';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
+import { changePasswordAdmin } from '../../../../../configs/redux/action/changePasswordAction';
 
-const ChangePassword = () => {
+const ChangePasswordAdmin = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+
+  const { loading, error, message } = useSelector(
+    (state) => state.changePasswordData
+  );
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(changePasswordAdmin(id, password, confPassword));
+  };
+
+  if (message) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil',
+      text: 'Password Berhasil di Perbarui',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+
+  if (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Gagal',
+      text: error,
+      confirmButtonText: 'Ok',
+    });
+  }
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="Change Password" />
@@ -17,7 +54,7 @@ const ChangePassword = () => {
                 Change Password
               </h3>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="p-6.5">
                 <div className="mb-4.5 ">
                   <div className="w-full mb-4">
@@ -26,6 +63,8 @@ const ChangePassword = () => {
                     </label>
                     <input
                       type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                       placeholder="Enter New Password"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -38,8 +77,10 @@ const ChangePassword = () => {
                     </label>
                     <input
                       type="password"
-                      placeholder="Enter Confirm New Password"
+                      placeholder="Masukkan ulangi password baru"
+                      value={confPassword}
                       required
+                      onChange={(e) => setConfPassword(e.target.value)}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
                     <TfiLock className="absolute right-4 top-4 text-xl" />
@@ -60,4 +101,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordAdmin;

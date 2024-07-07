@@ -17,9 +17,6 @@ import {
   DELETE_MENTOR_REQUEST,
   DELETE_MENTOR_SUCCESS,
   DELETE_MENTOR_FAILURE,
-  CHANGE_MENTOR_PASSWORD_REQUEST,
-  CHANGE_MENTOR_PASSWORD_SUCCESS,
-  CHANGE_MENTOR_PASSWORD_FAILURE,
 } from '../action/mentorsDataAction';
 
 const initialState = {
@@ -37,7 +34,6 @@ const mentorReducer = (state = initialState, action) => {
     case FETCH_MENTOR_BY_NAME_REQUEST:
     case UPDATE_MENTOR_REQUEST:
     case DELETE_MENTOR_REQUEST:
-    case CHANGE_MENTOR_PASSWORD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -63,7 +59,6 @@ const mentorReducer = (state = initialState, action) => {
     case FETCH_MENTOR_BY_ID_SUCCESS:
     case FETCH_MENTOR_BY_NAME_SUCCESS:
     case UPDATE_MENTOR_SUCCESS:
-    case CHANGE_MENTOR_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -87,7 +82,6 @@ const mentorReducer = (state = initialState, action) => {
     case FETCH_MENTOR_BY_NAME_FAILURE:
     case UPDATE_MENTOR_FAILURE:
     case DELETE_MENTOR_FAILURE:
-    case CHANGE_MENTOR_PASSWORD_FAILURE:
       return {
         ...state,
         loading: false,

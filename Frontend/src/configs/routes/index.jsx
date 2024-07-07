@@ -10,7 +10,7 @@ import NotFound from '../../pages/notfound';
 import DashboardAdmin from '../../pages/dashboard/admin/dashboard-admin';
 import SopProjects from '../../pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from '../../pages/dashboard/admin/projects/showcase-projects';
-import ChangePassword from '../../pages/dashboard/admin/settings/change-password';
+import ChangePasswordAdmin from '../../pages/dashboard/admin/settings/change-password-admin';
 import Profile from '../../pages/dashboard/admin/settings/profile';
 import MentorsData from '../../pages/dashboard/admin/master-data/mentors-data';
 import StudentsData from '../../pages/dashboard/admin/master-data/students-data';
@@ -110,7 +110,7 @@ const AppRoutes = () => {
       />
       <Route path="/admin/profile" element={<Profile />} />
       <Route path="/admin/profile/edit/:id" element={<ProfileAdmin />} />
-      <Route path="/admin/change-password" element={<ChangePassword />} />
+      <Route path="/admin/change-password" element={<ChangePasswordAdmin />} />
       {/* Route Dashboard Admin */}
 
       {/* Route Dashboard Mentors */}

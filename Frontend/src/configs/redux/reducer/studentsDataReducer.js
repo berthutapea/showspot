@@ -17,9 +17,6 @@ import {
   DELETE_STUDENT_REQUEST,
   DELETE_STUDENT_SUCCESS,
   DELETE_STUDENT_FAILURE,
-  CHANGE_STUDENT_PASSWORD_REQUEST,
-  CHANGE_STUDENT_PASSWORD_SUCCESS,
-  CHANGE_STUDENT_PASSWORD_FAILURE,
 } from '../action/studentsDataAction';
 
 const initialState = {
@@ -37,7 +34,6 @@ const studentReducer = (state = initialState, action) => {
     case FETCH_STUDENT_BY_NAME_REQUEST:
     case UPDATE_STUDENT_REQUEST:
     case DELETE_STUDENT_REQUEST:
-    case CHANGE_STUDENT_PASSWORD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -63,7 +59,6 @@ const studentReducer = (state = initialState, action) => {
     case FETCH_STUDENT_BY_ID_SUCCESS:
     case FETCH_STUDENT_BY_NAME_SUCCESS:
     case UPDATE_STUDENT_SUCCESS:
-    case CHANGE_STUDENT_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -87,7 +82,6 @@ const studentReducer = (state = initialState, action) => {
     case FETCH_STUDENT_BY_NAME_FAILURE:
     case UPDATE_STUDENT_FAILURE:
     case DELETE_STUDENT_FAILURE:
-    case CHANGE_STUDENT_PASSWORD_FAILURE:
       return {
         ...state,
         loading: false,
