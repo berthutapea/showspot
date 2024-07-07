@@ -24,6 +24,7 @@ class AdminModel extends Model {
       const datas = {
           [this.adminId]: admin.admin_id,
           [this.fullname]: admin.fullname,
+          [this.username]: admin.username,
           [this.campus]: admin.campus,
           [this.major]: admin.major,
           [this.groupTypeId]: admin.group_type_id,

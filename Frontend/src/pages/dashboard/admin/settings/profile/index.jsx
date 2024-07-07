@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import { Link } from 'react-router-dom';
@@ -21,7 +20,7 @@ const Profile = () => {
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="My Profile" />
-      <Link to="/admin/profile/edit">
+      <Link to={`/admin/profile/edit/${profileAdminData.admin_id}`}>
         <FourButton>
           <span>Edit Profile</span>
           <span>
@@ -34,7 +33,7 @@ const Profile = () => {
           <img
             className="rounded-xl h-80 w-full md:w-80 object-cover"
             src={profileAdminData.photo_profile}
-            alt="Samaria Sianturi"
+            alt="User Admin"
           />
         </div>
         <div className="md:w-2/3 px-4 md:px-20 py-4 md:py-20">
