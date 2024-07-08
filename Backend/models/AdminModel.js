@@ -63,7 +63,7 @@ class AdminModel extends Model {
     return false;
   }
 
-  async changePassword(id, datas) {
+  async changePasswordAdmin(id, datas) {
     const hashingService = new HashingService();
     const param = {
       [this.adminId]: id
