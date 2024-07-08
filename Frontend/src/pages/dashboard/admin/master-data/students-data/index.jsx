@@ -8,8 +8,10 @@ import { BiSearch } from 'react-icons/bi';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import OneButton from '../../../../../components/buttons/one-button';
-import { deleteStudent, fetchStudents } from '../../../../../configs/redux/action/studentsDataAction';
-
+import {
+  deleteStudent,
+  fetchStudents,
+} from '../../../../../configs/redux/action/studentsDataAction';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -142,7 +144,7 @@ const StudentsData = () => {
                 .map((student, index) => (
                   <tr key={student.studentid}>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white text-center">
+                      <p className="text-black text-center">
                         {startIndex + index + 1}
                       </p>
                     </td>
@@ -154,29 +156,19 @@ const StudentsData = () => {
                       </div>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {student.fullname}
-                      </p>
+                      <p className="text-black">{student.fullname}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {student.campus}
-                      </p>
+                      <p className="text-black">{student.campus}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {student.major}
-                      </p>
+                      <p className="text-black">{student.major}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {student.group_type}
-                      </p>
+                      <p className="text-black">{student.group_type}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {student.class_type}
-                      </p>
+                      <p className="text-black">{student.class_type}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">

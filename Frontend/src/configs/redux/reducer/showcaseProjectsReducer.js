@@ -36,7 +36,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_SUCCESS:
       return {
         ...state,
-        showCaseProjectData: action.payload,
+        showCaseProjectsData: action.payload,
         loading: false,
       };
     case UPDATE_PROJECT_SUCCESS:
