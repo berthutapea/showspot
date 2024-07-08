@@ -505,6 +505,25 @@ class AdminController extends Controller {
       this.responseHandler.serverError(res, error);
     }
   }
+
+    async valuationProjectByAdmin(req, res) {
+    try {
+      const params = {
+        'application_id': req.params.id
+      };
+      const valuationData = req.body;
+
+      const projectModel = await this.loadModel(this.projectModel);
+      const result = await projectModel.update(params, valuationData);
+      if (result > 0) {
+        this.responseHandler.success(res, 'Valuation Project is Success');
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+        this.responseHandler.serverError(res, error);
+    }
+  }
 }
 
 module.exports = AdminController;

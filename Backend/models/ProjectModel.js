@@ -75,6 +75,7 @@ class ProjectModel extends Model {
     const statusProject = await statusProjectModel.findStatusProjectById(statusId);
     const dataPromises = projects.map(async (project) => {
       return {
+        [this.applicationId]: project.application_id,
         [this.applicationTitle]: project.application_title,
         [this.applicationImage]: project.application_image,
         [this.groupName]: project.group_name,
@@ -116,6 +117,14 @@ class ProjectModel extends Model {
 
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.findAll('where', projectData);
+  }
+
+  async findFilterProjectById(filterId) {
+    const paramFilterProject = {
+      [this.projectFilterId]: filterId
+    };
+    const filterProjectdata = await this.findAll('where', paramFilterProject);
+    return filterProjectdata;
   }
 }
 
