@@ -18,10 +18,8 @@ import {
 
 const initialState = {
   showCaseProjectsData: [],
-  pending: [],
-  total: [],
-  page: [],
-  loading: false,
+  total: 0,
+  page: 1,
   error: null,
 };
 
@@ -42,9 +40,9 @@ const showcaseReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        pending: action.payload,
-        total: action.payload,
-        page: action.payload,
+        showCaseProjectsData: action.payload.project,
+        total: action.payload.total,
+        page: action.payload.page,
         error: null,
       };
 
