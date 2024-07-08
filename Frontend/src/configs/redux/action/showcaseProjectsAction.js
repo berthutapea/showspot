@@ -1,12 +1,18 @@
 import privateClient from '../../../utils/privateClient.js';
 
-export const FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST ='FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST';
-export const FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS ='FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS';
-export const FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE ='FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE';
 
-export const FETCH_SHOWCASE_PROJECTS_REQUEST ='FETCH_SHOWCASE_PROJECTS_REQUEST';
-export const FETCH_SHOWCASE_PROJECTS_SUCCESS ='FETCH_SHOWCASE_PROJECTS_SUCCESS';
-export const FETCH_SHOWCASE_PROJECTS_FAILURE = 'FETCH_SHOWCASE_PROJECTS_FAILURE';
+export const FETCH_SHOWCASE_PROJECTS_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_FAILURE';
 
 export const ADD_PROJECT_REQUEST = 'ADD_SHOWCASE_PROJECT_REQUEST';
 export const ADD_PROJECT_SUCCESS = 'ADD_PROJECT_SUCCESS';
@@ -34,32 +40,32 @@ export const showcaseProjectsPendingFailure = (actionType, error) => ({
   payload: error,
 });
 
-export const fetchShowcaseProjectsPending = (page) => async (dispatch) => {
-  dispatch(
-    showcaseProjectsPendingRequest(FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST)
-  );
-  try {
-    const response = await privateClient.get(
-      'admin/projects/showcase-projects/pending',
-      {
-        params: { page },
-      }
-    );
+export const fetchShowcaseProjectsPending =
+  (page = 0) =>
+  async (dispatch) => {
     dispatch(
-      showcaseProjectsPendingSuccess(
-        FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS,
-        response.data.data
-      )
+      showcaseProjectsPendingRequest(FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST)
     );
-  } catch (error) {
-    dispatch(
-      showcaseProjectsPendingFailure(
-        FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE,
-        error.message
-      )
-    );
-  }
-};
+    try {
+      const response = await privateClient.get(
+        `admin/projects/showcase-projects/pending/${page}`
+      );
+      dispatch(
+        showcaseProjectsPendingSuccess(
+          FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS,
+          response.data.data.pending
+        )
+      );
+      // console.log(response.data.data);
+    } catch (error) {
+      dispatch(
+        showcaseProjectsPendingFailure(
+          FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
 
 /* ADMIN */
 export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {

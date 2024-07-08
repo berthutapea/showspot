@@ -5,27 +5,31 @@ import { BiSearch } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { fetchShowcaseProjectsPending } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
-const ShowcaseProjectsLatestAdmin = () => {
+const ShowcaseProjectsPendingAdmin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
   const dispatch = useDispatch();
-  const { pending, total, page } = useSelector(
+  const { showCaseProjectsData, total, page } = useSelector(
     (state) => state.showCaseProjectsData
   );
 
-  const onPageChange = (page) => {
-    setCurrentPage(page);
+  const onPageChange = (currentPage) => {
+    setCurrentPage(currentPage);
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsPending(page));
-  }, [dispatch, page]);
+    dispatch(fetchShowcaseProjectsPending(currentPage));
+  }, [dispatch, currentPage]);
+
+  const filteredProjects = showCaseProjectsData.filter((project) =>
+    project.group_name.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
       <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
         <h3 className="font-medium text-black dark:text-white">
-          Showcase Projects Latest
+          Showcase Projects Pending
         </h3>
       </div>
       <div className="flex justify-between items-center mt-6 flex-col md:flex-row md:justify-between">
@@ -68,9 +72,9 @@ const ShowcaseProjectsLatestAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(pending) && pending.length > 0 ? (
-              pending.map((project, index) => (
-                <tr key={project._id}>
+            {Array.isArray(filteredProjects) && filteredProjects.length > 0 ? (
+              filteredProjects.map((pending, index) => (
+                <tr key={pending._id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
                       {index + 1}
@@ -79,7 +83,7 @@ const ShowcaseProjectsLatestAdmin = () => {
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
                     <div className="h-12.5 w-15 overflow-hidden">
                       <img
-                        src={project.application_image}
+                        src={pending.application_image}
                         alt="Project Cover"
                         className="object-cover h-full w-full"
                       />
@@ -87,17 +91,17 @@ const ShowcaseProjectsLatestAdmin = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {project.application_title}
+                      {pending.application_title}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {project.group_name}
+                      {pending.group_name}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <p className="text-white dark:text-white bg-warning rounded-lg ">
-                      {project.status}
+                      {pending.status}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
@@ -128,7 +132,8 @@ const ShowcaseProjectsLatestAdmin = () => {
       <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
         <div className="flex items-center space-x-2">
           <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-            Showing {currentPage}-{total} of {total} Projects
+            Showing {currentPage}-{filteredProjects.length} of {total} Showcase
+            Projects Pending
           </span>
         </div>
         <div className="flex space-x-2 py-4">
@@ -139,21 +144,21 @@ const ShowcaseProjectsLatestAdmin = () => {
           >
             Prev
           </button>
-          {[...Array(total)].map((_, i) => (
+          {[...Array(page)].map(() => (
             <button
-              key={i}
-              onClick={() => onPageChange(i + 1)}
+              key={page}
+              onClick={() => onPageChange(page + 1)}
               className={`py-2 px-4 rounded-lg border ${
-                currentPage === i + 1
+                currentPage === page
                   ? 'bg-primary text-white border-primary'
                   : 'border-gray-2 text-black dark:text-white dark:border-strokedark'
               }`}
             >
-              {i + 1}
+              {page}
             </button>
           ))}
           <button
-            disabled={currentPage === total}
+            disabled={currentPage === showCaseProjectsData.length}
             onClick={() => onPageChange(currentPage + 1)}
             className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
           >
@@ -165,4 +170,4 @@ const ShowcaseProjectsLatestAdmin = () => {
   );
 };
 
-export default ShowcaseProjectsLatestAdmin;
+export default ShowcaseProjectsPendingAdmin;
