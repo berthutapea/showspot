@@ -43,7 +43,7 @@ class AdminRoute extends Route {
       upload.none(),
       // authMiddleware,
       // authUser,
-      this.controller.changePasswordMentor.bind(this.controller)
+      this.controller.changePasswordAdmin.bind(this.controller)
     );
 
     /* === Mentor Entity === */

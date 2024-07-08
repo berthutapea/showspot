@@ -125,7 +125,6 @@ class MentorModel extends Model {
   }
 
   async changePasswordMentor(id, datas) {
-    console.log(id)
     const hashingService = new HashingService();
     const param = {
       [this.mentorId]: id

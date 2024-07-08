@@ -1,4 +1,4 @@
-import privateClient from '../../../utils/privateClient';
+import privateClient from '../../../utils/privateClient.js';
 
 export const FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST ='FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST';
 export const FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS ='FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS';
@@ -65,10 +65,14 @@ export const fetchShowcaseProjectsPending = (page) => async (dispatch) => {
 export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
   dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
   try {
+
+    const response = await privateClient.get('students/projects/showcase-project');
+    console.log(response)
+
     const response = await privateClient.get(
       'students/projects/showcase-project'
     );
-    // console.log(response);
+
     dispatch({
       type: FETCH_SHOWCASE_PROJECTS_SUCCESS,
       payload: response.data,
@@ -78,8 +82,6 @@ export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
     console.error('Error deleting SHOWCASE project:', error);
   }
 };
-
-fetchShowCaseProjectsAdmin();
 
 // Delete ShowCase Project
 export const deleteProject = () => async (dispatch) => {
@@ -103,16 +105,18 @@ export const deleteProject = () => async (dispatch) => {
 };
 
 /* STUDENT */
-export const fetchShowCaseProjects = () => async (dispatch) => {
+export const fetchShowCaseProjectsStudent = () => async (dispatch) => {
   dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
   try {
+    const response = await privateClient.get('students/projects/showcase-project/student11641/1');
+    console.log(response)
     const response = await privateClient.get(
       'students/projects/showcase-project'
     );
 
     dispatch({
       type: FETCH_SHOWCASE_PROJECTS_SUCCESS,
-      payload: response.data.data,
+      payload: response.data,
     });
   } catch (error) {
     dispatch({ type: FETCH_SHOWCASE_PROJECTS_FAILURE });

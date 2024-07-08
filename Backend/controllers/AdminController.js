@@ -79,6 +79,22 @@ class AdminController extends Controller {
     }
   }
 
+  async changePasswordAdmin(req, res) {
+    try {
+      const myId = req.params.id;
+      const newPassword = req.body;
+      const admin = await this.loadModel(this.BaseModel);
+      const result = await admin.changePasswordAdmin(myId, newPassword);
+      if (result > 0) {
+        this.responseHandler.success(res, 'Password Changed');
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+        this.responseHandler.serverError(res, error);
+    }
+  }
+
   /*=== Mentor Entity ===*/
   async createDataMentor(req, res) {
     try {
@@ -388,7 +404,6 @@ class AdminController extends Controller {
       const updatedData = req.body;
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const result = await sopProjectModel.updateData(sopProjectId, updatedData);
-      console.log(result)
       if (result > 0) {
         this.responseHandler.success(res, `Data SOP Project Updated`);
       } else {
@@ -402,7 +417,7 @@ class AdminController extends Controller {
     async deleteSopProject(req, res) {
     try {
       const sopProjectId = 1;
-      const data = 0;
+      const data = "";
       const sopProjectModel = await this.loadModel(this.sopProjectModel);
       const result = await sopProjectModel.deleteData(sopProjectId, data);
       if (result > 0) {

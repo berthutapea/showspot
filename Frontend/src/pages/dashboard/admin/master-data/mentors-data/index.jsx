@@ -141,7 +141,7 @@ const MentorsData = () => {
                 .map((mentor, index) => (
                   <tr key={mentor.mentor_id}>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white text-center">
+                      <p className="text-black text-center">
                         {startIndex + index + 1}
                       </p>
                     </td>
@@ -153,27 +153,27 @@ const MentorsData = () => {
                       </div>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
+                      <p className="text-black">
                         {mentor.fullname}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
+                      <p className="text-black">
                         {mentor.campus}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
+                      <p className="text-black">
                         {mentor.major}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
+                      <p className="text-black">
                         {mentor.group_type}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
+                      <p className="text-black">
                         {mentor.class_type}
                       </p>
                     </td>

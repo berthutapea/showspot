@@ -99,7 +99,7 @@ class StudentController extends Controller {
     try {
       const projectData = req.body;
       const filename = req.file.filename;
-      const project = await this.loadModel(this.projectModel);
+      const project = await this.loadModel('ProjectModel');
       const result = await project.addProject(projectData, filename);
       if (result.affectedRows > 0) {
         this.responseHandler.success(res, 'Project Added');
@@ -125,7 +125,8 @@ class StudentController extends Controller {
     }
   }
   async getShowCaseProjectStudent(req, res) {
-    const studentId = req.rawHeaders[7];
+    const page = req.params.page;
+    const studentId = req.params.id;
     const studentModel = await this.loadModel(this.BaseModel)
     const student = await studentModel.findById(studentId);
 
@@ -136,15 +137,31 @@ class StudentController extends Controller {
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
     const groupProjectStudent = await groupProjectModel.findOne('student in group', params);
 
+    // const paramsGroup = {
+    //   group_project_name: groupProjectStudent.group_project_name
+    // }
+
+    // const groupProject = await groupProjectModel.findOne('student group', paramsGroup);
+
+
     const paramsGroup = {
-      group_project_name: groupProjectStudent.group_project_name
+      group_id: groupProjectStudent.group_project_id
     }
 
-    const groupProject = await groupProjectModel.findOne('student group', paramsGroup);
+    const offset = (page - 1) * 5;
+
+    const projectModel = await this.loadModel(this.projectModel);
+    const project = await projectModel.findAll(1, paramsGroup , 5, offset, 'created_at');
+
+    const groupProjectStudentData = {
+      page: page,
+      projects: project,
+      total: project.length
+    };
 
     try {
-      if (Object.keys(groupProject)) {
-        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudent);
+      if (Object.keys(groupProjectStudentData)) {
+        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudentData);
       } else {
         this.responseHandler.badRequest(res);
       }

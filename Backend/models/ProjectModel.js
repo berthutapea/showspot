@@ -22,6 +22,7 @@ class ProjectModel extends Model {
   }
 
   async addProject(datas, filename) {
+    console.log('addProject berjalan..')
     const groupProjectModel = new GroupProjectModel();
     const filePath = `${config.api.base_url}api/images/${filename}`;
     const patternId = String('project' + Math.floor(Math.random() * 10000) + 1);
