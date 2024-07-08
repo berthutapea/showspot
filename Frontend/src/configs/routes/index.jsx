@@ -10,7 +10,7 @@ import NotFound from '../../pages/notfound';
 import DashboardAdmin from '../../pages/dashboard/admin/dashboard-admin';
 import SopProjects from '../../pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from '../../pages/dashboard/admin/projects/showcase-projects';
-import ChangePassword from '../../pages/dashboard/admin/settings/change-password';
+import ChangePasswordAdmin from '../../pages/dashboard/admin/settings/change-password-admin';
 import Profile from '../../pages/dashboard/admin/settings/profile';
 import MentorsData from '../../pages/dashboard/admin/master-data/mentors-data';
 import StudentsData from '../../pages/dashboard/admin/master-data/students-data';
@@ -109,13 +109,16 @@ const AppRoutes = () => {
         element={<ViewShowcaseHistory />}
       />
       <Route path="/admin/profile" element={<Profile />} />
-      <Route path="/admin/profile/edit" element={<ProfileAdmin />} />
-      <Route path="/admin/change-password" element={<ChangePassword />} />
+      <Route path="/admin/profile/edit/:id" element={<ProfileAdmin />} />
+      <Route path="/admin/change-password" element={<ChangePasswordAdmin />} />
       {/* Route Dashboard Admin */}
 
       {/* Route Dashboard Mentors */}
       <Route path="/mentors/dashboard" element={<DashboardMentors />} />
-      <Route path="/mentors/showcase-projects" element={<ShowcaseProjectsMentors />} />
+      <Route
+        path="/mentors/showcase-projects"
+        element={<ShowcaseProjectsMentors />}
+      />
       <Route path="/mentors/sop-projects" element={<SopProjectsMentors />} />
       <Route
         path="/mentors/showcase-projects/latest"
@@ -127,12 +130,18 @@ const AppRoutes = () => {
       />
       <Route path="/mentors/profile" element={<ProfileMentors />} />
       <Route path="/mentors/profile/edit" element={<ProfileMentorsEdit />} />
-      <Route path="/mentors/change-password" element={<ChangePasswordMentors />} />
+      <Route
+        path="/mentors/change-password"
+        element={<ChangePasswordMentors />}
+      />
       {/* Route Dashboard Mentors */}
 
       {/* Route Dashboard Students */}
       <Route path="/students/dashboard" element={<DashboardStudents />} />
-      <Route path="/students/showcase-projects" element={<ShowcaseProjectsStudents />} />
+      <Route
+        path="/students/showcase-projects"
+        element={<ShowcaseProjectsStudents />}
+      />
       <Route path="/students/sop-projects" element={<SopProjectsStudents />} />
       <Route
         path="/students/showcase-projects/latest"
@@ -148,7 +157,10 @@ const AppRoutes = () => {
       />
       <Route path="/students/profile" element={<ProfileStudents />} />
       <Route path="/students/profile/edit" element={<ProfileStudentsEdit />} />
-      <Route path="/students/change-password" element={<ChangePasswordStudents />} />
+      <Route
+        path="/students/change-password"
+        element={<ChangePasswordStudents />}
+      />
       {/* Route Dashboard Students */}
     </Routes>
   );

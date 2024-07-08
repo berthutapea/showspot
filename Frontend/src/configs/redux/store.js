@@ -6,7 +6,7 @@ import studentReducer from './reducer/studentsDataReducer';
 import sopProjectReducer from './reducer/sopProjectsReducer';
 import adminProfileReducer from './reducer/myProfileAdminReducer';
 import showcaseReducer from './reducer/showcaseProjectsReducer';
-// import changeReducer from './reducer/changePasswordReducer';
+import changePasswordReducer from './reducer/changePasswordReducer';
 
 const store = configureStore({
   reducer: {
@@ -17,7 +17,7 @@ const store = configureStore({
     sopProjectsData: sopProjectReducer,
     showCaseProjectsData: showcaseReducer,
     profileAdminData: adminProfileReducer,
-    // changePasswordReducer: changeReducer,
+    changePasswordData: changePasswordReducer,
   },
 });
 

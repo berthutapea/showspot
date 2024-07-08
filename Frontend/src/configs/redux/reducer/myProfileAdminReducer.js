@@ -1,13 +1,14 @@
-// adminProfileReducer.js
-
 import {
   FETCH_MY_PROFILE_ADMIN_REQUEST,
   FETCH_MY_PROFILE_ADMIN_SUCCESS,
   FETCH_MY_PROFILE_ADMIN_FAILURE,
+  UPDATE_ADMIN_REQUEST,
+  UPDATE_ADMIN_SUCCESS,
+  UPDATE_ADMIN_FAILURE,
 } from '../action/myProfileAdminAction';
 
 const initialState = {
-  profileAdminData: null,
+  profileAdminData: [],
   loading: false,
   error: null,
 };
@@ -15,12 +16,14 @@ const initialState = {
 const adminProfileReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MY_PROFILE_ADMIN_REQUEST:
+    case UPDATE_ADMIN_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
     case FETCH_MY_PROFILE_ADMIN_SUCCESS:
+    case UPDATE_ADMIN_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -28,6 +31,7 @@ const adminProfileReducer = (state = initialState, action) => {
         error: null,
       };
     case FETCH_MY_PROFILE_ADMIN_FAILURE:
+     case UPDATE_ADMIN_FAILURE:
       return {
         ...state,
         loading: false,

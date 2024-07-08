@@ -53,6 +53,7 @@ const EditStudents = () => {
 
     dispatch(updateStudent(id, formData, navigate))
       .then(() => {
+        navigate('/admin/students-data');
         Swal.fire({
           icon: 'success',
           title: 'Updated!',

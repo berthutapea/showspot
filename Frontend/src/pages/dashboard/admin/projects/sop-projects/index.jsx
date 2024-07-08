@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
 import SOP from '../../../../../components/sop';
@@ -11,6 +11,8 @@ import ThreeButton from '../../../../../components/buttons/three-button';
 import FourButton from '../../../../../components/buttons/four-button';
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import {
   fetchSopProjects,
   deleteSopProject,
@@ -18,6 +20,8 @@ import {
 
 const SopProjects = () => {
   const dispatch = useDispatch();
+  const sopRef = useRef();
+  const { sopProjectsData } = useSelector((state) => state.sopProjectsData);
 
   const onDeleteSop = () => {
     Swal.fire({
@@ -45,6 +49,18 @@ const SopProjects = () => {
     });
   };
 
+  const handleDownloadPdf = async () => {
+    const sopElement = sopRef.current;
+    const canvas = await html2canvas(sopElement);
+    const imgData = canvas.toDataURL('image/png');
+    // eslint-disable-next-line new-cap
+    const pdf = new jsPDF('p', 'mm', 'a2');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`${sopProjectsData.sop_project_title || 'SOP'}.pdf`);
+  };
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="Sop Projects" />
@@ -66,26 +82,32 @@ const SopProjects = () => {
               </span>
             </FourButton>
           </Link>
-          <TwoButton
-            onClick={() => {
-              onDeleteSop();
-            }}
-          >
-            <span>Delete Sop</span>
-            <span>
-              <FaEdit />
-            </span>
-          </TwoButton>
+          <div>
+            <TwoButton
+              onClick={() => {
+                onDeleteSop();
+              }}
+            >
+              <span>Delete Sop</span>
+              <span>
+                <FaEdit />
+              </span>
+            </TwoButton>
+          </div>
         </div>
         <div className="w-full flex flex-col md:flex-row-4 md:text-right">
-          <Link to="/admin/sop-projects">
-            <ThreeButton>
+          <div>
+            <ThreeButton
+              onClick={() => {
+                handleDownloadPdf();
+              }}
+            >
               <span>Save as PDF</span>
               <span>
                 <TfiPrinter />
               </span>
             </ThreeButton>
-          </Link>
+          </div>
         </div>
       </div>
       <div className="sm:grid-cols-2 mt-6">
@@ -96,7 +118,9 @@ const SopProjects = () => {
                 Important information
               </h3>
             </div>
-            <SOP />
+            <div ref={sopRef}>
+              <SOP />
+            </div>
           </div>
         </div>
       </div>
