@@ -5,6 +5,9 @@ import {
   FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST,
   FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE,
+  FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE,
   FETCH_SHOWCASE_PROJECTS_REQUEST,
   FETCH_SHOWCASE_PROJECTS_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_FAILURE,
@@ -22,10 +25,13 @@ import {
 const initialState = {
   showCaseProjectsDataPending: [],
   showCaseProjectsDataConfirmed: [],
+  showCaseProjectsDataRejected: [],
   totalPagesPending: 0,
   totalPagesConfirmed: 0,
+  totalPagesRejected: 0,
   pagePending: 1,
   pageConfirmed: 1,
+  pageRejected: 1,
   loading: false,
   error: null,
 };
@@ -34,6 +40,7 @@ const showcaseReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST:
+    case FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_REQUEST:
     case ADD_PROJECT_REQUEST:
     case UPDATE_PROJECT_REQUEST:
@@ -64,8 +71,19 @@ const showcaseReducer = (state = initialState, action) => {
         error: null,
       };
 
+    case FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        showCaseProjectsDataRejected: action.payload.project,
+        totalPagesRejected: action.payload.total,
+        pageRejected: action.payload.page,
+        error: null,
+      };
+
     case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE:
+    case FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_FAILURE:
       return {
         ...state,
@@ -94,6 +112,10 @@ const showcaseReducer = (state = initialState, action) => {
           (project) =>
             project.id === action.payload.id ? action.payload : project
         ),
+        showCaseProjectsDataRejected: state.showCaseProjectsDataConfirmed.map(
+          (project) =>
+            project.id === action.payload.id ? action.payload : project
+        ),
         loading: false,
       };
 
@@ -104,6 +126,10 @@ const showcaseReducer = (state = initialState, action) => {
           (project) => project.id !== action.payload.sopProjectId
         ),
         showCaseProjectsDataConfirmed:
+          state.showCaseProjectsDataConfirmed.filter(
+            (project) => project.id !== action.payload.sopProjectId
+          ),
+        showCaseProjectsDataRejected:
           state.showCaseProjectsDataConfirmed.filter(
             (project) => project.id !== action.payload.sopProjectId
           ),

@@ -17,6 +17,7 @@ const store = configureStore({
     sopProjectsData: sopProjectReducer,
     showCaseProjectsDataPending: showcaseReducer,
     showCaseProjectsDataConfirmed: showcaseReducer,
+    showCaseProjectsDataRejected: showcaseReducer,
     profileAdminData: adminProfileReducer,
     changePasswordData: changePasswordReducer,
   },
