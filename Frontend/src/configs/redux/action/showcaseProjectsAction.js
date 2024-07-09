@@ -1,11 +1,18 @@
 import privateClient from '../../../utils/privateClient.js';
 
-export const FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST =
-  'FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST';
-export const FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS =
-  'FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS';
-export const FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE =
-  'FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE';
+
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE';
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_REQUEST';
@@ -26,41 +33,70 @@ export const DELETE_PROJECT_REQUEST = 'DELETE_PROJECT_REQUEST';
 export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
 export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
-export const showcaseProjectsPendingRequest = (actionType) => ({
+export const showcaseProjectsAdminRequest = (actionType) => ({
   type: actionType,
 });
 
-export const showcaseProjectsPendingSuccess = (actionType, data) => ({
+export const showcaseProjectsAdminSuccess = (actionType, data) => ({
   type: actionType,
   payload: data,
 });
 
-export const showcaseProjectsPendingFailure = (actionType, error) => ({
+export const showcaseProjectsAdminFailure = (actionType, error) => ({
   type: actionType,
   payload: error,
 });
 
-export const fetchShowcaseProjectsPending =
+export const fetchShowcaseProjectsPendingAdmin =
   (page = 0) =>
   async (dispatch) => {
     dispatch(
-      showcaseProjectsPendingRequest(FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST)
+      showcaseProjectsAdminRequest(
+        FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST
+      )
     );
     try {
       const response = await privateClient.get(
         `admin/projects/showcase-projects/pending/${page}`
       );
       dispatch(
-        showcaseProjectsPendingSuccess(
-          FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS,
+        showcaseProjectsAdminSuccess(
+          FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS,
           response.data.data.pending
         )
       );
-      // console.log(response.data.data);
     } catch (error) {
       dispatch(
-        showcaseProjectsPendingFailure(
-          FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE,
+        showcaseProjectsAdminFailure(
+          FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
+
+export const fetchShowcaseProjectsConfirmedAdmin =
+  (page = 0) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsAdminRequest(
+        FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST
+      )
+    );
+    try {
+      const response = await privateClient.get(
+        `admin/projects/showcase-projects/confirmed/${page}`
+      );
+      dispatch(
+        showcaseProjectsAdminSuccess(
+          FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS,
+          response.data.data.confirmed
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsAdminFailure(
+          FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE,
           error.message
         )
       );

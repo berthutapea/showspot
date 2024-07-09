@@ -1,7 +1,10 @@
 import {
-  FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST,
-  FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS,
-  FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE,
+  FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE,
+  FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE,
   FETCH_SHOWCASE_PROJECTS_REQUEST,
   FETCH_SHOWCASE_PROJECTS_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_FAILURE,
@@ -17,15 +20,20 @@ import {
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
-  showCaseProjectsData: [],
-  total: 0,
-  page: 1,
+  showCaseProjectsDataPending: [],
+  showCaseProjectsDataConfirmed: [],
+  totalPagesPending: 0,
+  totalPagesConfirmed: 0,
+  pagePending: 1,
+  pageConfirmed: 1,
+  loading: false,
   error: null,
 };
 
 const showcaseReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_SHOWCASE_PROJECTS_PENDING_REQUEST:
+    case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST:
+    case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_REQUEST:
     case ADD_PROJECT_REQUEST:
     case UPDATE_PROJECT_REQUEST:
@@ -36,49 +44,75 @@ const showcaseReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case FETCH_SHOWCASE_PROJECTS_PENDING_SUCCESS:
+    case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS:
       return {
         ...state,
         loading: false,
-        showCaseProjectsData: action.payload.project,
-        total: action.payload.total,
-        page: action.payload.page,
+        showCaseProjectsDataPending: action.payload.project,
+        totalPagesPending: action.payload.total,
+        pagePending: action.payload.page,
         error: null,
       };
 
-    case FETCH_SHOWCASE_PROJECTS_PENDING_FAILURE:
-    case FETCH_SHOWCASE_PROJECTS_SUCCESS:
+    case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS:
       return {
         ...state,
-        showCaseProjectsData: action.payload,
         loading: false,
+        showCaseProjectsDataConfirmed: action.payload.project,
+        totalPagesConfirmed: action.payload.total,
+        pageConfirmed: action.payload.page,
+        error: null,
       };
-    case UPDATE_PROJECT_SUCCESS:
+
+    case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE:
+    case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE:
+    case FETCH_SHOWCASE_PROJECTS_FAILURE:
       return {
         ...state,
-        showCaseProjectsData: state.showCaseProjectsData.map((project) =>
-          project.id === action.payload.id ? action.payload : project
-        ),
         loading: false,
+        error: action.payload,
       };
-    case DELETE_PROJECT_SUCCESS:
-      return {
-        ...state,
-        showCaseProjectsData: state.showCaseProjectsData.filter(
-          (project) => project.id !== action.payload.sopProjectId
-        ),
-        loading: false,
-      };
+
     case ADD_PROJECT_SUCCESS:
       return {
         ...state,
-        showCaseProjectsData: [...state.showCaseProjectsData, action.payload],
+        showCaseProjectsDataPending: [
+          ...state.showCaseProjectsDataPending,
+          action.payload,
+        ],
         loading: false,
       };
-    case FETCH_SHOWCASE_PROJECTS_FAILURE:
+
+    case UPDATE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        showCaseProjectsDataPending: state.showCaseProjectsDataPending.map(
+          (project) =>
+            project.id === action.payload.id ? action.payload : project
+        ),
+        showCaseProjectsDataConfirmed: state.showCaseProjectsDataConfirmed.map(
+          (project) =>
+            project.id === action.payload.id ? action.payload : project
+        ),
+        loading: false,
+      };
+
+    case DELETE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        showCaseProjectsDataPending: state.showCaseProjectsDataPending.filter(
+          (project) => project.id !== action.payload.sopProjectId
+        ),
+        showCaseProjectsDataConfirmed:
+          state.showCaseProjectsDataConfirmed.filter(
+            (project) => project.id !== action.payload.sopProjectId
+          ),
+        loading: false,
+      };
+
+    case ADD_PROJECT_FAILURE:
     case UPDATE_PROJECT_FAILURE:
     case DELETE_PROJECT_FAILURE:
-    case ADD_PROJECT_FAILURE:
       return {
         ...state,
         loading: false,

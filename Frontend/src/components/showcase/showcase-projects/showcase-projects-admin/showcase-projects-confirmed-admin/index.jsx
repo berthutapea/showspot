@@ -3,24 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FaEye } from 'react-icons/fa';
 import { BiSearch } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { fetchShowcaseProjectsPendingAdmin } from '../../../../../configs/redux/action/showcaseProjectsAction';
+import { fetchShowcaseProjectsConfirmedAdmin } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
-const ShowcaseProjectsPendingAdmin = () => {
-  const [currentPagePending, setCurrentPagePending] = useState(1);
+const ShowcaseProjectsConfirmedAdmin = () => {
+  const [currentPageConfirmed, setCurrentPageConfirmed] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
   const dispatch = useDispatch();
-  const { showCaseProjectsDataPending, totalPagesPending, pagePending } =
-    useSelector((state) => state.showCaseProjectsDataPending);
+  const { showCaseProjectsDataConfirmed, totalPagesConfirmed, pageConfirmed } =
+    useSelector((state) => state.showCaseProjectsDataConfirmed);
 
-  const onPageChangePending = (currentPagePending) => {
-    setCurrentPagePending(currentPagePending);
+  const onPageChangeConfirmed = (currentPageConfirmed) => {
+    setCurrentPageConfirmed(currentPageConfirmed);
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsPendingAdmin(currentPagePending));
-  }, [dispatch, currentPagePending]);
+    dispatch(fetchShowcaseProjectsConfirmedAdmin(currentPageConfirmed));
+  }, [dispatch, currentPageConfirmed]);
 
-  const filteredProjects = showCaseProjectsDataPending.filter((project) =>
+  const filteredProjects = showCaseProjectsDataConfirmed.filter((project) =>
     project.group_name.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
@@ -28,7 +28,7 @@ const ShowcaseProjectsPendingAdmin = () => {
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
       <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
         <h3 className="font-medium text-black dark:text-white">
-          Showcase Projects Pending
+          Showcase Projects Confirmed
         </h3>
       </div>
       <div className="flex justify-between items-center mt-6 flex-col md:flex-row md:justify-between">
@@ -72,17 +72,17 @@ const ShowcaseProjectsPendingAdmin = () => {
           </thead>
           <tbody>
             {Array.isArray(filteredProjects) && filteredProjects.length > 0 ? (
-              filteredProjects.map((pending, index) => (
-                <tr key={pending.pending_id}>
+              filteredProjects.map((confirmed, index) => (
+                <tr key={confirmed._id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
-                      {(currentPagePending - 1) * 5 + index + 1}
+                      {(currentPageConfirmed - 1) * 5 + index + 1}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
                     <div className="h-12.5 w-15 overflow-hidden">
                       <img
-                        src={pending.application_image}
+                        src={confirmed.application_image}
                         alt="Project Cover"
                         className="object-cover h-full w-full"
                       />
@@ -90,21 +90,21 @@ const ShowcaseProjectsPendingAdmin = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {pending.application_title}
+                      {confirmed.application_title}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {pending.group_name}
+                      {confirmed.group_name}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                    <p className="text-white dark:text-white bg-warning rounded-lg ">
-                      {pending.status}
+                    <p className="text-white dark:text-white bg-meta-3 rounded-lg ">
+                      {confirmed.status}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                    <Link to={'/admin/showcase-projects/latest'}>
+                    <Link to={'/admin/showcase-projects/history'}>
                       <button className="hover:text-black">
                         <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                       </button>
@@ -119,7 +119,7 @@ const ShowcaseProjectsPendingAdmin = () => {
                   className="border-b border-[#eee] py-5 px-4 dark:border-strokedark"
                 >
                   <p className="text-black dark:text-white text-center">
-                    No Showcase Projects Pending Found
+                    No Showcase Projects Confirmed Found
                   </p>
                 </td>
               </tr>
@@ -131,34 +131,36 @@ const ShowcaseProjectsPendingAdmin = () => {
       <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
         <div className="flex items-center space-x-2">
           <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
-            Showing {currentPagePending}-{filteredProjects.length} of{' '}
-            {totalPagesPending} Showcase Projects Confirmed
+            Showing {currentPageConfirmed}-{filteredProjects.length} of{' '}
+            {totalPagesConfirmed} Showcase Projects Confirmed
           </span>
         </div>
         <div className="flex space-x-2 py-4">
           <button
-            disabled={currentPagePending === 1}
-            onClick={() => onPageChangePending(currentPagePending - 1)}
+            disabled={currentPageConfirmed === 1}
+            onClick={() => onPageChangeConfirmed(currentPageConfirmed - 1)}
             className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
           >
             Prev
           </button>
-          {[...Array(pagePending)].map(() => (
+          {[...Array(pageConfirmed)].map(() => (
             <button
-              key={pagePending}
-              onClick={() => onPageChangePending(pagePending + 1)}
+              key={pageConfirmed}
+              onClick={() => onPageChangeConfirmed(pageConfirmed + 1)}
               className={`py-2 px-4 rounded-lg border ${
-                currentPagePending === pagePending
+                currentPageConfirmed === pageConfirmed
                   ? 'bg-primary text-white border-primary'
                   : 'border-gray-2 text-black dark:text-white dark:border-strokedark'
               }`}
             >
-              {pagePending}
+              {pageConfirmed}
             </button>
           ))}
           <button
-            disabled={currentPagePending === showCaseProjectsDataPending.length}
-            onClick={() => onPageChangePending(currentPagePending + 1)}
+            disabled={
+              currentPageConfirmed === showCaseProjectsDataConfirmed.length
+            }
+            onClick={() => onPageChangeConfirmed(currentPageConfirmed + 1)}
             className="py-2 px-6 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white dark:text-white dark:border-primary dark:hover:bg-primary disabled:opacity-50"
           >
             Next
@@ -169,4 +171,4 @@ const ShowcaseProjectsPendingAdmin = () => {
   );
 };
 
-export default ShowcaseProjectsPendingAdmin;
+export default ShowcaseProjectsConfirmedAdmin;
