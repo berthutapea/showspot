@@ -14,6 +14,13 @@ export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_SUCCESS =
 export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE';
 
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE';
+
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_REQUEST';
 export const FETCH_SHOWCASE_PROJECTS_SUCCESS =
@@ -103,17 +110,42 @@ export const fetchShowcaseProjectsConfirmedAdmin =
     }
   };
 
+export const fetchShowcaseProjectsRejectedAdmin =
+  (page = 0) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsAdminRequest(
+        FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST
+      )
+    );
+    try {
+      const response = await privateClient.get(
+        `admin/projects/showcase-projects/rejected/${page}`
+      );
+      dispatch(
+        showcaseProjectsAdminSuccess(
+          FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS,
+          response.data.data.rejected
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsAdminFailure(
+          FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
+
 /* ADMIN */
 export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
   dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
   try {
-
-    const response = await privateClient.get('students/projects/showcase-project');
-    console.log(response)
-
     const response = await privateClient.get(
       'students/projects/showcase-project'
     );
+    console.log(response);
 
     dispatch({
       type: FETCH_SHOWCASE_PROJECTS_SUCCESS,
@@ -150,10 +182,8 @@ export const deleteProject = () => async (dispatch) => {
 export const fetchShowCaseProjectsStudent = () => async (dispatch) => {
   dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
   try {
-    const response = await privateClient.get('students/projects/showcase-project/student11641/1');
-    console.log(response)
     const response = await privateClient.get(
-      'students/projects/showcase-project'
+      'students/projects/showcase-project/student11641/1'
     );
 
     dispatch({
