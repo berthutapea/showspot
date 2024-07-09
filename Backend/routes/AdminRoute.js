@@ -225,6 +225,14 @@ class AdminRoute extends Route {
       this.controller.findShowProjectByGroupName.bind(this.controller)
     );
 
+    // valuation project by mentor
+    this.router.put(
+      '/admin/projects/showcase-projects/:id/valuation',
+      upload.none(),
+      // authMiddleware,
+      // authUser,
+      this.controller.valuationProjectByAdmin.bind(this.controller)
+    );
   }
 }
 

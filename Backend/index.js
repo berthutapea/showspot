@@ -41,6 +41,11 @@ const UserRoute = require('./routes/StudentRoute');
 const studentController = new StudentController();
 new UserRoute(router, studentController);
 
+const GeneralController = require('./controllers/GeneralController');
+const GeneralRoute = require('./routes/GeneralRoute');
+const generalController = new GeneralController();
+new GeneralRoute(router, generalController);
+
 new LoadImageHandler(app);
 
 app.listen(config.server.PORT, () => {
