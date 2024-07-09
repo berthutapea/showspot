@@ -73,7 +73,7 @@ const ShowcaseProjectsRejectedAdmin = () => {
           <tbody>
             {Array.isArray(filteredProjects) && filteredProjects.length > 0 ? (
               filteredProjects.map((rejected, index) => (
-                <tr key={rejected.rejected_id}>
+                <tr key={rejected.application_id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
                       {(currentPageRejected - 1) * 5 + index + 1}

@@ -21,7 +21,6 @@ import EditStudents from '../../components/form/students-data-form/edit-students
 import ProfileAdmin from '../../components/profile/profile-admin';
 import AddSop from '../../components/form/sop-form/add-sop';
 import EditSop from '../../components/form/sop-form/edit-sop';
-import ViewShowcaseLatest from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-latest';
 import ViewShowcaseHistory from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-history';
 import DashboardMentors from '../../pages/dashboard/mentors/dashboard-mentors';
 import SopProjectsMentors from '../../pages/dashboard/mentors/projects/sop-projects';
@@ -41,6 +40,7 @@ import ProfileStudentsEdit from '../../components/profile/profile-students';
 import ChangePasswordStudents from '../../pages/dashboard/students/settings/change-password';
 import UploadsShowcaseProjects from '../../components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 import MainLayout from '../../layout/main-layout';
+import ViewShowcasePendingAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-pending-admin';
 
 const AppRoutes = () => {
   return (
@@ -101,8 +101,8 @@ const AppRoutes = () => {
       <Route path="/admin/sop-projects/edit" element={<EditSop />} />
       <Route path="/admin/showcase-projects" element={<ShowcaseProjects />} />
       <Route
-        path="/admin/showcase-projects/latest"
-        element={<ViewShowcaseLatest />}
+        path="/admin/showcase-projects/pending/view/:id"
+        element={<ViewShowcasePendingAdmin />}
       />
       <Route
         path="/admin/showcase-projects/history"

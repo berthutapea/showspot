@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchShowcaseProjectsAdminById } from '../../../configs/redux/action/showcaseProjectsAction';
 
 const ShowcaseMembers = () => {
-  const rawData = [
-    { role: 'Hustler', fullName: 'Lintang Luthfiantoni' },
-    { role: 'Scrum Master', fullName: 'Asfia Apriani' },
-    { role: 'Scrum Master', fullName: 'Mutia Nandika' },
-    { role: 'Hipster', fullName: 'Adelia Sofia Anjani' },
-    { role: 'Hipster', fullName: 'Aditya Mufid Musyaffa' },
-    { role: 'Hipster', fullName: 'Lustiara Mega Puspita Arlana' },
-    { role: 'Hipster', fullName: 'Ali Askari' },
-    { role: 'Hipster', fullName: 'Vika Dwi Nur Romadhoni' },
-    { role: 'Hacker', fullName: 'Asfia Apriani' },
-    { role: 'Hacker', fullName: 'Mutia Nandika' },
-    { role: 'Hacker', fullName: 'Sapitri' },
-    { role: 'Hacker', fullName: 'Khaeril Maswal Zaid' },
-  ];
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const groupedData = rawData.reduce((acc, item) => {
-    if (!acc[item.role]) {
-      acc[item.role] = [];
+  const showcaseProjectsData = useSelector(
+    (state) => state.showCaseProjectsData.showCaseProjectsData
+  );
+
+  useEffect(() => {
+    dispatch(fetchShowcaseProjectsAdminById(id));
+  }, [dispatch, id]);
+
+  const parseStudentNames = (studentNamesString) => {
+    try {
+      const trimmedString = studentNamesString.replace(/'/g, '"').trim();
+      return JSON.parse(trimmedString);
+    } catch (error) {
+      console.error('Error parsing student names:', error);
+      return [];
     }
-    acc[item.role].push(item);
-    return acc;
-  }, {});
+  };
 
   return (
     <div className="container mx-auto my-4 text-accent">
@@ -34,16 +35,40 @@ const ShowcaseMembers = () => {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(groupedData).map(([role, items], index) => (
-            <tr key={index} className="border-t">
-              <td className="px-4 py-3 border">{role}</td>
-              <td className="px-4 py-3 border">
-                {items.map((item, index) => (
-                  <div key={index}>{item.fullName}</div>
-                ))}
+          {showcaseProjectsData && showcaseProjectsData.group_project ? (
+            showcaseProjectsData.group_project.map((groupProject, index) => (
+              <tr
+                key={groupProject.group_project_id + '-' + index}
+                className="border-t"
+              >
+                <td className="px-4 py-3 border">
+                  {groupProject.student_position}
+                </td>
+                <td className="px-4 py-3 border">
+                  {groupProject.student_name &&
+                    parseStudentNames(groupProject.student_name).map(
+                      (student, idx) => (
+                        <div key={groupProject.group_project_id + '-' + idx}>
+                          <span className="text-xl text-gray-500">• </span>
+                          {student}
+                        </div>
+                      )
+                    )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan="2"
+                className="border-b border-[#eee] py-5 px-4 dark:border-strokedark"
+              >
+                <p className="text-black dark:text-white text-center">
+                  No Members
+                </p>
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

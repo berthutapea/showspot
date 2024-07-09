@@ -73,7 +73,7 @@ const ShowcaseProjectsPendingAdmin = () => {
           <tbody>
             {Array.isArray(filteredProjects) && filteredProjects.length > 0 ? (
               filteredProjects.map((pending, index) => (
-                <tr key={pending.pending_id}>
+                <tr key={pending.application_id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
                       {(currentPagePending - 1) * 5 + index + 1}
@@ -104,7 +104,9 @@ const ShowcaseProjectsPendingAdmin = () => {
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                    <Link to={'/admin/showcase-projects/latest'}>
+                    <Link
+                      to={`/admin/showcase-projects/pending/view/${pending.application_id}`}
+                    >
                       <button className="hover:text-black">
                         <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                       </button>
@@ -132,7 +134,7 @@ const ShowcaseProjectsPendingAdmin = () => {
         <div className="flex items-center space-x-2">
           <span className="text-gray-5 dark:text-gray-4 text-sm py-4">
             Showing {currentPagePending}-{filteredProjects.length} of{' '}
-            {totalPagesPending} Showcase Projects Confirmed
+            {totalPagesPending} Showcase Projects Pending
           </span>
         </div>
         <div className="flex space-x-2 py-4">

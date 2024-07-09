@@ -73,7 +73,7 @@ const ShowcaseProjectsConfirmedAdmin = () => {
           <tbody>
             {Array.isArray(filteredProjects) && filteredProjects.length > 0 ? (
               filteredProjects.map((confirmed, index) => (
-                <tr key={confirmed._id}>
+                <tr key={confirmed.application_id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white text-center">
                       {(currentPageConfirmed - 1) * 5 + index + 1}
