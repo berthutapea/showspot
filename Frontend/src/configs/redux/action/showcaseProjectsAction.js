@@ -19,7 +19,15 @@ export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_REQUEST =
 export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS =
   'FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS';
 export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE =
-  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE';
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE';
+
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE';
+
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST';
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS';
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE';
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_REQUEST';
@@ -137,6 +145,50 @@ export const fetchShowcaseProjectsRejectedAdmin =
       );
     }
   };
+
+export const fetchShowcaseProjectsAdminById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST });
+  try {
+    const response = await privateClient.get(
+      `admin/projects/showcase-projects/id/${id}/detail`
+    );
+    dispatch({
+      type: FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS,
+      payload: response.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE,
+      payload: error.response.data.msg,
+    });
+  }
+};
+
+export const evaluationShowcaseProjectAdmin = (id, formData, navigate) => async (dispatch) => {
+  dispatch({ type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST });
+  try {
+    const response = await privateClient.put(
+      `admin/projects/showcase-projects/${id}/valuation`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    dispatch({
+      type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS,
+      payload: response.data.msg,
+    });
+
+    navigate('/admin/showcase-projects');
+  } catch (error) {
+    dispatch({
+      type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE,
+      payload: error.response.data.msg,
+    });
+  }
+};
 
 /* ADMIN */
 export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
