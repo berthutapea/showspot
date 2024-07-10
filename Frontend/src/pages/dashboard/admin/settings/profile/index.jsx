@@ -17,6 +17,34 @@ const Profile = () => {
     dispatch(fetchMyProfileAdmin());
   }, [dispatch]);
 
+  const getGroupsType = (groupsType) => {
+    switch (groupsType) {
+      case 1:
+        return 'Mobile';
+      case 2:
+        return 'Web A';
+      case 3:
+        return 'Web B';
+      case 4:
+        return 'Web C';
+      default:
+        return 'No response';
+    }
+  };
+
+  const getClassTypeId = (classTypeId) => {
+    switch (classTypeId) {
+      case 1:
+        return 'Morning';
+      case 2:
+        return 'Afternoon';
+      case 3:
+        return 'Night';
+      default:
+        return 'No response';
+    }
+  };
+
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="My Profile" />
@@ -55,12 +83,12 @@ const Profile = () => {
               <span className="inline-block w-7">:</span>{' '}
               {profileAdminData.major}
             </h2>
-            {/* <h2 className="font-medium mb-4 block text-black">
+            <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Groups Type</span>
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
-                {''}
-                {profileAdminData.group_type_id}
+                {' '}
+                {getGroupsType(profileAdminData.group_type_id)}
               </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
@@ -68,9 +96,9 @@ const Profile = () => {
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
                 {' '}
-                {profileAdminData.class_type_id}
+               {getClassTypeId(profileAdminData.class_type_id)}
               </span>
-            </h2> */}
+            </h2>
           </div>
         </div>
       </div>

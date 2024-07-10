@@ -22,21 +22,14 @@ export const changePasswordAdmin =
 
       if (password !== confPassword) {
         dispatch(
-          changePasswordFailure('Password dan Konfirmasi Password Tidak Cocok')
+          changePasswordFailure('Password and Confirm Password Do not Match')
         );
         return;
       }
-
       const payload = {
         password,
         confPassword,
       };
-
-      console.log(
-        `Sending request to: admin/password/admin-${id+1}/change with payload:`,
-        payload
-      );
-
       const response = await privateClient.patch(
         `admin/password/admin-${id + 1}/change`,
         payload,
@@ -47,13 +40,8 @@ export const changePasswordAdmin =
           },
         }
       );
-
       dispatch(changePasswordSuccess(response.data));
     } catch (error) {
-      console.error(
-        'Error changing password:',
-        error.response?.data || error.message
-      );
       dispatch(
         changePasswordFailure(error.response?.data?.msg || error.message)
       );
