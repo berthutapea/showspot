@@ -47,12 +47,13 @@ const ViewShowcasePendingAdmin = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, status) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('grade_id', grade_id);
     formData.append('project_filter_id', project_filter_id);
     formData.append('notes', notes);
+    formData.append('status_project_id', status);
 
     dispatch(evaluationShowcaseProjectAdmin(id, formData, navigate))
       .then(() => {
@@ -61,7 +62,7 @@ const ViewShowcasePendingAdmin = () => {
           title: 'Updated!',
           timer: 1000,
           timerProgressBar: true,
-          text: 'Mentor has been updated successfully.',
+          text: 'Showcase has been updated successfully.',
         });
       })
       .catch(() => {
@@ -70,7 +71,7 @@ const ViewShowcasePendingAdmin = () => {
           title: 'Error!',
           timer: 1000,
           timerProgressBar: true,
-          text: 'There was an error updating the mentor.',
+          text: 'There was an error updating the showcase.',
         });
       });
   };
@@ -88,6 +89,7 @@ const ViewShowcasePendingAdmin = () => {
       setLinkGithub(showCaseProjectsData?.project?.link_github);
       setDescription(showCaseProjectsData?.project?.description);
       setGroupId(showCaseProjectsData?.project?.group_id);
+      setGradeId(showCaseProjectsData?.project?.grade_id);
       setProjectFilterId(showCaseProjectsData?.project?.project_filter_id);
       setNotes(showCaseProjectsData?.project?.notes);
     }
@@ -228,9 +230,7 @@ const ViewShowcasePendingAdmin = () => {
                         onChange={(e) => setGradeId(e.target.value)}
                         required={true}
                       >
-                        <option value="" disabled={true}>
-                          Please Select
-                        </option>
+                        <option value="">Please Select</option>
                         <option value="1">A</option>
                         <option value="2">B</option>
                         <option value="3">C</option>
@@ -254,9 +254,7 @@ const ViewShowcasePendingAdmin = () => {
                         onChange={(e) => setProjectFilterId(e.target.value)}
                         required={true}
                       >
-                        <option value="" disabled={true}>
-                          Please Select
-                        </option>
+                        <option value="">Please Select</option>
                         <option value="1">The Best</option>
                         <option value="2">Mobile</option>
                         <option value="3">Web</option>
@@ -285,16 +283,12 @@ const ViewShowcasePendingAdmin = () => {
 
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
                   <div>
-                    <OneButton
-                      onClick={(e) => handleSubmit(e, 1)}
-                    >
+                    <OneButton onClick={(e) => handleSubmit(e, 1)}>
                       <span>Confirmed</span>
                     </OneButton>
                   </div>
                   <div>
-                    <TwoButton
-                      onClick={(e) => handleSubmit(e, 3)}
-                    >
+                    <TwoButton onClick={(e) => handleSubmit(e, 3)}>
                       <span>Rejected</span>
                     </TwoButton>
                   </div>

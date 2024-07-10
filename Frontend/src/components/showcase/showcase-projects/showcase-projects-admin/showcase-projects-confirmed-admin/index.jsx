@@ -104,7 +104,9 @@ const ShowcaseProjectsConfirmedAdmin = () => {
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                    <Link to={'/admin/showcase-projects/history'}>
+                    <Link
+                      to={`/admin/showcase-projects/confirmed/view/${confirmed.application_id}`}
+                    >
                       <button className="hover:text-black">
                         <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                       </button>

@@ -21,7 +21,6 @@ import EditStudents from '../../components/form/students-data-form/edit-students
 import ProfileAdmin from '../../components/profile/profile-admin';
 import AddSop from '../../components/form/sop-form/add-sop';
 import EditSop from '../../components/form/sop-form/edit-sop';
-import ViewShowcaseHistory from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-history';
 import DashboardMentors from '../../pages/dashboard/mentors/dashboard-mentors';
 import SopProjectsMentors from '../../pages/dashboard/mentors/projects/sop-projects';
 import ShowcaseProjectsMentors from '../../pages/dashboard/mentors/projects/showcase-projects';
@@ -41,6 +40,7 @@ import ChangePasswordStudents from '../../pages/dashboard/students/settings/chan
 import UploadsShowcaseProjects from '../../components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 import MainLayout from '../../layout/main-layout';
 import ViewShowcasePendingAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-pending-admin';
+import ViewShowcaseConfirmedAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-confirmed-admin';
 
 const AppRoutes = () => {
   return (
@@ -105,8 +105,8 @@ const AppRoutes = () => {
         element={<ViewShowcasePendingAdmin />}
       />
       <Route
-        path="/admin/showcase-projects/history"
-        element={<ViewShowcaseHistory />}
+        path="/admin/showcase-projects/confirmed/view/:id"
+        element={<ViewShowcaseConfirmedAdmin />}
       />
       <Route path="/admin/profile" element={<Profile />} />
       <Route path="/admin/profile/edit/:id" element={<ProfileAdmin />} />
