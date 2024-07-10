@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
 import ShowcaseMembers from '../../../../showcase/showcase-members';
 import {
-  evaluationShowcaseProjectAdmin,
+  deleteShowcaseProjectsAdmin,
   fetchShowcaseProjectsAdminById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
@@ -62,6 +62,33 @@ const ViewShowcaseConfirmedAdmin = () => {
     }
   };
 
+  const onDeleteShowcaseProjectsConfirmed = (id) => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to Delete?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteShowcaseProjectsAdmin(id)).then(() => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Showcase Project data has been successfully deleted.',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          }).then(() => {
+            navigate('/admin/showcase-projects');
+          });
+        });
+      }
+    });
+  };
+
   const getStatusProjectFilterId = (statusProjectId) => {
     switch (statusProjectId) {
       case 1:
@@ -73,35 +100,6 @@ const ViewShowcaseConfirmedAdmin = () => {
       default:
         return 'Unknown';
     }
-  };
-
-  const handleSubmit = (e, status) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('grade_id', grade_id);
-    formData.append('project_filter_id', project_filter_id);
-    formData.append('notes', notes);
-    formData.append('status_project_id', status);
-
-    dispatch(evaluationShowcaseProjectAdmin(id, formData, navigate))
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Updated!',
-          timer: 1000,
-          timerProgressBar: true,
-          text: 'Showcase has been updated successfully.',
-        });
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          timer: 1000,
-          timerProgressBar: true,
-          text: 'There was an error updating the showcase.',
-        });
-      });
   };
 
   useEffect(() => {
@@ -136,7 +134,7 @@ const ViewShowcaseConfirmedAdmin = () => {
                 )}
               </h1>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="p-6.5">
                 <div className="mx-1 md:mx-4 rounded single-blog flex flex-col justify-between">
                   <img
@@ -256,13 +254,13 @@ const ViewShowcaseConfirmedAdmin = () => {
                       name="grade_id"
                       id="grade_id"
                       disabled={true}
-                      value={getStatusGrade("grade_id")}
+                      value={getStatusGrade(grade_id)}
                       required={true}
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
-                      Grade <span className="text-meta-1">*</span>
+                      Project Filter <span className="text-meta-1">*</span>
                     </label>
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
@@ -291,21 +289,26 @@ const ViewShowcaseConfirmedAdmin = () => {
                     ></textarea>
                   </div>
                 </div>
-
-                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <div>
-                    <TwoButton>
-                      <span>Delete</span>
-                    </TwoButton>
-                  </div>
-                  <Link to="/admin/showcase-projects">
-                    <ThreeButton>
-                      <span>Back</span>
-                    </ThreeButton>
-                  </Link>
-                </div>
               </div>
             </form>
+            <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
+              <div>
+                <TwoButton
+                  onClick={() => {
+                    onDeleteShowcaseProjectsConfirmed(
+                      showCaseProjectsData?.project?.application_id
+                    );
+                  }}
+                >
+                  <span>Delete</span>
+                </TwoButton>
+              </div>
+              <Link to="/admin/showcase-projects">
+                <ThreeButton>
+                  <span>Back</span>
+                </ThreeButton>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

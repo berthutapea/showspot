@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
 import ShowcaseMembers from '../../../../showcase/showcase-members';
 import {
-  evaluationShowcaseProjectAdmin,
+  evaluationShowcaseProjectsAdmin,
   fetchShowcaseProjectsAdminById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
@@ -55,7 +55,7 @@ const ViewShowcasePendingAdmin = () => {
     formData.append('notes', notes);
     formData.append('status_project_id', status);
 
-    dispatch(evaluationShowcaseProjectAdmin(id, formData, navigate))
+    dispatch(evaluationShowcaseProjectsAdmin(id, formData, navigate))
       .then(() => {
         Swal.fire({
           icon: 'success',
