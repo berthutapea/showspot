@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
 import ShowcaseMembersMentors from '../../../../showcase/showcase-members/showcase-members-mentors';
 import {
-  evaluationShowcaseProjectsAdmin,
+  evaluationShowcaseProjectsMentors,
   fetchShowcaseProjectsMentorsById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
@@ -55,7 +55,7 @@ const ViewShowcasePendingMentors = () => {
     formData.append('notes', notes || 'No Response');
     formData.append('status_project_id', status);
 
-    dispatch(evaluationShowcaseProjectsAdmin(id, formData, navigate))
+    dispatch(evaluationShowcaseProjectsMentors(id, formData, navigate))
       .then(() => {
         Swal.fire({
           icon: 'success',
