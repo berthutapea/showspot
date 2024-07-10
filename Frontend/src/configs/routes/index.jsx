@@ -41,6 +41,7 @@ import UploadsShowcaseProjects from '../../components/form/showcase-projects-for
 import MainLayout from '../../layout/main-layout';
 import ViewShowcasePendingAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-pending-admin';
 import ViewShowcaseConfirmedAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-confirmed-admin';
+import ViewShowcaseRejectedAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-rejected-admin';
 
 const AppRoutes = () => {
   return (
@@ -107,6 +108,10 @@ const AppRoutes = () => {
       <Route
         path="/admin/showcase-projects/confirmed/view/:id"
         element={<ViewShowcaseConfirmedAdmin />}
+      />
+      <Route
+        path="/admin/showcase-projects/rejected/view/:id"
+        element={<ViewShowcaseRejectedAdmin />}
       />
       <Route path="/admin/profile" element={<Profile />} />
       <Route path="/admin/profile/edit/:id" element={<ProfileAdmin />} />
