@@ -61,6 +61,22 @@ const ViewShowcaseConfirmedAdmin = () => {
         return 'No response';
     }
   };
+  const getProjectFilter = (statusProjectFilter) => {
+    switch (statusProjectFilter) {
+      case 1:
+        return 'A';
+      case 2:
+        return 'B';
+      case 3:
+        return 'C';
+      case 4:
+        return 'D';
+      case 5:
+        return 'E';
+      default:
+        return 'No response';
+    }
+  };
 
   const onDeleteShowcaseProjectsConfirmed = (id) => {
     Swal.fire({
@@ -89,19 +105,6 @@ const ViewShowcaseConfirmedAdmin = () => {
     });
   };
 
-  const getStatusProjectFilterId = (statusProjectId) => {
-    switch (statusProjectId) {
-      case 1:
-        return 'The Best';
-      case 2:
-        return 'Mobile';
-      case 3:
-        return 'Web';
-      default:
-        return 'Unknown';
-    }
-  };
-
   useEffect(() => {
     dispatch(fetchShowcaseProjectsAdminById(id));
   }, [dispatch, id]);
@@ -123,7 +126,7 @@ const ViewShowcaseConfirmedAdmin = () => {
 
   return (
     <LayoutAdmin>
-      <BreadcrumbAdmin pageName="View Showcase Pending" />
+      <BreadcrumbAdmin pageName="View Showcase Confirmed" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
@@ -268,7 +271,7 @@ const ViewShowcaseConfirmedAdmin = () => {
                       name="project_filter_id"
                       id="project_filter_id"
                       disabled={true}
-                      value={getStatusProjectFilterId(project_filter_id)}
+                      value={getProjectFilter(project_filter_id)}
                       required={true}
                     />
                   </div>
