@@ -136,21 +136,22 @@ class StudentController extends Controller {
     };
 
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
-    const groupProjectStudent = await groupProjectModel.findOne('student in group', params);
-
-    const paramsGroup = {
-      group_id: groupProjectStudent.group_project_id
-    }
-
-    const offset = (page - 1) * 5;
+    const groupProjectStudent = await groupProjectModel.findAll('all', params);
 
     const projectModel = await this.loadModel(this.projectModel);
-    const project = await projectModel.findAll(1, paramsGroup , 5, offset, 'created_at');
+    const offset = (page - 1) * 5;
+
+    const fetchArray = await Promise.all(groupProjectStudent.map(async (group) => {
+      return await projectModel.findAll(1, { group_id: group.group_project_id }, 5, offset, 'created_at');
+    }));
+
+    const set = new Set(fetchArray.flatMap(data => data.map(JSON.stringify)));
+    const uniqueResult = Array.from(set).map(JSON.parse);
 
     const groupProjectStudentData = {
       page: page,
-      projects: project,
-      total: project.length
+      projects: uniqueResult,
+      total: uniqueResult.length
     };
 
     try {
