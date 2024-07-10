@@ -70,6 +70,18 @@ export const FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS =
   'FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS';
 export const FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE';
+
+export const EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST =
+  'EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST';
+export const EVALUATION_SHOWCASE_PROJECTS_MENTOR_SUCCESS =
+  'EVALUATION_SHOWCASE_PROJECTS_MENTOR_SUCCESS';
+export const EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE =
+  'EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE';
+
+export const DELETE_SHOWCASE_PROJECTS_MENTOR_SUCCESS =
+  'DELETE_SHOWCASE_PROJECTS_MENTOR_SUCCESS';
+export const DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE =
+  'DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE';
 /* MENTOR */
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
@@ -372,6 +384,51 @@ export const fetchShowcaseProjectsMentorsById = (id) => async (dispatch) => {
   }
 };
 
+export const evaluationShowcaseProjectsMentors =
+  (id, formData, navigate) => async (dispatch) => {
+    dispatch({ type: EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST });
+    try {
+      const response = await privateClient.put(
+        `mentors/projects/showcase-projects/${id}/valuation`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch({
+        type: EVALUATION_SHOWCASE_PROJECTS_MENTOR_SUCCESS,
+        payload: response.data.msg,
+      });
+
+      navigate('/mentors/showcase-projects');
+    } catch (error) {
+      dispatch({
+        type: EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+
+export const deleteShowcaseProjectsMentors = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await privateClient.delete(
+        `mentors/projects/showcase-projects/${id}/delete`
+      );
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_MENTOR_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+};
 /* MENTOR */
 
 /* ADMIN */

@@ -7,7 +7,7 @@ import LayoutMentors from '../../../../../layout/layout-mentors';
 import BreadcrumbMentors from '../../../../breadcrumb/breadcrumb-mentors';
 import ShowcaseMembersMentors from '../../../../showcase/showcase-members/showcase-members-mentors';
 import {
-  deleteShowcaseProjectsAdmin,
+  deleteShowcaseProjectsMentors,
   fetchShowcaseProjectsMentorsById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
@@ -89,7 +89,7 @@ const ViewShowcaseConfirmedMentors = () => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteShowcaseProjectsAdmin(id)).then(() => {
+        dispatch(deleteShowcaseProjectsMentors(id)).then(() => {
           Swal.fire({
             title: 'Success',
             text: 'Showcase Project data has been successfully deleted.',
