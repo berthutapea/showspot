@@ -21,13 +21,24 @@ export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_SUCCESS =
 export const FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE';
 
-export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST';
-export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS';
-export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE ='FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE';
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE';
 
-export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST';
-export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS';
-export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE ='EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE';
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST =
+  'EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST';
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS =
+  'EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS';
+export const EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE =
+  'EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE';
+
+export const DELETE_SHOWCASE_PROJECTS_ADMIN_SUCCESS =
+  'DELETE_SHOWCASE_PROJECTS_ADMIN_SUCCESS';
+export const DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE =
+  'DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE';
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_REQUEST';
@@ -164,30 +175,50 @@ export const fetchShowcaseProjectsAdminById = (id) => async (dispatch) => {
   }
 };
 
-export const evaluationShowcaseProjectAdmin = (id, formData, navigate) => async (dispatch) => {
-  dispatch({ type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST });
-  try {
-    const response = await privateClient.put(
-      `admin/projects/showcase-projects/${id}/valuation`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    dispatch({
-      type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS,
-      payload: response.data.msg,
-    });
+export const evaluationShowcaseProjectsAdmin =
+  (id, formData, navigate) => async (dispatch) => {
+    dispatch({ type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST });
+    try {
+      const response = await privateClient.put(
+        `admin/projects/showcase-projects/${id}/valuation`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch({
+        type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS,
+        payload: response.data.msg,
+      });
 
-    navigate('/admin/showcase-projects');
-  } catch (error) {
-    dispatch({
-      type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE,
-      payload: error.response.data.msg,
-    });
-  }
+      navigate('/admin/showcase-projects');
+    } catch (error) {
+      dispatch({
+        type: EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+
+export const deleteShowcaseProjectsAdmin = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await privateClient.delete(
+        `admin/projects/showcase-projects/${id}/delete`
+      );
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_ADMIN_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
 };
 
 /* ADMIN */
