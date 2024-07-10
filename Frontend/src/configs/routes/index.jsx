@@ -30,6 +30,7 @@ import ViewShowcaseLatestStudents from '../../components/form/showcase-projects-
 import ViewShowcaseHistoryStudents from '../../components/form/showcase-projects-form/showcase-projects-form-students/view-showcase-history';
 import ProfileStudents from '../../pages/dashboard/students/settings/profile';
 import ProfileStudentsEdit from '../../components/profile/profile-students';
+import ChangePasswordStudents from '../../pages/dashboard/students/settings/change-password';
 import UploadsShowcaseProjects from '../../components/form/showcase-projects-form/showcase-projects-form-students/uploads-showcase-projects';
 import MainLayout from '../../layout/main-layout';
 import ViewShowcasePendingAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-pending-admin';
@@ -43,6 +44,8 @@ import ProfileAdmin from '../../pages/dashboard/admin/settings/profile-admin';
 import ProfileMentors from '../../pages/dashboard/mentors/settings/profile-mentors';
 import ChangePasswordMentors from '../../pages/dashboard/mentors/settings/change-password-mentors';
 import ChangePasswordStudents from '../../pages/dashboard/students/settings/change-password-students';
+import ProfileStudents from '../../pages/dashboard/students/settings/profile-students';
+import ProfileStudentsEdit from '../../components/profile/profile-students-edit';
 
 const AppRoutes = () => {
   return (
@@ -169,7 +172,10 @@ const AppRoutes = () => {
         element={<ViewShowcaseHistoryStudents />}
       />
       <Route path="/students/profile" element={<ProfileStudents />} />
-      <Route path="/students/profile/edit" element={<ProfileStudentsEdit />} />
+      <Route
+        path="/students/profile/edit/:id"
+        element={<ProfileStudentsEdit />}
+      />
       <Route
         path="/students/change-password"
         element={<ChangePasswordStudents />}

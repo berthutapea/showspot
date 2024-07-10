@@ -108,7 +108,7 @@ const DropdownProfileStudents = () => {
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
             <li>
               <Link
-                to={'/admin/profile'}
+                to={'/students/profile'}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <FiUser className="text-xl" />

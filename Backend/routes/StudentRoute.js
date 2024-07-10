@@ -69,6 +69,14 @@ class StudentRoute extends Route {
       this.controller.getShowCaseProjectByGroupProjectId.bind(this.controller)
     );
 
+    this.router.put(
+      '/students/projects/showcase-project/:projectid/update',
+      this.fileUploadHandler.getMulterInstance().single('application_image'),
+      // authMiddleware,
+      // authUser,
+      this.controller.updateProjectByStudent.bind(this.controller)
+    );
+
     this.router.delete(
       '/students/projects/showcase-projects/:id/delete',
       // authMiddleware,

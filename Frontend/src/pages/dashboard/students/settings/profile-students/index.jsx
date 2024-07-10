@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import LayoutMentors from '../../../../../layout/layout-mentors';
-import BreadcrumbMentors from '../../../../../components/breadcrumb/breadcrumb-mentors';
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
+import LayoutStudents from '../../../../../layout/layout-students';
+import BreadcrumbStudents from '../../../../../components/breadcrumb/breadcrumb-students';
 import FourButton from '../../../../../components/buttons/four-button';
-import { fetchMyProfileMentors } from '../../../../../configs/redux/action/myProfileAction';
+import { fetchMyProfileStudents } from '../../../../../configs/redux/action/myProfileAction';
 
-const ProfileMentors = () => {
+const ProfileStudents = () => {
   const dispatch = useDispatch();
   const { dashboardData } = useSelector((state) => state.dashboardData);
   const profileDataUsers = useSelector(
@@ -15,10 +15,10 @@ const ProfileMentors = () => {
   );
 
   useEffect(() => {
-    if (dashboardData.mentor_id) {
-      dispatch(fetchMyProfileMentors(dashboardData.mentor_id));
+    if (dashboardData && dashboardData.student_id) {
+      dispatch(fetchMyProfileStudents(dashboardData.student_id));
     }
-  }, [dispatch, dashboardData.mentor_id]);
+  }, [dispatch, dashboardData]);
 
   const getGroupsType = (groupsType) => {
     switch (groupsType) {
@@ -49,21 +49,23 @@ const ProfileMentors = () => {
   };
 
   return (
-    <LayoutMentors>
-      <BreadcrumbMentors pageName="My Profile" />
-      <Link to={`/mentors/profile/edit/${profileDataUsers.mentor_id}`}>
-        <FourButton>
-          <span>Edit Profile</span>
-          <span>
-            <FaUserEdit />
-          </span>
-        </FourButton>
-      </Link>
+    <LayoutStudents>
+      <BreadcrumbStudents pageName="My Profile" />
+      {profileDataUsers && (
+        <Link to={`/students/profile/edit/${profileDataUsers.student_id}`}>
+          <FourButton>
+            <span>Edit Profile</span>
+            <span>
+              <FaUserEdit />
+            </span>
+          </FourButton>
+        </Link>
+      )}
       <div className="flex flex-col md:flex-row rounded-sm border border-stroke bg-white shadow-default mt-8">
         <div className="md:w-1/3 w-full px-4 py-4 flex justify-center md:justify-start">
           <img
             className="rounded-xl h-80 w-full md:w-80 object-cover"
-            src={profileDataUsers.photo_profile}
+            src={profileDataUsers?.photo_profile}
             alt="User Students"
           />
         </div>
@@ -72,26 +74,26 @@ const ProfileMentors = () => {
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Full Name</span>
               <span className="inline-block w-7">:</span>{' '}
-              {profileDataUsers.fullname}
+              {profileDataUsers?.fullname}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Campus</span>
               <span className="inline-block w-7">:</span>{' '}
               <span className="pl-[-10] md:pl-0">
-                {profileDataUsers.campus}
+                {profileDataUsers?.campus}
               </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Major</span>
               <span className="inline-block w-7">:</span>{' '}
-              {profileDataUsers.major}
+              {profileDataUsers?.major}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Groups Type</span>
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
                 {' '}
-                {getGroupsType(profileDataUsers.group_type_id)}
+                {getGroupsType(profileDataUsers?.group_type_id)}
               </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
@@ -99,14 +101,14 @@ const ProfileMentors = () => {
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
                 {' '}
-                {getClassTypeId(profileDataUsers.class_type_id)}
+                {getClassTypeId(profileDataUsers?.class_type_id)}
               </span>
             </h2>
           </div>
         </div>
       </div>
-    </LayoutMentors>
+    </LayoutStudents>
   );
 };
 
-export default ProfileMentors;
+export default ProfileStudents;

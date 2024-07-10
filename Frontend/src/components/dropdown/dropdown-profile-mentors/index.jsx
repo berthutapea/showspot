@@ -87,7 +87,7 @@ const DropdownProfileMentors = () => {
           <span className="block text-sm font-medium text-accent">
             {dashboardData?.fullname}
           </span>
-          <span className="block text-xs">Mentors</span>
+          <span className="block text-xs">Mentor</span>
         </span>
 
         <div className="h-12 w-12 rounded-full overflow-hidden">

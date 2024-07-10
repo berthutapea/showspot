@@ -21,7 +21,7 @@ class StudentController extends Controller {
       let dashboardData;
       if (Object.keys(myData).length > 0){
         dashboardData = {
-            student_id: myData.admin_id,
+            student_id: myData.student_id,
             fullname: myData.fullname,
             photoProfile: myData.photo_profile,
         };
@@ -199,6 +199,23 @@ class StudentController extends Controller {
       }
     } catch (error) {
       this.responseHandler.serverError(res, error);
+    }
+  }
+
+    async updateProjectByStudent(req, res) {
+    try {
+      const projectId = req.params.projectid;
+      const updatedData = req.body;
+      const filename = req.file === undefined ?  0 : req.file.filename;
+      const project = await this.loadModel(this.projectModel);
+      const result = await project.updateProject(projectId, updatedData, filename);
+      if (result > 0) {
+        this.responseHandler.success(res, `Project Updated`);
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+        this.responseHandler.serverError(res, error);
     }
   }
 
