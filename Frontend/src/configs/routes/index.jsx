@@ -11,21 +11,18 @@ import DashboardAdmin from '../../pages/dashboard/admin/dashboard-admin';
 import SopProjects from '../../pages/dashboard/admin/projects/sop-projects';
 import ShowcaseProjects from '../../pages/dashboard/admin/projects/showcase-projects';
 import ChangePasswordAdmin from '../../pages/dashboard/admin/settings/change-password-admin';
-import Profile from '../../pages/dashboard/admin/settings/profile';
 import MentorsData from '../../pages/dashboard/admin/master-data/mentors-data';
 import StudentsData from '../../pages/dashboard/admin/master-data/students-data';
 import AddMentors from '../../components/form/mentors-data-form/add-mentors';
 import EditMentors from '../../components/form/mentors-data-form/edit-mentors';
 import AddStudents from '../../components/form/students-data-form/add-students';
 import EditStudents from '../../components/form/students-data-form/edit-students';
-import ProfileAdmin from '../../components/profile/profile-admin';
 import AddSop from '../../components/form/sop-form/add-sop';
 import EditSop from '../../components/form/sop-form/edit-sop';
 import DashboardMentors from '../../pages/dashboard/mentors/dashboard-mentors';
 import SopProjectsMentors from '../../pages/dashboard/mentors/projects/sop-projects';
 import ShowcaseProjectsMentors from '../../pages/dashboard/mentors/projects/showcase-projects';
-import ProfileMentors from '../../pages/dashboard/mentors/settings/profile';
-import ProfileMentorsEdit from '../../components/profile/profile-mentors';
+import ProfileMentorsEdit from '../../components/profile/profile-mentors-edit';
 import ChangePasswordMentors from '../../pages/dashboard/mentors/settings/change-password';
 import DashboardStudents from '../../pages/dashboard/students/dashboard-students';
 import SopProjectsStudents from '../../pages/dashboard/students/projects/sop-projects';
@@ -43,6 +40,9 @@ import ViewShowcaseRejectedAdmin from '../../components/form/showcase-projects-f
 import ViewShowcasePendingMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-pending-admin';
 import ViewShowcaseConfirmedMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-confirmed-admin';
 import ViewShowcaseRejectedMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-rejected-admin';
+import ProfileAdminEdit from '../../components/profile/profile-admin-edit';
+import ProfileAdmin from '../../pages/dashboard/admin/settings/profile-admin';
+import ProfileMentors from '../../pages/dashboard/mentors/settings/profile-mentors';
 
 const AppRoutes = () => {
   return (
@@ -114,8 +114,8 @@ const AppRoutes = () => {
         path="/admin/showcase-projects/rejected/view/:id"
         element={<ViewShowcaseRejectedAdmin />}
       />
-      <Route path="/admin/profile" element={<Profile />} />
-      <Route path="/admin/profile/edit/:id" element={<ProfileAdmin />} />
+      <Route path="/admin/profile" element={<ProfileAdmin />} />
+      <Route path="/admin/profile/edit/:id" element={<ProfileAdminEdit />} />
       <Route path="/admin/change-password" element={<ChangePasswordAdmin />} />
       {/* Route Dashboard Admin */}
 

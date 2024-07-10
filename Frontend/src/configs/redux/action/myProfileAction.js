@@ -1,5 +1,6 @@
 import privateClient from '../../../utils/privateClient';
 
+/* ADMIN */
 export const FETCH_MY_PROFILE_ADMIN_REQUEST = 'FETCH_MY_PROFILE_ADMIN_REQUEST';
 export const FETCH_MY_PROFILE_ADMIN_SUCCESS = 'FETCH_MY_PROFILE_ADMIN_SUCCESS';
 export const FETCH_MY_PROFILE_ADMIN_FAILURE = 'FETCH_MY_PROFILE_ADMIN_FAILURE';
@@ -7,7 +8,17 @@ export const FETCH_MY_PROFILE_ADMIN_FAILURE = 'FETCH_MY_PROFILE_ADMIN_FAILURE';
 export const UPDATE_ADMIN_REQUEST = 'UPDATE_ADMIN_REQUEST';
 export const UPDATE_ADMIN_SUCCESS = 'UPDATE_ADMIN_SUCCESS';
 export const UPDATE_ADMIN_FAILURE = 'UPDATE_ADMIN_FAILURE';
+/* ADMIN */
 
+/* MENTOR */
+export const FETCH_MY_PROFILE_MENTOR_REQUEST =
+  'FETCH_MY_PROFILE_MENTOR_REQUEST';
+export const FETCH_MY_PROFILE_MENTOR_SUCCESS =
+  'FETCH_MY_PROFILE_MENTOR_SUCCESS';
+export const FETCH_MY_PROFILE_MENTOR_FAILURE = 'FETCH_MY_PROFILE_ADMIN_FAILURE';
+/* MENTOR */
+
+/* ADMIN */
 export const fetchMyProfileAdmin =
   (id = 0) =>
   async (dispatch) => {
@@ -59,3 +70,26 @@ export const updateAdmin =
       });
     }
   };
+/* ADMIN */
+
+/* MENTOR */
+export const fetchMyProfileMentors = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_MY_PROFILE_MENTOR_REQUEST });
+  try {
+    const response = await privateClient.get(`/mentors/profile/${id}`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    dispatch({
+      type: FETCH_MY_PROFILE_MENTOR_SUCCESS,
+      payload: response.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_MY_PROFILE_MENTOR_FAILURE,
+      payload: error.response?.data?.message || 'Something went wrong',
+    });
+  }
+};
+/* MENTOR */

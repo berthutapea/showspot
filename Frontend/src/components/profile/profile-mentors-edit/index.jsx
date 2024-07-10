@@ -7,7 +7,7 @@ import BreadcrumbMentors from '../../breadcrumb/breadcrumb-mentors';
 import OneButton from '../../buttons/one-button';
 import ThreeButton from '../../buttons/three-button';
 
-const ProfileMentors = () => {
+const ProfileMentorsEdit = () => {
   return (
     <LayoutMentors>
       <BreadcrumbMentors pageName="Edit My Profile" />
@@ -160,4 +160,4 @@ const ProfileMentors = () => {
   );
 };
 
-export default ProfileMentors;
+export default ProfileMentorsEdit;

@@ -20,7 +20,7 @@ class MentorController extends Controller {
       let dashboardData;
       if (Object.keys(myData).length > 0){
         dashboardData = {
-            admin_id: myData.admin_id,
+            mentor_id: myData.mentor_id,
             fullname: myData.fullname,
             photoProfile: myData.photo_profile,
         };

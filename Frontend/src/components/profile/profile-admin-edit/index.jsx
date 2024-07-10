@@ -10,9 +10,9 @@ import ThreeButton from '../../buttons/three-button';
 import {
   fetchMyProfileAdmin,
   updateAdmin,
-} from '../../../configs/redux/action/myProfileAdminAction';
+} from '../../../configs/redux/action/myProfileAction';
 
-const ProfileAdmin = () => {
+const ProfileAdminEdit = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -264,4 +264,4 @@ const ProfileAdmin = () => {
   );
 };
 
-export default ProfileAdmin;
+export default ProfileAdminEdit;
