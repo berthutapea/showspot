@@ -21,7 +21,7 @@ class StudentController extends Controller {
       let dashboardData;
       if (Object.keys(myData).length > 0){
         dashboardData = {
-            student_id: myData.admin_id,
+            student_id: myData.student_id,
             fullname: myData.fullname,
             photoProfile: myData.photo_profile,
         };
