@@ -8,10 +8,13 @@ import {
   UPDATE_ADMIN_REQUEST,
   UPDATE_ADMIN_SUCCESS,
   UPDATE_ADMIN_FAILURE,
+  UPDATE_MENTOR_REQUEST,
+  UPDATE_MENTOR_SUCCESS,
+  UPDATE_MENTOR_FAILURE,
 } from '../action/myProfileAction';
 
 const initialState = {
-  profileAdminData: [],
+  profileDataUsers: [],
   loading: false,
   error: null,
 };
@@ -21,6 +24,7 @@ const adminProfileReducer = (state = initialState, action) => {
     case FETCH_MY_PROFILE_ADMIN_REQUEST:
     case FETCH_MY_PROFILE_MENTOR_REQUEST:
     case UPDATE_ADMIN_REQUEST:
+    case UPDATE_MENTOR_REQUEST:
       return {
         ...state,
         loading: true,
@@ -29,15 +33,17 @@ const adminProfileReducer = (state = initialState, action) => {
     case FETCH_MY_PROFILE_ADMIN_SUCCESS:
     case FETCH_MY_PROFILE_MENTOR_SUCCESS:
     case UPDATE_ADMIN_SUCCESS:
+    case UPDATE_MENTOR_SUCCESS:
       return {
         ...state,
         loading: false,
-        profileAdminData: action.payload,
+        profileDataUsers: action.payload,
         error: null,
       };
     case FETCH_MY_PROFILE_ADMIN_FAILURE:
     case FETCH_MY_PROFILE_MENTOR_FAILURE:
     case UPDATE_ADMIN_FAILURE:
+    case UPDATE_MENTOR_FAILURE:
       return {
         ...state,
         loading: false,
