@@ -129,6 +129,7 @@ class MentorModel extends Model {
     const param = {
       [this.mentorId]: id
     }
+
     const hashedPassword = await hashingService.generateHash(datas.password);
     const newData = {
       [this.password]: hashedPassword

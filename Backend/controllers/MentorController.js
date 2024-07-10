@@ -71,7 +71,7 @@ class MentorController extends Controller {
       const newPassword = req.body;
       const mentor = await this.loadModel(this.BaseModel);
       const result = await mentor.changePasswordMentor(myId, newPassword);
-      if (result.length > 0) {
+      if (result > 0) {
         this.responseHandler.success(res, 'Password Changed');
       } else {
         this.responseHandler.badRequest(res);
