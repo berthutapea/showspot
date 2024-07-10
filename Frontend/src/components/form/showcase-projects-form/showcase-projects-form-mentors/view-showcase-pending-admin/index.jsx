@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import OneButton from '../../../../buttons/one-button';
 import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
-import ShowcaseMembersAdmin from '../../../../showcase/showcase-members/showcase-members-admin';
+import ShowcaseMembersMentors from '../../../../showcase/showcase-members/showcase-members-mentors';
 import {
-  deleteShowcaseProjectsAdmin,
-  fetchShowcaseProjectsAdminById,
+  evaluationShowcaseProjectsAdmin,
+  fetchShowcaseProjectsMentorsById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
+import LayoutMentors from '../../../../../layout/layout-mentors';
+import BreadcrumbMentors from '../../../../breadcrumb/breadcrumb-mentors';
 
-const ViewShowcaseRejectedAdmin = () => {
+const ViewShowcasePendingMentors = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -41,72 +43,57 @@ const ViewShowcaseRejectedAdmin = () => {
       case 3:
         return 'Rejected';
       default:
-        return 'No response';
+        return 'No Response';
     }
   };
 
-  const getStatusGrade = (statusGrade) => {
-    switch (statusGrade) {
-      case 1:
-        return 'A';
-      case 2:
-        return 'B';
-      case 3:
-        return 'C';
-      case 4:
-        return 'D';
-      case 5:
-        return 'E';
-      default:
-        return 'No response';
-    }
-  };
-  const getProjectFilter = (statusProjectFilter) => {
-    switch (statusProjectFilter) {
-      case 1:
-        return 'A';
-      case 2:
-        return 'B';
-      case 3:
-        return 'C';
-      case 4:
-        return 'D';
-      case 5:
-        return 'E';
-      default:
-        return 'No response';
-    }
+  const handleSubmit = (e, status) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('grade_id', grade_id);
+    formData.append('project_filter_id', project_filter_id || 'No Response');
+    formData.append('notes', notes || 'No Response');
+    formData.append('status_project_id', status);
+
+    dispatch(evaluationShowcaseProjectsAdmin(id, formData, navigate))
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          timer: 1000,
+          timerProgressBar: true,
+          text: 'Showcase has been updated successfully.',
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          timer: 1000,
+          timerProgressBar: true,
+          text: 'There was an error updating the showcase.',
+        });
+      });
   };
 
-  const onDeleteShowcaseProjectsConfirmed = (id) => {
+  const confirmAction = (e, status) => {
+    e.preventDefault();
     Swal.fire({
-      title: 'Confirmation',
-      text: 'Are you sure you want to Delete?',
+      title: `${status === 1 ? 'Confirmed' : 'Rejected'}?`,
+      text: `Are you sure you want to ${status === 1 ? 'Confirmed' : 'Rejected'}?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
-      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteShowcaseProjectsAdmin(id)).then(() => {
-          Swal.fire({
-            title: 'Success',
-            text: 'Showcase Project data has been successfully deleted.',
-            icon: 'success',
-            timer: 1000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-          }).then(() => {
-            navigate('/admin/showcase-projects');
-          });
-        });
+        handleSubmit(e, status);
       }
     });
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsAdminById(id));
+    dispatch(fetchShowcaseProjectsMentorsById(id));
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -118,26 +105,28 @@ const ViewShowcaseRejectedAdmin = () => {
       setLinkGithub(showCaseProjectsData?.project?.link_github);
       setDescription(showCaseProjectsData?.project?.description);
       setGroupId(showCaseProjectsData?.project?.group_id);
-      setGradeId(showCaseProjectsData?.project?.grade_id);
-      setProjectFilterId(showCaseProjectsData?.project?.project_filter_id);
-      setNotes(showCaseProjectsData?.project?.notes);
+      setGradeId(showCaseProjectsData?.project?.grade_id || 'No Response');
+      setProjectFilterId(
+        showCaseProjectsData?.project?.project_filter_id || 'No Response'
+      );
+      setNotes(showCaseProjectsData?.project?.notes || 'No Response');
     }
   }, [showCaseProjectsData?.project]);
 
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="View Showcase Rejected" />
+    <LayoutMentors>
+      <BreadcrumbMentors pageName="View Showcase Pending" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
-            <div className="border-b border-stroke py-4 px-6.5 bg-danger rounded ">
+            <div className="border-b border-stroke py-4 px-6.5 bg-warning rounded ">
               <h1 className="font-medium text-white text-center text-xl">
                 {getStatusText(
                   showCaseProjectsData?.project?.status_project_id
                 )}
               </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="p-6.5">
                 <div className="mx-1 md:mx-4 rounded single-blog flex flex-col justify-between">
                   <img
@@ -243,7 +232,7 @@ const ViewShowcaseRejectedAdmin = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Members<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembersAdmin />
+                    <ShowcaseMembersMentors />
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -251,29 +240,47 @@ const ViewShowcaseRejectedAdmin = () => {
                     <label className="mb-2.5 block text-black">
                       Grade <span className="text-meta-1">*</span>
                     </label>
-                    <input
-                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      name="grade_id"
-                      id="grade_id"
-                      disabled={true}
-                      value={getStatusGrade(grade_id)}
-                      required={true}
-                    />
+                    <div className="relative z-20 bg-transparent">
+                      <select
+                        className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke  py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
+                        id="grade_id"
+                        name="grade_id"
+                        onChange={(e) => setGradeId(e.target.value)}
+                        required={true}
+                      >
+                        <option value="">Please Select</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                        <option value="3">C</option>
+                        <option value="4">D</option>
+                        <option value="5">E</option>
+                      </select>
+                      <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
+                        <MdOutlineKeyboardArrowDown />
+                      </span>
+                    </div>
                   </div>
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
-                      Project Filter <span className="text-meta-1">*</span>
+                      Projects Filter <span className="text-meta-1">*</span>
                     </label>
-                    <input
-                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      name="project_filter_id"
-                      id="project_filter_id"
-                      disabled={true}
-                      value={getProjectFilter(project_filter_id)}
-                      required={true}
-                    />
+                    <div className="relative z-20 bg-transparent">
+                      <select
+                        className="relative z-20 appearance-none px-5 outline-none transition focus:border-primary active:border-primary w-full rounded border border-stroke  py-3 pl-4 pr-4.5 text-black focus-visible:outline-none"
+                        id="project_filter_id"
+                        name="project_filter_id"
+                        onChange={(e) => setProjectFilterId(e.target.value)}
+                        required={true}
+                      >
+                        <option value="">Please Select</option>
+                        <option value="1">The Best</option>
+                        <option value="2">Mobile</option>
+                        <option value="3">Web</option>
+                      </select>
+                      <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl">
+                        <MdOutlineKeyboardArrowDown />
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -286,8 +293,7 @@ const ViewShowcaseRejectedAdmin = () => {
                       rows="6"
                       id="notes"
                       name="notes"
-                      value={notes}
-                      disabled={true}
+                      onChange={(e) => setNotes(e.target.value)}
                       required={true}
                     ></textarea>
                   </div>
@@ -296,17 +302,16 @@ const ViewShowcaseRejectedAdmin = () => {
             </form>
             <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4 p-6.5">
               <div>
-                <TwoButton
-                  onClick={() => {
-                    onDeleteShowcaseProjectsConfirmed(
-                      showCaseProjectsData?.project?.application_id
-                    );
-                  }}
-                >
-                  <span>Delete</span>
+                <OneButton onClick={(e) => confirmAction(e, 1)}>
+                  <span>Confirmed</span>
+                </OneButton>
+              </div>
+              <div>
+                <TwoButton onClick={(e) => confirmAction(e, 3)}>
+                  <span>Rejected</span>
                 </TwoButton>
               </div>
-              <Link to="/admin/showcase-projects">
+              <Link to="/mentors/showcase-projects">
                 <ThreeButton>
                   <span>Back</span>
                 </ThreeButton>
@@ -315,8 +320,8 @@ const ViewShowcaseRejectedAdmin = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </LayoutMentors>
   );
 };
 
-export default ViewShowcaseRejectedAdmin;
+export default ViewShowcasePendingMentors;

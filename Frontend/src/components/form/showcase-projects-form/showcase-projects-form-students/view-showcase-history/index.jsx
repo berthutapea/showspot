@@ -7,7 +7,7 @@ import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
 import ThreeButton from '../../../../buttons/three-button';
 import TwoButton from '../../../../buttons/two-button';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import ShowcaseMembers from '../../../../showcase/showcase-members';
+// import ShowcaseMembers from '../../../../showcase/showcase-members';
 
 const ViewShowcaseHistory = () => {
   return (
@@ -121,7 +121,7 @@ const ViewShowcaseHistory = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Members<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembers />
+                    {/* <ShowcaseMembers /> */}
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">

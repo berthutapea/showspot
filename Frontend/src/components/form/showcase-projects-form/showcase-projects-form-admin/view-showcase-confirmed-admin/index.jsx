@@ -5,7 +5,7 @@ import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
 import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
-import ShowcaseMembers from '../../../../showcase/showcase-members';
+import ShowcaseMembersAdmin from '../../../../showcase/showcase-members/showcase-members-admin';
 import {
   deleteShowcaseProjectsAdmin,
   fetchShowcaseProjectsAdminById,
@@ -243,7 +243,7 @@ const ViewShowcaseConfirmedAdmin = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Members<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembers />
+                    <ShowcaseMembersAdmin />
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">

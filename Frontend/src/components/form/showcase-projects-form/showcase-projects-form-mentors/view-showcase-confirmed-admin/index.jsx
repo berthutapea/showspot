@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
 import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
-import ShowcaseMembersAdmin from '../../../../showcase/showcase-members/showcase-members-admin';
+import LayoutMentors from '../../../../../layout/layout-mentors';
+import BreadcrumbMentors from '../../../../breadcrumb/breadcrumb-mentors';
+import ShowcaseMembersMentors from '../../../../showcase/showcase-members/showcase-members-mentors';
 import {
   deleteShowcaseProjectsAdmin,
-  fetchShowcaseProjectsAdminById,
+  fetchShowcaseProjectsMentorsById,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
 
-const ViewShowcaseRejectedAdmin = () => {
+const ViewShowcaseConfirmedMentors = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ const ViewShowcaseRejectedAdmin = () => {
             timerProgressBar: true,
             showConfirmButton: false,
           }).then(() => {
-            navigate('/admin/showcase-projects');
+            navigate('/mentors/showcase-projects');
           });
         });
       }
@@ -106,7 +106,7 @@ const ViewShowcaseRejectedAdmin = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsAdminById(id));
+    dispatch(fetchShowcaseProjectsMentorsById(id));
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -125,12 +125,12 @@ const ViewShowcaseRejectedAdmin = () => {
   }, [showCaseProjectsData?.project]);
 
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="View Showcase Rejected" />
+    <LayoutMentors>
+      <BreadcrumbMentors pageName="View Showcase Confirmed" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
-            <div className="border-b border-stroke py-4 px-6.5 bg-danger rounded ">
+            <div className="border-b border-stroke py-4 px-6.5 bg-meta-3 rounded ">
               <h1 className="font-medium text-white text-center text-xl">
                 {getStatusText(
                   showCaseProjectsData?.project?.status_project_id
@@ -243,7 +243,7 @@ const ViewShowcaseRejectedAdmin = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Members<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembersAdmin />
+                    <ShowcaseMembersMentors />
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -306,7 +306,7 @@ const ViewShowcaseRejectedAdmin = () => {
                   <span>Delete</span>
                 </TwoButton>
               </div>
-              <Link to="/admin/showcase-projects">
+              <Link to="/mentors/showcase-projects">
                 <ThreeButton>
                   <span>Back</span>
                 </ThreeButton>
@@ -315,8 +315,8 @@ const ViewShowcaseRejectedAdmin = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </LayoutMentors>
   );
 };
 
-export default ViewShowcaseRejectedAdmin;
+export default ViewShowcaseConfirmedMentors;

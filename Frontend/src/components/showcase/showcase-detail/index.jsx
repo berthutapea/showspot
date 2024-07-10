@@ -5,7 +5,7 @@ import { FaLink, FaCode } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import placeholderImage from '../../../assets/images/placeholder.jpg';
 import ShowcaseYoutube from '../showcase-youtube';
-import ShowcaseMembers from '../showcase-members';
+// import ShowcaseMembers from '../showcase-members';
 import Comments from '../showcase-comments/comments';
 
 const ShowcaseDetail = () => {
@@ -50,7 +50,7 @@ const ShowcaseDetail = () => {
         {item?.grupsName}
       </h2>
       <h2 className="text-xl font-semibold mb-6  text-accent">Members:</h2>
-      <ShowcaseMembers />
+      {/* <ShowcaseMembers /> */}
       <div className="flex items-center mt-8">
         <a href={item?.liveLink} className="mr-4" target="blank">
           <div className="primary-button">
