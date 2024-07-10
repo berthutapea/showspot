@@ -84,3 +84,38 @@ export const changePasswordMentors =
     }
   };
 /* MENTOR */
+
+/* STUDENT */
+export const changePasswordStudents =
+  (id, password, confPassword) => async (dispatch) => {
+    try {
+      dispatch(changePasswordRequest());
+
+      if (password !== confPassword) {
+        dispatch(
+          changePasswordFailure('Password and Confirm Password Do not Match')
+        );
+        return;
+      }
+      const payload = {
+        password,
+        confPassword,
+      };
+      const response = await privateClient.patch(
+        `students/password/${id}/change`,
+        payload,
+        {
+          headers: {
+            'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch(changePasswordSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        changePasswordFailure(error.response?.data?.msg || error.message)
+      );
+    }
+  };
+/* STUDENT */
