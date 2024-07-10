@@ -137,13 +137,6 @@ class StudentController extends Controller {
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
     const groupProjectStudent = await groupProjectModel.findOne('student in group', params);
 
-    // const paramsGroup = {
-    //   group_project_name: groupProjectStudent.group_project_name
-    // }
-
-    // const groupProject = await groupProjectModel.findOne('student group', paramsGroup);
-
-
     const paramsGroup = {
       group_id: groupProjectStudent.group_project_id
     }
@@ -170,7 +163,7 @@ class StudentController extends Controller {
     }
   }
 
-  async getShowCaseProjectStudentByGroupProjectId(req, res) {
+  async getShowCaseProjectByGroupProjectId(req, res) {
     const groupProjectId = req.params.groupid;
 
     const params = {
