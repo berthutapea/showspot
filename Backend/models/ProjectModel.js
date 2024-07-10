@@ -37,6 +37,7 @@ class ProjectModel extends Model {
       [this.linkDesign]: datas.link_design,
       [this.linkGithub]: datas.link_github,
       [this.description]: datas.description,
+      [this.statusProjectId]: 2,
       [this.groupId]: `group-${projectId}`,
     };
 
@@ -125,6 +126,13 @@ class ProjectModel extends Model {
     };
     const filterProjectdata = await this.findAll('where', paramFilterProject);
     return filterProjectdata;
+  }
+
+  async deleteProjectById(projectId) {
+    const param = {
+      [this.applicationId]: projectId,
+    };
+    return await this.delete(param);
   }
 }
 

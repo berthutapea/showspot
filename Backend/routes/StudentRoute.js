@@ -69,6 +69,13 @@ class StudentRoute extends Route {
       this.controller.getShowCaseProjectStudentByGroupProjectId.bind(this.controller)
     );
 
+    this.router.delete(
+      '/students/projects/showcase-projects/:id/delete',
+      // authMiddleware,
+      // authUser,
+      this.controller.deleteProjectByStudent.bind(this.controller)
+    );
+
     this.router.get(
       '/students/projects/sop-project',
       // authMiddleware,

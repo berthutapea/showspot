@@ -190,6 +190,21 @@ class StudentController extends Controller {
       this.responseHandler.serverError(res, error);
     }
   }
+
+  async deleteProjectByStudent(req, res) {
+    try {
+      const projectId = req.params.id;
+      const projectModel = await this.loadModel(this.projectModel);
+      const result = await projectModel.deleteProjectById(projectId);
+      if (result[0].affectedRows > 0) {
+        this.responseHandler.success(res,'Data Deleted');
+      } else {
+        this.responseHandler.badRequest(res);
+      }
+    } catch (error) {
+      this.responseHandler.serverError(res, error);
+    }
+  }
 }
 
 module.exports = StudentController;
