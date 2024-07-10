@@ -43,7 +43,7 @@ const ViewShowcasePendingAdmin = () => {
       case 3:
         return 'Rejected';
       default:
-        return 'Unknown';
+        return 'No Response';
     }
   };
 
@@ -74,6 +74,22 @@ const ViewShowcasePendingAdmin = () => {
           text: 'There was an error updating the showcase.',
         });
       });
+  };
+
+  const confirmAction = (e, status) => {
+    e.preventDefault();
+    Swal.fire({
+      title: `${status === 1 ? 'Confirmed' : 'Rejected'}?`,
+      text: `Are you sure you want to ${status === 1 ? 'Confirmed' : 'Rejected'}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleSubmit(e, status);
+      }
+    });
   };
 
   useEffect(() => {
@@ -280,26 +296,25 @@ const ViewShowcasePendingAdmin = () => {
                     ></textarea>
                   </div>
                 </div>
-
-                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <div>
-                    <OneButton onClick={(e) => handleSubmit(e, 1)}>
-                      <span>Confirmed</span>
-                    </OneButton>
-                  </div>
-                  <div>
-                    <TwoButton onClick={(e) => handleSubmit(e, 3)}>
-                      <span>Rejected</span>
-                    </TwoButton>
-                  </div>
-                  <Link to="/admin/showcase-projects">
-                    <ThreeButton>
-                      <span>Back</span>
-                    </ThreeButton>
-                  </Link>
-                </div>
               </div>
             </form>
+            <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4 p-6.5">
+              <div>
+                <OneButton onClick={(e) => confirmAction(e, 1)}>
+                  <span>Confirmed</span>
+                </OneButton>
+              </div>
+              <div>
+                <TwoButton onClick={(e) => confirmAction(e, 3)}>
+                  <span>Rejected</span>
+                </TwoButton>
+              </div>
+              <Link to="/admin/showcase-projects">
+                <ThreeButton>
+                  <span>Back</span>
+                </ThreeButton>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

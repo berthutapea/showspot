@@ -41,7 +41,7 @@ const ViewShowcaseConfirmedAdmin = () => {
       case 3:
         return 'Rejected';
       default:
-        return 'Unknown';
+        return 'No response';
     }
   };
 
@@ -58,7 +58,7 @@ const ViewShowcaseConfirmedAdmin = () => {
       case 5:
         return 'E';
       default:
-        return 'Unknown';
+        return 'No response';
     }
   };
 
@@ -291,7 +291,7 @@ const ViewShowcaseConfirmedAdmin = () => {
                 </div>
               </div>
             </form>
-            <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
+            <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4 p-6.5">
               <div>
                 <TwoButton
                   onClick={() => {
