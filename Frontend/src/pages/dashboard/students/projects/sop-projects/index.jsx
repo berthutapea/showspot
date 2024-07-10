@@ -1,25 +1,46 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { TfiPrinter } from 'react-icons/tfi';
+import ThreeButton from '../../../../../components/buttons/three-button';
+import html2canvas from 'html2canvas';
 import LayoutStudents from '../../../../../layout/layout-students';
 import BreadcrumbStudents from '../../../../../components/breadcrumb/breadcrumb-students';
-import { TfiPrinter } from 'react-icons/tfi';
-import OneButton from '../../../../../components/buttons/one-button';
-import { Link } from 'react-router-dom';
-import SopAdmin from '../../../../../components/sop/sop-admin';
+import jsPDF from 'jspdf';
+import SopStudents from '../../../../../components/sop/sop-student';
 
 const SopProjects = () => {
+  const sopRef = useRef();
+  const { sopProjectsData } = useSelector((state) => state.sopProjectsData);
+
+  const handleDownloadPdf = async () => {
+    const sopElement = sopRef.current;
+    const canvas = await html2canvas(sopElement);
+    const imgData = canvas.toDataURL('image/png');
+    // eslint-disable-next-line new-cap
+    const pdf = new jsPDF('p', 'mm', 'a2');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`${sopProjectsData.sop_project_title || 'SOP'}.pdf`);
+  };
+
   return (
     <LayoutStudents>
       <BreadcrumbStudents pageName="Sop Projects" />
       <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
         <div className="w-full flex flex-col md:flex-row-4 md:text-right">
-          <Link to="/students/sop-projects">
-            <OneButton>
+          <div>
+            <ThreeButton
+              onClick={() => {
+                handleDownloadPdf();
+              }}
+            >
               <span>Save as PDF</span>
               <span>
                 <TfiPrinter />
               </span>
-            </OneButton>
-          </Link>
+            </ThreeButton>
+          </div>
         </div>
       </div>
       <div className="sm:grid-cols-2 mt-6">
@@ -30,7 +51,9 @@ const SopProjects = () => {
                 Important information
               </h3>
             </div>
-            <SopAdmin />
+            <div ref={sopRef}>
+              <SopStudents />
+            </div>
           </div>
         </div>
       </div>
