@@ -22,7 +22,6 @@ class ProjectModel extends Model {
   }
 
   async addProject(datas, filename) {
-    console.log('addProject berjalan..')
     const groupProjectModel = new GroupProjectModel();
     const filePath = `${config.api.base_url}api/images/${filename}`;
     const patternId = String('project' + Math.floor(Math.random() * 10000) + 1);
@@ -128,6 +127,63 @@ class ProjectModel extends Model {
     return filterProjectdata;
   }
 
+  async updateProject(id, datas, filename) {
+    const groupProjectModel = new GroupProjectModel();
+
+    const params = {
+      application_id: id
+    };
+
+    const groupParams = {
+      group_project_id: `group-${id}`
+    };
+
+    let projectData;
+    if (filename === null || filename === 0 || filename === '' || filename === undefined) {
+      projectData = {
+        [this.applicationTitle]: datas.application_title,
+        [this.groupName]: datas.group_name,
+        [this.linkVideo]: datas.link_video,
+        [this.linkDesign]: datas.link_design,
+        [this.linkGithub]: datas.link_github,
+        [this.description]: datas.description,
+        [this.statusProjectId]: 2,
+      };
+    } else {
+       const filePath = `${config.api.base_url}api/images/${filename}`;
+      projectData = {
+        [this.applicationImage]: filePath,
+        [this.applicationTitle]: datas.application_title,
+        [this.groupName]: datas.group_name,
+        [this.linkVideo]: datas.link_video,
+        [this.linkDesign]: datas.link_design,
+        [this.linkGithub]: datas.link_github,
+        [this.description]: datas.description,
+        [this.statusProjectId]: 2,
+      };
+    }
+
+    const groupProject = {
+      Hustler: datas.Hustler,
+      Hipster: datas.Hipster,
+      "Scrum Master": datas["Scrum Master"],
+      Hacker: datas.Hacker,
+    };
+
+for (let key in groupProject) {
+  if (groupProject.hasOwnProperty(key)) {
+    let groupProjectData = {
+      group_project_name: datas.group_name,
+      student_name: groupProject[key],
+      student_position: key,
+    };
+
+    let andParams = {student_position: key};
+    await groupProjectModel.updateGroupProject(groupParams, andParams, groupProjectData);
+  }
+}
+  return this.update(params, projectData)
+}
   async deleteProjectById(projectId) {
     const param = {
       [this.applicationId]: projectId,
