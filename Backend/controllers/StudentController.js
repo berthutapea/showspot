@@ -177,7 +177,7 @@ class StudentController extends Controller {
     const groupProjectStudent = await groupProjectModel.findOne('student group', params);
 
     const projectModel = await this.loadModel(this.projectModel);
-    const projectStudent = await projectModel.findOne('strict one', { group_id: groupProjectId });
+    const projectStudent = await projectModel.findOne('where', { group_id: groupProjectId });
 
     const datas = {
       application_title: projectStudent.application_title,
