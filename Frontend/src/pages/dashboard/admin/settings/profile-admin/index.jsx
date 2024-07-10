@@ -9,8 +9,8 @@ import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfi
 
 const ProfileAdmin = () => {
   const dispatch = useDispatch();
-  const profileAdminData = useSelector(
-    (state) => state.profileAdminData.profileAdminData
+  const profileDataUsers = useSelector(
+    (state) => state.profileDataUsers.profileDataUsers
   );
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const ProfileAdmin = () => {
   return (
     <LayoutAdmin>
       <BreadcrumbAdmin pageName="My Profile" />
-      <Link to={`/admin/profile/edit/${profileAdminData.admin_id}`}>
+      <Link to={`/admin/profile/edit/${profileDataUsers.admin_id}`}>
         <FourButton>
           <span>Edit Profile</span>
           <span>
@@ -60,7 +60,7 @@ const ProfileAdmin = () => {
         <div className="md:w-1/3 w-full px-4 py-4 flex justify-center md:justify-start">
           <img
             className="rounded-xl h-80 w-full md:w-80 object-cover"
-            src={profileAdminData.photo_profile}
+            src={profileDataUsers.photo_profile}
             alt="User Admin"
           />
         </div>
@@ -69,26 +69,26 @@ const ProfileAdmin = () => {
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Full Name</span>
               <span className="inline-block w-7">:</span>{' '}
-              {profileAdminData.fullname}
+              {profileDataUsers.fullname}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Campus</span>
               <span className="inline-block w-7">:</span>{' '}
               <span className="pl-[-10] md:pl-0">
-                {profileAdminData.campus}
+                {profileDataUsers.campus}
               </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Major</span>
               <span className="inline-block w-7">:</span>{' '}
-              {profileAdminData.major}
+              {profileDataUsers.major}
             </h2>
             <h2 className="font-medium mb-4 block text-black">
               <span className="inline-block w-32 md:w-40">Groups Type</span>
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
                 {' '}
-                {getGroupsType(profileAdminData.group_type_id)}
+                {getGroupsType(profileDataUsers.group_type_id)}
               </span>
             </h2>
             <h2 className="font-medium mb-4 block text-black">
@@ -96,7 +96,7 @@ const ProfileAdmin = () => {
               <span className="inline-block w-7">:</span>
               <span className="pl-[-8] md:pl-0">
                 {' '}
-               {getClassTypeId(profileAdminData.class_type_id)}
+               {getClassTypeId(profileDataUsers.class_type_id)}
               </span>
             </h2>
           </div>

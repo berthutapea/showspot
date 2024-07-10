@@ -139,7 +139,10 @@ const AppRoutes = () => {
         element={<ViewShowcaseRejectedMentors />}
       />
       <Route path="/mentors/profile" element={<ProfileMentors />} />
-      <Route path="/mentors/profile/edit" element={<ProfileMentorsEdit />} />
+      <Route
+        path="/mentors/profile/edit/:id"
+        element={<ProfileMentorsEdit />}
+      />
       <Route
         path="/mentors/change-password"
         element={<ChangePasswordMentors />}

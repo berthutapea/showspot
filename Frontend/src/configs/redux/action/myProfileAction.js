@@ -15,7 +15,12 @@ export const FETCH_MY_PROFILE_MENTOR_REQUEST =
   'FETCH_MY_PROFILE_MENTOR_REQUEST';
 export const FETCH_MY_PROFILE_MENTOR_SUCCESS =
   'FETCH_MY_PROFILE_MENTOR_SUCCESS';
-export const FETCH_MY_PROFILE_MENTOR_FAILURE = 'FETCH_MY_PROFILE_ADMIN_FAILURE';
+export const FETCH_MY_PROFILE_MENTOR_FAILURE =
+  'FETCH_MY_PROFILE_MENTOR_FAILURE';
+
+export const UPDATE_MENTOR_REQUEST = 'UPDATE_MENTOR_REQUEST';
+export const UPDATE_MENTOR_SUCCESS = 'UPDATE_MENTOR_SUCCESS';
+export const UPDATE_MENTOR_FAILURE = 'UPDATE_MENTOR_FAILURE';
 /* MENTOR */
 
 /* ADMIN */
@@ -78,6 +83,7 @@ export const fetchMyProfileMentors = (id) => async (dispatch) => {
   try {
     const response = await privateClient.get(`/mentors/profile/${id}`, {
       headers: {
+        'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
         'Content-Type': 'multipart/form-data',
       },
     });
@@ -89,6 +95,31 @@ export const fetchMyProfileMentors = (id) => async (dispatch) => {
     dispatch({
       type: FETCH_MY_PROFILE_MENTOR_FAILURE,
       payload: error.response?.data?.message || 'Something went wrong',
+    });
+  }
+};
+
+export const updateMentors = (id, formData) => async (dispatch) => {
+  dispatch({ type: UPDATE_MENTOR_REQUEST });
+  try {
+    const response = await privateClient.put(
+      `mentors/profile/${id}/update`,
+      formData,
+      {
+        headers: {
+          'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    dispatch({
+      type: UPDATE_MENTOR_SUCCESS,
+      payload: response.data.msg,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_MENTOR_FAILURE,
+      payload: error.response.data.msg,
     });
   }
 };

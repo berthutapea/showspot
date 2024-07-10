@@ -17,8 +17,8 @@ const ProfileAdminEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const profileAdminData = useSelector(
-    (state) => state.profileAdminData.profileAdminData
+  const profileDataUsers = useSelector(
+    (state) => state.profileDataUsers.profileDataUsers
   );
 
   const [fullname, setFullname] = useState('');
@@ -78,15 +78,15 @@ const ProfileAdminEdit = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (profileAdminData) {
-      setFullname(profileAdminData.fullname);
-      setUsername(profileAdminData.username);
-      setCampus(profileAdminData.campus);
-      setMajor(profileAdminData.major);
-      setGroupTypeId(profileAdminData.group_type_id);
-      setClassTypeId(profileAdminData.class_type_id);
+    if (profileDataUsers) {
+      setFullname(profileDataUsers.fullname);
+      setUsername(profileDataUsers.username);
+      setCampus(profileDataUsers.campus);
+      setMajor(profileDataUsers.major);
+      setGroupTypeId(profileDataUsers.group_type_id);
+      setClassTypeId(profileDataUsers.class_type_id);
     }
-  }, [profileAdminData]);
+  }, [profileDataUsers]);
 
   return (
     <LayoutAdmin>
@@ -110,7 +110,7 @@ const ProfileAdminEdit = () => {
                           Your Foto
                         </label>
                         <img
-                          src={preview || profileAdminData?.photo_profile}
+                          src={preview || profileDataUsers?.photo_profile}
                           alt="User"
                           className="rounded h-25 w-25 object-cover"
                         />
