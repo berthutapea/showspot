@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchShowcaseProjectsAdminById } from '../../../configs/redux/action/showcaseProjectsAction';
+import { fetchShowcaseProjectsAdminById } from '../../../../configs/redux/action/showcaseProjectsAction';
 
-const ShowcaseMembers = () => {
+const ShowcaseMembersAdmin = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -75,4 +75,4 @@ const ShowcaseMembers = () => {
   );
 };
 
-export default ShowcaseMembers;
+export default ShowcaseMembersAdmin;

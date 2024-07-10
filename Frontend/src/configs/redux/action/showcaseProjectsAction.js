@@ -63,6 +63,13 @@ export const FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS =
   'FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS';
 export const FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE';
+
+export const FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE';
 /* MENTOR */
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
@@ -346,6 +353,25 @@ export const fetchShowcaseProjectsRejectedMentors =
       );
     }
   };
+
+export const fetchShowcaseProjectsMentorsById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST });
+  try {
+    const response = await privateClient.get(
+      `mentors/projects/showcase-projects/id/${id}/detail`
+    );
+    dispatch({
+      type: FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS,
+      payload: response.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE,
+      payload: error.response.data.msg,
+    });
+  }
+};
+
 /* MENTOR */
 
 /* ADMIN */

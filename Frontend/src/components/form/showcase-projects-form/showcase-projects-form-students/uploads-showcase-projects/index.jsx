@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LayoutStudents from '../../../../../layout/layout-students';
-import placeholderImage from '../../../../../assets/images/placeholder.jpg';
-import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+// import placeholderImage from '../../../../../assets/images/placeholder.jpg';
+// import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
 import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
 import OneButton from '../../../../buttons/one-button';
 import ThreeButton from '../../../../buttons/three-button';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import ShowcaseMembers from '../../../../showcase/showcase-members';
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import ShowcaseMembers from '../../../../showcase/showcase-members';
 import ShowcaseMembersForm from '../../../../showcase/showcase-members-form';
 
 const UploadsShowcaseProjects = () => {

@@ -105,7 +105,7 @@ const ShowcaseProjectsPendingMentors = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                     <Link
-                      to={`/admin/showcase-projects/pending/view/${pending.application_id}`}
+                      to={`/mentors/showcase-projects/pending/view/${pending.application_id}`}
                     >
                       <button className="hover:text-black">
                         <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />

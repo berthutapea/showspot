@@ -24,8 +24,6 @@ import EditSop from '../../components/form/sop-form/edit-sop';
 import DashboardMentors from '../../pages/dashboard/mentors/dashboard-mentors';
 import SopProjectsMentors from '../../pages/dashboard/mentors/projects/sop-projects';
 import ShowcaseProjectsMentors from '../../pages/dashboard/mentors/projects/showcase-projects';
-import ViewShowcaseLatestMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-latest';
-import ViewShowcaseHistoryMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-history';
 import ProfileMentors from '../../pages/dashboard/mentors/settings/profile';
 import ProfileMentorsEdit from '../../components/profile/profile-mentors';
 import ChangePasswordMentors from '../../pages/dashboard/mentors/settings/change-password';
@@ -42,6 +40,9 @@ import MainLayout from '../../layout/main-layout';
 import ViewShowcasePendingAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-pending-admin';
 import ViewShowcaseConfirmedAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-confirmed-admin';
 import ViewShowcaseRejectedAdmin from '../../components/form/showcase-projects-form/showcase-projects-form-admin/view-showcase-rejected-admin';
+import ViewShowcasePendingMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-pending-admin';
+import ViewShowcaseConfirmedMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-confirmed-admin';
+import ViewShowcaseRejectedMentors from '../../components/form/showcase-projects-form/showcase-projects-form-mentors/view-showcase-rejected-admin';
 
 const AppRoutes = () => {
   return (
@@ -126,12 +127,16 @@ const AppRoutes = () => {
       />
       <Route path="/mentors/sop-projects" element={<SopProjectsMentors />} />
       <Route
-        path="/mentors/showcase-projects/latest"
-        element={<ViewShowcaseLatestMentors />}
+        path="/mentors/showcase-projects/pending/view/:id"
+        element={<ViewShowcasePendingMentors />}
       />
       <Route
-        path="/mentors/showcase-projects/history"
-        element={<ViewShowcaseHistoryMentors />}
+        path="/mentors/showcase-projects/confirmed/view/:id"
+        element={<ViewShowcaseConfirmedMentors />}
+      />
+      <Route
+        path="/mentors/showcase-projects/rejected/view/:id"
+        element={<ViewShowcaseRejectedMentors />}
       />
       <Route path="/mentors/profile" element={<ProfileMentors />} />
       <Route path="/mentors/profile/edit" element={<ProfileMentorsEdit />} />
