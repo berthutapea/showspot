@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutAdmin from '../../../../../layout/layout-admin';
 import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-admin';
-import SOP from '../../../../../components/sop';
 import { TfiPrinter } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
 import { Link } from 'react-router-dom';
@@ -14,9 +13,10 @@ import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import {
-  fetchSopProjects,
   deleteSopProject,
+  fetchSopProjectsAdmin,
 } from '../../../../../configs/redux/action/sopProjectsAction';
+import SopAdmin from '../../../../../components/sop/sop-admin';
 
 const SopProjects = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const SopProjects = () => {
             timerProgressBar: true,
             showConfirmButton: false,
           });
-          dispatch(fetchSopProjects());
+          dispatch(fetchSopProjectsAdmin());
         });
       }
     });
@@ -119,7 +119,7 @@ const SopProjects = () => {
               </h3>
             </div>
             <div ref={sopRef}>
-              <SOP />
+              <SopAdmin />
             </div>
           </div>
         </div>

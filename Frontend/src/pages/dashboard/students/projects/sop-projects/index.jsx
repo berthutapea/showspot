@@ -1,10 +1,10 @@
 import React from 'react';
 import LayoutStudents from '../../../../../layout/layout-students';
 import BreadcrumbStudents from '../../../../../components/breadcrumb/breadcrumb-students';
-import SOP from '../../../../../components/sop';
 import { TfiPrinter } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
 import { Link } from 'react-router-dom';
+import SopAdmin from '../../../../../components/sop/sop-admin';
 
 const SopProjects = () => {
   return (
@@ -30,7 +30,7 @@ const SopProjects = () => {
                 Important information
               </h3>
             </div>
-            <SOP />
+            <SopAdmin />
           </div>
         </div>
       </div>
