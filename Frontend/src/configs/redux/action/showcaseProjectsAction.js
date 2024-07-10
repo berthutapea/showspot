@@ -1,5 +1,6 @@
 import privateClient from '../../../utils/privateClient.js';
 
+/* ADMIN */
 export const FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_REQUEST';
 export const FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_SUCCESS =
@@ -39,6 +40,30 @@ export const DELETE_SHOWCASE_PROJECTS_ADMIN_SUCCESS =
   'DELETE_SHOWCASE_PROJECTS_ADMIN_SUCCESS';
 export const DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE =
   'DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE';
+/* ADMIN */
+
+/* MENTOR */
+export const FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_FAILURE';
+
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_FAILURE';
+
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE';
+/* MENTOR */
 
 export const FETCH_SHOWCASE_PROJECTS_REQUEST =
   'FETCH_SHOWCASE_PROJECTS_REQUEST';
@@ -59,6 +84,7 @@ export const DELETE_PROJECT_REQUEST = 'DELETE_PROJECT_REQUEST';
 export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
 export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
+/* ADMIN */
 export const showcaseProjectsAdminRequest = (actionType) => ({
   type: actionType,
 });
@@ -220,6 +246,107 @@ export const deleteShowcaseProjectsAdmin = (id) => {
     }
   };
 };
+/* ADMIN */
+
+/* MENTOR */
+export const showcaseProjectsMentorRequest = (actionType) => ({
+  type: actionType,
+});
+
+export const showcaseProjectsMentorSuccess = (actionType, data) => ({
+  type: actionType,
+  payload: data,
+});
+
+export const showcaseProjectsMentorFailure = (actionType, error) => ({
+  type: actionType,
+  payload: error,
+});
+
+export const fetchShowcaseProjectsPendingMentors =
+  (page = 0) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsMentorRequest(
+        FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_REQUEST
+      )
+    );
+    try {
+      const response = await privateClient.get(
+        `mentors/projects/showcase-projects/pending/${page}`
+      );
+      dispatch(
+        showcaseProjectsMentorSuccess(
+          FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_SUCCESS,
+          response.data.data.pending
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsMentorFailure(
+          FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
+
+export const fetchShowcaseProjectsConfirmedMentors =
+  (page = 0) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsMentorRequest(
+        FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_REQUEST
+      )
+    );
+    try {
+      const response = await privateClient.get(
+        `mentors/projects/showcase-projects/confirmed/${page}`
+      );
+      dispatch(
+        showcaseProjectsMentorSuccess(
+          FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_SUCCESS,
+          response.data.data.confirmed
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsMentorFailure(
+          FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
+
+export const fetchShowcaseProjectsRejectedMentors =
+  (page = 0) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsMentorRequest(
+        FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST
+      )
+    );
+    try {
+      const response = await privateClient.get(
+        `mentors/projects/showcase-projects/rejected/${page}`
+      );
+      dispatch(
+        showcaseProjectsMentorSuccess(
+          FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS,
+          response.data.data.rejected
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsMentorFailure(
+          FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE,
+          error.message
+        )
+      );
+    }
+  };
+/* MENTOR */
 
 /* ADMIN */
 export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
