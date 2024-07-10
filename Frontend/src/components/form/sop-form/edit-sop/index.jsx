@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { Editor } from 'react-draft-wysiwyg';
 import {
   ContentState,
@@ -18,7 +18,7 @@ import ThreeButton from '../../../buttons/three-button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addSopProject,
-  fetchSopProjects,
+  fetchSopProjectsAdmin,
 } from '../../../../configs/redux/action/sopProjectsAction';
 
 export default function EditSop() {
@@ -29,7 +29,7 @@ export default function EditSop() {
   const data = useSelector((state) => state.sopProjectsData);
 
   useEffect(() => {
-    dispatch(fetchSopProjects());
+    dispatch(fetchSopProjectsAdmin());
   }, [dispatch]);
 
   const [form, setForm] = useState({

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { fetchSopProjects } from '../../configs/redux/action/sopProjectsAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchSopProjectsAdmin } from '../../../configs/redux/action/sopProjectsAction';
 
-const SOP = () => {
+const SopMentors = () => {
   const dispatch = useDispatch();
   const { sopProjectsData } = useSelector((state) => state.sopProjectsData);
 
   useEffect(() => {
-    dispatch(fetchSopProjects());
+    dispatch(fetchSopProjectsAdmin());
   }, [dispatch]);
 
   return (
@@ -35,4 +35,4 @@ const SOP = () => {
   );
 };
 
-export default SOP;
+export default SopMentors;
