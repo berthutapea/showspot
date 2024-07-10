@@ -88,6 +88,14 @@ class MentorRoute extends Route {
       // authUser,
       this.controller.valuationProject.bind(this.controller)
     );
+
+    // Delete Project By Admin
+    this.router.delete(
+      '/mentors/projects/showcase-projects/:id/delete',
+      // authMiddleware,
+      // authUser,
+      this.controller.deleteProjectByMentor.bind(this.controller)
+    );
   }
 }
 

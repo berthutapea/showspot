@@ -217,12 +217,20 @@ class AdminRoute extends Route {
       this.controller.findShowProjectById.bind(this.controller)
     );
 
-    // Get Project By ID
+    // Get Project By Name
     this.router.get(
       '/admin/projects/showcase-projects/:name',
       // authMiddleware,
       // authUser,
       this.controller.findShowProjectByGroupName.bind(this.controller)
+    );
+
+    // Delete Project By Admin
+    this.router.delete(
+      '/admin/projects/showcase-projects/:id/delete',
+      // authMiddleware,
+      // authUser,
+      this.controller.deleteProjectByAdmin.bind(this.controller)
     );
 
     // valuation project by mentor
