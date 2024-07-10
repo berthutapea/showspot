@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -14,33 +14,33 @@ const ChangePasswordAdmin = () => {
   const [password, setPassword] = useState('');
   const [confPassword, setConfPassword] = useState('');
 
-  const { loading, error, message } = useSelector(
-    (state) => state.changePasswordData
-  );
+  const { error, message } = useSelector((state) => state.changePasswordData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(changePasswordAdmin(id, password, confPassword));
   };
 
-  if (message) {
-    Swal.fire({
-      icon: 'success',
-      title: 'Berhasil',
-      text: 'Password Berhasil di Perbarui',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  }
+  useEffect(() => {
+    if (message) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: 'Password Berhasil di Perbarui',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
 
-  if (error) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Gagal',
-      text: error,
-      confirmButtonText: 'Ok',
-    });
-  }
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: error,
+        confirmButtonText: 'Ok',
+      });
+    }
+  }, [message, error]);
 
   return (
     <LayoutAdmin>
