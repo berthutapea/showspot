@@ -1,23 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import LogoShowSpot from '../../../assets/images/showspot-logo.png';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { RxDashboard } from 'react-icons/rx';
 import { FiSettings } from 'react-icons/fi';
 import { GoProject } from 'react-icons/go';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import SidebarLinkGroup from '../sidebar-link-group';
+import { logoutUser } from '../../../configs/redux/action/authAction';
 
 const SidebarMentors = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
   const { pathname } = location;
   const trigger = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const sidebar = useRef(null);
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to leave?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logoutUser());
+        Swal.fire({
+          title: 'Logout Successful',
+          text: 'You have successfully exited.',
+          icon: 'success',
+          timer: 1500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate('/login');
+        });
+      }
+    });
+  };
 
   // close on click outside
   useEffect(() => {
@@ -230,7 +261,7 @@ const SidebarMentors = ({ sidebarOpen, setSidebarOpen }) => {
                           </li>
                           <li>
                             <NavLink
-                              to="/login"
+                              onClick={handleLogout}
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-accent ' +
                                 (isActive && '!text-white')
