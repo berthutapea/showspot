@@ -1,3 +1,4 @@
+const { application } = require('express');
 const { Controller } = require('../core/Controller');
 const ResponseHandler = require('../handler/ResponseHandler');
 
@@ -170,12 +171,29 @@ class StudentController extends Controller {
       group_project_id: groupProjectId
     };
 
+
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
     const groupProjectStudent = await groupProjectModel.findOne('student group', params);
 
+    const projectModel = await this.loadModel(this.projectModel);
+    const projectStudent = await projectModel.findOne('strict one', { group_id: groupProjectId });
+
+    const datas = {
+      application_title: projectStudent.application_title,
+      application_image: projectStudent.application_image,
+      group_name: projectStudent.group_name,
+      link_video: projectStudent.link_video,
+      link_design: projectStudent.link_design,
+      link_github: projectStudent.link_github,
+      description: projectStudent.description,
+      team_project: [
+        groupProjectStudent
+      ]
+    }
+
     try {
-      if (Object.keys(groupProjectStudent)) {
-        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudent);
+      if (Object.keys(datas)) {
+        this.responseHandler.success(res, 'Data Found', 3, datas);
       } else {
         this.responseHandler.badRequest(res);
       }
