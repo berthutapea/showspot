@@ -5,9 +5,9 @@ import BreadcrumbAdmin from '../../../../../components/breadcrumb/breadcrumb-adm
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import FourButton from '../../../../../components/buttons/four-button';
-import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfileAdminAction';
+import { fetchMyProfileAdmin } from '../../../../../configs/redux/action/myProfileAction';
 
-const Profile = () => {
+const ProfileAdmin = () => {
   const dispatch = useDispatch();
   const profileAdminData = useSelector(
     (state) => state.profileAdminData.profileAdminData
@@ -106,4 +106,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileAdmin;

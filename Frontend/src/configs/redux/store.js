@@ -4,7 +4,7 @@ import dashboardReducer from './reducer/dashboardReducer';
 import mentorReducer from './reducer/mentorsDataReducer';
 import studentReducer from './reducer/studentsDataReducer';
 import sopProjectReducer from './reducer/sopProjectsReducer';
-import adminProfileReducer from './reducer/myProfileAdminReducer';
+import adminProfileReducer from './reducer/myProfileReducer';
 import showcaseReducer from './reducer/showcaseProjectsReducer';
 import changePasswordReducer from './reducer/changePasswordReducer';
 
