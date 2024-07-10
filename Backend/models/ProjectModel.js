@@ -23,8 +23,8 @@ class ProjectModel extends Model {
 
   async addProject(datas, filename) {
     const groupProjectModel = new GroupProjectModel();
-    const filePath = `${config.api.base_url}api/images/${filename}`;
     const patternId = String('project' + Math.floor(Math.random() * 10000) + 1);
+    const filePath = `${config.api.base_url}api/images/${patternId}+${filename}`;
 
     const projectId = patternId;
     const projectData = {
@@ -58,6 +58,7 @@ class ProjectModel extends Model {
         await groupProjectModel.insertOne(groupProjectData);
       }
     }
+
 
     // param: ([data: column => value], [default: 0 or Empty] || [strict mode: 1])
     return await this.insertOne(projectData, 1);
