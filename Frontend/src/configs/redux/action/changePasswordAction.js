@@ -14,6 +14,7 @@ export const changePasswordFailure = (error) => ({
   payload: error,
 });
 
+/* ADMIN */
 export const changePasswordAdmin =
   (id = 0, password, confPassword) =>
   async (dispatch) => {
@@ -47,3 +48,39 @@ export const changePasswordAdmin =
       );
     }
   };
+/* ADMIN */
+
+/* MENTOR */
+export const changePasswordMentors =
+  (id, password, confPassword) => async (dispatch) => {
+    try {
+      dispatch(changePasswordRequest());
+
+      if (password !== confPassword) {
+        dispatch(
+          changePasswordFailure('Password and Confirm Password Do not Match')
+        );
+        return;
+      }
+      const payload = {
+        password,
+        confPassword,
+      };
+      const response = await privateClient.patch(
+        `mentors/password/${id}/change`,
+        payload,
+        {
+          headers: {
+            'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch(changePasswordSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        changePasswordFailure(error.response?.data?.msg || error.message)
+      );
+    }
+  };
+/* MENTOR */

@@ -1,10 +1,56 @@
-import React from 'react';
-import { TfiLock } from 'react-icons/tfi';
-import LayoutMentors from '../../../../../layout/layout-mentors';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import BreadcrumbMentors from '../../../../../components/breadcrumb/breadcrumb-mentors';
+import LayoutMentors from '../../../../../layout/layout-mentors';
+import { TfiLock } from 'react-icons/tfi';
 import OneButton from '../../../../../components/buttons/one-button';
+import { changePasswordMentors } from '../../../../../configs/redux/action/changePasswordAction';
 
-const ChangePassword = () => {
+const ChangePasswordMentors = () => {
+  const dispatch = useDispatch();
+  const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+  const { dashboardData } = useSelector((state) => state.dashboardData);
+  const { error, message } = useSelector((state) => state.changePasswordData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (dashboardData.mentor_id) {
+      dispatch(
+        changePasswordMentors(dashboardData.mentor_id, password, confPassword)
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Mentor ID not found',
+        confirmButtonText: 'Ok',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: 'Password updated successfully',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: error,
+        confirmButtonText: 'Ok',
+      });
+    }
+  }, [message, error]);
+
   return (
     <LayoutMentors>
       <BreadcrumbMentors pageName="Change Password" />
@@ -17,7 +63,7 @@ const ChangePassword = () => {
                 Change Password
               </h3>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="p-6.5">
                 <div className="mb-4.5 ">
                   <div className="w-full mb-4">
@@ -26,6 +72,8 @@ const ChangePassword = () => {
                     </label>
                     <input
                       type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                       placeholder="Enter New Password"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -38,8 +86,10 @@ const ChangePassword = () => {
                     </label>
                     <input
                       type="password"
-                      placeholder="Enter Confirm New Password"
+                      placeholder="Enter the new password"
+                      value={confPassword}
                       required
+                      onChange={(e) => setConfPassword(e.target.value)}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
                     <TfiLock className="absolute right-4 top-4 text-xl" />
@@ -60,4 +110,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordMentors;

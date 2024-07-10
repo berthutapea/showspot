@@ -23,7 +23,6 @@ import DashboardMentors from '../../pages/dashboard/mentors/dashboard-mentors';
 import SopProjectsMentors from '../../pages/dashboard/mentors/projects/sop-projects';
 import ShowcaseProjectsMentors from '../../pages/dashboard/mentors/projects/showcase-projects';
 import ProfileMentorsEdit from '../../components/profile/profile-mentors-edit';
-import ChangePasswordMentors from '../../pages/dashboard/mentors/settings/change-password';
 import DashboardStudents from '../../pages/dashboard/students/dashboard-students';
 import SopProjectsStudents from '../../pages/dashboard/students/projects/sop-projects';
 import ShowcaseProjectsStudents from '../../pages/dashboard/students/projects/showcase-projects';
@@ -43,6 +42,7 @@ import ViewShowcaseRejectedMentors from '../../components/form/showcase-projects
 import ProfileAdminEdit from '../../components/profile/profile-admin-edit';
 import ProfileAdmin from '../../pages/dashboard/admin/settings/profile-admin';
 import ProfileMentors from '../../pages/dashboard/mentors/settings/profile-mentors';
+import ChangePasswordMentors from '../../pages/dashboard/mentors/settings/change-password-mentors';
 
 const AppRoutes = () => {
   return (

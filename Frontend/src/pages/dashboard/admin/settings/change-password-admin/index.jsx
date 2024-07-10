@@ -26,7 +26,7 @@ const ChangePasswordAdmin = () => {
       Swal.fire({
         icon: 'success',
         title: 'Berhasil',
-        text: 'Password Berhasil di Perbarui',
+        text: 'Password updated successfully',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -77,7 +77,7 @@ const ChangePasswordAdmin = () => {
                     </label>
                     <input
                       type="password"
-                      placeholder="Masukkan ulangi password baru"
+                      placeholder="Enter the new password"
                       value={confPassword}
                       required
                       onChange={(e) => setConfPassword(e.target.value)}
