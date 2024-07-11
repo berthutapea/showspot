@@ -36,6 +36,9 @@ import {
   DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE,
   DELETE_SHOWCASE_PROJECTS_MENTOR_SUCCESS,
   DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE,
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
@@ -44,6 +47,7 @@ const initialState = {
   showCaseProjectsDataConfirmed: [],
   showCaseProjectsDataRejected: [],
   showCaseProjectsDataStudents: [],
+  uploadShowCaseProjectsDataStudents: [],
   totalPagesPending: 0,
   totalPagesConfirmed: 0,
   totalPagesRejected: 0,
@@ -69,6 +73,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST:
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -140,6 +145,17 @@ const showcaseReducer = (state = initialState, action) => {
         error: null,
       };
 
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        uploadShowCaseProjectsDataStudents: [
+          ...state.uploadShowCaseProjectsDataStudents,
+          action.payload,
+        ],
+        error: null,
+      };
+
     case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE:
@@ -153,6 +169,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE:
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE:
       return {
         ...state,
         loading: false,
