@@ -20,6 +20,7 @@ const store = configureStore({
     showCaseProjectsDataPending: showcaseReducer,
     showCaseProjectsDataConfirmed: showcaseReducer,
     showCaseProjectsDataRejected: showcaseReducer,
+    showCaseProjectsDataStudents: showcaseReducer,
     profileDataUsers: adminProfileReducer,
     changePasswordData: changePasswordReducer,
   },
