@@ -140,7 +140,8 @@ class StudentController extends Controller {
 
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
     const groupProjectStudent = await groupProjectModel.findAll('group student', params);
-    if (groupProjectStudent.length) {
+
+    if (groupProjectStudent.length > 0) {
       const projectModel = await this.loadModel(this.projectModel);
       const offset = (page - 1) * 5;
 
@@ -160,11 +161,13 @@ class StudentController extends Controller {
     try {
       if (Object.keys(groupProjectStudentData)) {
         this.responseHandler.success(res, 'Data Found', 3, groupProjectStudentData);
-      } else {
-        this.responseHandler.badRequest(res);
       }
     } catch (error) {
-      this.responseHandler.serverError(res, error);
+       if (groupProjectStudent.length == 0) {
+        this.responseHandler.badRequest(res);
+      } else {
+        this.responseHandler.serverError(res, error);
+      }
     }
   }
 
@@ -193,6 +196,7 @@ class StudentController extends Controller {
         groupProjectStudent
       ]
     }
+
     try {
       if (Object.keys(datas)) {
         this.responseHandler.success(res, 'Data Found', 3, datas);
