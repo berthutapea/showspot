@@ -128,6 +128,9 @@ class StudentController extends Controller {
   async getShowCaseProjectStudent(req, res) {
     const page = req.params.page;
     const studentId = req.params.id;
+
+    let groupProjectStudentData;
+
     const studentModel = await this.loadModel(this.BaseModel)
     const student = await studentModel.findById(studentId);
 
@@ -136,24 +139,24 @@ class StudentController extends Controller {
     };
 
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
-    const groupProjectStudent = await groupProjectModel.findAll('all', params);
+    const groupProjectStudent = await groupProjectModel.findAll('group student', params);
+    if (groupProjectStudent.length) {
+      const projectModel = await this.loadModel(this.projectModel);
+      const offset = (page - 1) * 5;
 
-    const projectModel = await this.loadModel(this.projectModel);
-    const offset = (page - 1) * 5;
+      const fetchArray = await Promise.all(groupProjectStudent.map(async (group) => {
+        return await projectModel.findAll(1, { group_id: group.group_project_id }, 5, offset, 'created_at');
+      }));
 
-    const fetchArray = await Promise.all(groupProjectStudent.map(async (group) => {
-      return await projectModel.findAll(1, { group_id: group.group_project_id }, 5, offset, 'created_at');
-    }));
+      const set = new Set(fetchArray.flatMap(data => data.map(JSON.stringify)));
+      const uniqueResult = Array.from(set).map(JSON.parse);
 
-    const set = new Set(fetchArray.flatMap(data => data.map(JSON.stringify)));
-    const uniqueResult = Array.from(set).map(JSON.parse);
-
-    const groupProjectStudentData = {
-      page: page,
-      projects: uniqueResult,
-      total: uniqueResult.length
-    };
-
+      groupProjectStudentData = {
+        page: page,
+        projects: uniqueResult,
+        total: uniqueResult.length
+      };
+    }
     try {
       if (Object.keys(groupProjectStudentData)) {
         this.responseHandler.success(res, 'Data Found', 3, groupProjectStudentData);
@@ -171,7 +174,6 @@ class StudentController extends Controller {
     const params = {
       group_project_id: groupProjectId
     };
-
 
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
     const groupProjectStudent = await groupProjectModel.findOne('student group', params);
@@ -191,7 +193,6 @@ class StudentController extends Controller {
         groupProjectStudent
       ]
     }
-
     try {
       if (Object.keys(datas)) {
         this.responseHandler.success(res, 'Data Found', 3, datas);
