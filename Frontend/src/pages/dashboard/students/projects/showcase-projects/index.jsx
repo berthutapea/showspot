@@ -122,58 +122,66 @@ const ShowcaseProjects = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredDataStudents
-                .slice(startIndex, endIndex)
-                .map((projects, index) => {
-                  const { text, className } = getStatusText(
-                    projects.status_project_id
-                  );
-                  return (
-                    <tr key={projects.application_id}>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white text-center">
-                          {startIndex + index + 1}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
-                        <td className="border-b border-[#eee] dark:border-strokedark">
-                          <div className="h-12.5 w-15">
-                            <div className="rounded-full overflow-hidden">
-                              <img
-                                src={projects.application_image}
-                                alt="Cover"
-                              />
-                            </div>
-                          </div>
+              {filteredDataStudents.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-5">
+                    No Showcase Projects Found
+                  </td>
+                </tr>
+              ) : (
+                filteredDataStudents
+                  .slice(startIndex, endIndex)
+                  .map((projects, index) => {
+                    const { text, className } = getStatusText(
+                      projects.status_project_id
+                    );
+                    return (
+                      <tr key={projects.application_id}>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white text-center">
+                            {startIndex + index + 1}
+                          </p>
                         </td>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {projects.application_title}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {projects.group_name}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                        <p
-                          className={`text-white rounded-lg px-2 py-1 ${className}`}
-                        >
-                          {text}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                        <Link to={'/students/showcase-projects/latest'}>
-                          <button className="hover:text-black">
-                            <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
+                          <td className="border-b border-[#eee] dark:border-strokedark">
+                            <div className="h-12.5 w-15">
+                              <div className="rounded-full overflow-hidden">
+                                <img
+                                  src={projects.application_image}
+                                  alt="Cover"
+                                />
+                              </div>
+                            </div>
+                          </td>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                            {projects.application_title}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                            {projects.group_name}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
+                          <p
+                            className={`text-white rounded-lg px-2 py-1 ${className}`}
+                          >
+                            {text}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
+                          <Link to={'/students/showcase-projects/latest'}>
+                            <button className="hover:text-black">
+                              <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })
+              )}
             </tbody>
           </table>
         </div>
