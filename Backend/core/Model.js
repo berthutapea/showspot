@@ -56,6 +56,10 @@ class Model {
       } else if (mode === 'like') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE ?`;
         formattedValue = [value[0]];
+      } else if (mode === 'group student') {
+        query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE "%${value[0]}%"`;
+        let [results] = await this.database.connection.query(query);
+        return results;
       } else if (mode === 'all') {
         query = `SELECT * FROM ${this.tableName}`;
       }
