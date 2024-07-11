@@ -91,6 +91,13 @@ export const FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
   'FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
 export const FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE';
+
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST';
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE';
 /* STUDENT */
 
 /* ADMIN */
@@ -467,4 +474,35 @@ export const fetchShowcaseProjectsStudents =
       );
     }
   };
+
+export const uploadShowcaseProjectsStudents = (formData, navigate) => {
+  return async (dispatch) => {
+    dispatch({ type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST });
+
+    try {
+      const response = await privateClient.post(
+        'students/projects/add',
+        formData,
+        {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch({
+        type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+        payload: response.data,
+      });
+      console.log(response.data);
+      navigate('/students/showcase-projects');
+      return response.data;
+    } catch (error) {
+      dispatch({
+        type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+        payload: error.message,
+      });
+      throw error;
+    }
+  };
+};
 /* STUDENT */
