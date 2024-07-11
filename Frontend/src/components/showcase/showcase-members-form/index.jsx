@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ShowcaseMembersForm = () => {
-  const rawData = [
-    { role: 'Hustler', fullName: [] },
-    { role: 'Scrum Master', fullName: [] },
-    { role: 'Hipster', fullName: [] },
-    { role: 'Hacker', fullName: [] },
+  const initialRawData = [
+    { role: 'Hustler', student_name: [] },
+    { role: 'Scrum Master', student_name: [] },
+    { role: 'Hipster', student_name: [] },
+    { role: 'Hacker', student_name: [] },
   ];
 
+  const [rawData, setRawData] = useState(initialRawData);
+
   const [editedNames, setEditedNames] = useState(
-    rawData.reduce((acc, item) => {
+    initialRawData.reduce((acc, item) => {
       acc[item.role] = [''];
       return acc;
     }, {})
   );
 
+  useEffect(() => {
+    const updatedRawData = initialRawData.map((item) => ({
+      ...item,
+      student_name: editedNames[item.role].filter((name) => name !== ''),
+    }));
+    setRawData(updatedRawData);
+  }, [editedNames]);
+
+  console.log(rawData);
   const handleNameChange = (role, index, newName) => {
     setEditedNames((prevState) => {
       const newState = { ...prevState };
@@ -36,7 +47,7 @@ const ShowcaseMembersForm = () => {
           </tr>
         </thead>
         <tbody>
-          {rawData.map(({ role, fullName }, rowIndex) => (
+          {rawData.map(({ role, student_name }, rowIndex) => (
             <tr key={role} className="border-t">
               <td className="px-4 py-3 border">{role}</td>
               <td className="px-4 py-3 border">
