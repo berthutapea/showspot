@@ -444,7 +444,7 @@ export const fetchShowcaseProjectsStudents =
     );
     try {
       const response = await privateClient.get(
-        `students/projects/showcase-project/${id}/${page},`,
+        `students/projects/showcase-project/${id}/${page}`,
         {
           headers: {
             'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
@@ -458,7 +458,6 @@ export const fetchShowcaseProjectsStudents =
           response.data.data
         )
       );
-      console.log(response.data.data);
     } catch (error) {
       dispatch(
         showcaseProjectsStudentFailure(
