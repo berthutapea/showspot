@@ -48,10 +48,10 @@ const ShowCase = () => {
     }
   }, [inView, animation, location.pathname, generalShowcaseProjectsData]);
 
-  const filterItem = (category) => {
+  const filterItem = (filterId) => {
     if (Array.isArray(generalShowcaseProjectsData)) {
       const filtered = generalShowcaseProjectsData.filter(
-        (item) => item.category === category
+        (item) => item.project_filter_id === filterId
       );
       setItems(location.pathname === '/' ? filtered.slice(0, 6) : filtered);
     }
@@ -102,33 +102,33 @@ const ShowCase = () => {
             </button>
             <button
               className={`btn btn-lg bg-primary border-2 border-primary hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg text-white transition hover:bg-transparent hover:text-accent ${
-                activeBtn === 'business' && 'active-btn'
+                activeBtn === 'best' && 'active-btn'
               }`}
               onClick={() => {
-                setActiveBtn('business');
-                filterItem('business');
+                setActiveBtn('best');
+                filterItem(1);
               }}
             >
               The Best
             </button>
             <button
               className={`btn btn-lg bg-primary border-2 border-primary hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg text-white transition hover:bg-transparent hover:text-accent ${
-                activeBtn === 'personal' && 'active-btn'
+                activeBtn === 'mobile' && 'active-btn'
               }`}
               onClick={() => {
-                setActiveBtn('personal');
-                filterItem('personal');
+                setActiveBtn('mobile');
+                filterItem(2);
               }}
             >
               Mobile
             </button>
             <button
               className={`btn btn-lg bg-primary border-2 border-primary hover:border-primary duration-300 mx-3 my-3 sm:my-0 w-20 h-10 cursor-pointer rounded-lg text-white transition hover:bg-transparent hover:text-accent ${
-                activeBtn === 'game' && 'active-btn'
+                activeBtn === 'web' && 'active-btn'
               }`}
               onClick={() => {
-                setActiveBtn('game');
-                filterItem('game');
+                setActiveBtn('web');
+                filterItem(3);
               }}
             >
               Web
