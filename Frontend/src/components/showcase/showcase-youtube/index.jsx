@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchShowcaseProjectsGeneralById } from '../../../configs/redux/action/generalUsersAction';
 
-const ShowcaseYoutube = ({ url }) => {
+const ShowcaseYoutube = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { generalShowcaseProjectsData } = useSelector(
+    (state) => state.generalShowcaseProjectsData
+  );
+
   const extractVideoId = (url) => {
     const regExp =
-      // eslint-disable-next-line no-useless-escape
-      /^.*(youtu.be\/|v\/|\/u\/\w\/|embed\/|watch\?v=|\&v=|\?v=|\/v=|\/embed\/|\/\?v=|\/\&v=|youtu.be\/|\/watch\?v=|\/watch\?vi=|youtu.be\/\?|\/embed\?|\/v=|\/e\/|\/v=|\/v\/|\/\?v=|\/\&v=|youtu.be\/\?|\/watch\?v=|\/watch\?vi=)([^#\&?]*).*/;
+      /^.*(youtu.be\/|v\/|embed\/|watch\?v=|watch\?vi=|\/v\/|\/e\/|u\/\w\/|embed\/\w\/|watch\?vi=|watch\?v=|v\/)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
   };
 
-  const videoId = extractVideoId(url);
+  const videoId = generalShowcaseProjectsData?.project?.link_video
+    ? extractVideoId(generalShowcaseProjectsData.project.link_video)
+    : null;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchShowcaseProjectsGeneralById(id));
+    }
+  }, [dispatch, id]);
 
   if (!videoId) {
     return <div className="text-red-500">Invalid YouTube URL</div>;
