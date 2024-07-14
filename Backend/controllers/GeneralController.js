@@ -9,11 +9,18 @@ class GeneralController extends Controller {
     this.projectModel = 'ProjectModel';
   }
 
-  async homePageGetShowCaseProjects(req, res) {
+  async homePageGetShowCaseProjectsConfirmed(req, res) {
     try {
+      const param = {
+        status_project_id : 1
+      };
       const projectModel = await this.loadModel(this.projectModel);
-      const projects = await projectModel.findAll('all');
-      this.responseHandler.success(res, 'Home Page ShowCase Project', 0, projects);
+      const projects = await projectModel.findAll('confirmed');
+      if (projects.length > 0){
+        this.responseHandler.success(res, 'Home Page ShowCase Project', 0, projects);
+      } else {
+        this.responseHandler.badRequest(res, 'Home Page ShowCase Project', 0, projects);
+      }
     } catch (error) {
       this.responseHandler.serverError(res, error);
     }

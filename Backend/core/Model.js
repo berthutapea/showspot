@@ -58,11 +58,13 @@ class Model {
         formattedValue = [value[0]];
       } else if (mode === 'group student') {
         query = `SELECT * FROM ${this.tableName} WHERE ${field[0]} LIKE "%${value[0]}%"`;
-        // console.log(query)
-        let [results] = await this.database.connection.query(query);
-        return results;
+        return [results] = await this.database.connection.query(query);
       } else if (mode === 'all') {
         query = `SELECT * FROM ${this.tableName}`;
+      } else if (mode === 'confirmed') {
+        query = 'SELECT * FROM projects WHERE status_project_id = 1';
+        let [results] = await this.database.connection.query(query);
+        return results;
       }
       const [results] = await this.database.connection.query(query, formattedValue);
       return results;

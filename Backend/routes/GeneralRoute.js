@@ -4,7 +4,7 @@ class GeneralRoute extends Route {
   initializeRoute(){
     this.router.get(
       '/home/showcaseprojects',
-      this.controller.homePageGetShowCaseProjects.bind(this.controller)
+      this.controller.homePageGetShowCaseProjectsConfirmed.bind(this.controller)
     );
     this.router.get(
       '/home/showcaseprojects/:id',
