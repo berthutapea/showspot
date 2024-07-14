@@ -6,7 +6,6 @@ import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
 import OneButton from '../../../../buttons/one-button';
 import ThreeButton from '../../../../buttons/three-button';
 import Swal from 'sweetalert2';
-import ShowcaseMembersForm from '../../../../showcase/showcase-members-form';
 import { uploadShowcaseProjectsStudents } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
 const UploadsShowcaseProjects = () => {
@@ -24,6 +23,13 @@ const UploadsShowcaseProjects = () => {
     preview: '',
   });
 
+  const [formDataStudent, setFormDataStudent] = useState({
+    Hustler: [],
+    'Scrum Master': [],
+    Hipster: [],
+    Hacker: [],
+  });
+
   const {
     application_title,
     group_name,
@@ -34,6 +40,14 @@ const UploadsShowcaseProjects = () => {
     file,
     preview,
   } = formData;
+
+  const {
+    Hustler,
+    'Scrum Master': ScrumMaster,
+    Hipster,
+    Hacker,
+  } = formDataStudent;
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +60,10 @@ const UploadsShowcaseProjects = () => {
     newFormData.append('link_design', link_design);
     newFormData.append('link_github', link_github);
     newFormData.append('description', description);
+    newFormData.append('Hustler', JSON.stringify(Hustler));
+    newFormData.append('Scrum Master', JSON.stringify(ScrumMaster));
+    newFormData.append('Hacker', JSON.stringify(Hacker));
+    newFormData.append('Hipster', JSON.stringify(Hipster));
     dispatch(uploadShowcaseProjectsStudents(newFormData, navigate))
       .then((response) => {
         Swal.fire({
@@ -108,7 +126,14 @@ const UploadsShowcaseProjects = () => {
       [e.target.name]: e.target.value,
     });
   };
- 
+
+  const handleChangeStudent = (e) => {
+    const { name, value } = e.target;
+    setFormDataStudent((prevFormData) => ({
+      ...prevFormData,
+      [name]: value.split(',').map((item) => item.trim()), // Memisahkan input berdasarkan koma dan membersihkannya
+    }));
+  };
 
   return (
     <LayoutStudents>
@@ -282,11 +307,65 @@ const UploadsShowcaseProjects = () => {
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                  <div className="w-full">
-                    <label className="mb-3 block text-black dark:text-white">
-                      Members<span className="text-meta-1">*</span>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2.5 block text-black">
+                      Hustler<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembersForm />
+                    <input
+                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      id="Hustler"
+                      name="Hustler"
+                      value={Hustler.join(', ')}
+                      onChange={handleChangeStudent}
+                      required
+                      placeholder="Enter hustler"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2.5 block text-black">
+                      Scrum Master<span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      id="ScrumMaster"
+                      name="Scrum Master"
+                      value={ScrumMaster.join(', ')}
+                      onChange={handleChangeStudent}
+                      required
+                      placeholder="Enter scrum master"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2.5 block text-black">
+                      Hipster<span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      id="Hipster"
+                      name="Hipster"
+                      value={Hipster.join(', ')}
+                      onChange={handleChangeStudent}
+                      required
+                      placeholder="Enter hipster"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2.5 block text-black">
+                      Hacker<span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      type="text"
+                      id="Hacker"
+                      name="Hacker"
+                      value={Hacker.join(', ')}
+                      onChange={handleChangeStudent}
+                      required
+                      placeholder="Enter hacker"
+                    />
                   </div>
                 </div>
 
