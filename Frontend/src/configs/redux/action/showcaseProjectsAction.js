@@ -84,24 +84,21 @@ export const DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE =
   'DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE';
 /* MENTOR */
 
-export const FETCH_SHOWCASE_PROJECTS_REQUEST =
-  'FETCH_SHOWCASE_PROJECTS_REQUEST';
-export const FETCH_SHOWCASE_PROJECTS_SUCCESS =
-  'FETCH_SHOWCASE_PROJECTS_SUCCESS';
-export const FETCH_SHOWCASE_PROJECTS_FAILURE =
-  'FETCH_SHOWCASE_PROJECTS_FAILURE';
+/* STUDENT */
+export const FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST =
+  'FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST';
+export const FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
+  'FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
+export const FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE =
+  'FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE';
 
-export const ADD_PROJECT_REQUEST = 'ADD_SHOWCASE_PROJECT_REQUEST';
-export const ADD_PROJECT_SUCCESS = 'ADD_PROJECT_SUCCESS';
-export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
-
-export const UPDATE_PROJECT_REQUEST = 'UPDATE_PROJECT_REQUEST';
-export const UPDATE_PROJECT_SUCCESS = 'UPDATE_PROJECT_SUCCESS';
-export const UPDATE_PROJECT_FAILURE = 'UPDATE_PROJECT_FAILURE';
-
-export const DELETE_PROJECT_REQUEST = 'DELETE_PROJECT_REQUEST';
-export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
-export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST';
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
+export const UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE =
+  'UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE';
+/* STUDENT */
 
 /* ADMIN */
 export const showcaseProjectsAdminRequest = (actionType) => ({
@@ -431,84 +428,81 @@ export const deleteShowcaseProjectsMentors = (id) => {
 };
 /* MENTOR */
 
-/* ADMIN */
-export const fetchShowCaseProjectsAdmin = () => async (dispatch) => {
-  dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
-  try {
-    const response = await privateClient.get(
-      'students/projects/showcase-project'
-    );
-    console.log(response);
-
-    dispatch({
-      type: FETCH_SHOWCASE_PROJECTS_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    dispatch({ type: FETCH_SHOWCASE_PROJECTS_FAILURE });
-    console.error('Error deleting SHOWCASE project:', error);
-  }
-};
-
-// Delete ShowCase Project
-export const deleteProject = () => async (dispatch) => {
-  dispatch({ type: DELETE_PROJECT_REQUEST });
-  try {
-    const response = await privateClient.delete(
-      'admin/projects/showcase-project/delete'
-    );
-    dispatch({
-      type: DELETE_PROJECT_SUCCESS,
-      payload: { response },
-      headers: {
-        'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } catch (error) {
-    dispatch({ type: DELETE_PROJECT_FAILURE });
-    // console.error('Error deleting SHOWCASE project:', error);
-  }
-};
-
 /* STUDENT */
-export const fetchShowCaseProjectsStudent = () => async (dispatch) => {
-  dispatch({ type: FETCH_SHOWCASE_PROJECTS_REQUEST });
-  try {
-    const response = await privateClient.get(
-      'students/projects/showcase-project/student11641/1'
+export const showcaseProjectsStudentRequest = (actionType) => ({
+  type: actionType,
+});
+
+export const showcaseProjectsStudentSuccess = (actionType, data) => ({
+  type: actionType,
+  payload: data,
+});
+
+export const showcaseProjectsStudentFailure = (actionType, error) => ({
+  type: actionType,
+  payload: error,
+});
+
+export const fetchShowcaseProjectsStudents =
+  (id, page = 1) =>
+  async (dispatch) => {
+    dispatch(
+      showcaseProjectsStudentRequest(FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST)
     );
-
-    dispatch({
-      type: FETCH_SHOWCASE_PROJECTS_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    dispatch({ type: FETCH_SHOWCASE_PROJECTS_FAILURE });
-  }
-};
-
-export const addProject = (newProject) => async (dispatch) => {
-  const data = {
-    project: newProject.body,
+    try {
+      const response = await privateClient.get(
+        `students/projects/showcase-project/${id}/${page}`,
+        {
+          headers: {
+            'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch(
+        showcaseProjectsStudentSuccess(
+          FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+          response.data.data
+        )
+      );
+    } catch (error) {
+      dispatch(
+        showcaseProjectsStudentFailure(
+          FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+          error.message
+        )
+      );
+    }
   };
-  dispatch({ type: ADD_PROJECT_REQUEST });
-  try {
-    const response = await privateClient.put(
-      'admin/projects/showcase-project/add',
-      data,
-      {
-        headers: {
-          'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    dispatch({
-      type: ADD_PROJECT_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    dispatch({ type: ADD_PROJECT_FAILURE, payload: error.message });
-  }
+
+export const uploadShowcaseProjectsStudents = (formData, navigate) => {
+  return async (dispatch) => {
+    dispatch({ type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST });
+
+    try {
+      const response = await privateClient.post(
+        'students/projects/add',
+        formData,
+        {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch({
+        type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+        payload: response.data,
+      });
+      console.log(response.data);
+      navigate('/students/showcase-projects');
+      return response.data;
+    } catch (error) {
+      dispatch({
+        type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+        payload: error.message,
+      });
+      throw error;
+    }
+  };
 };
+/* STUDENT */

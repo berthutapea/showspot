@@ -1,33 +1,114 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LayoutStudents from '../../../../../layout/layout-students';
-// import placeholderImage from '../../../../../assets/images/placeholder.jpg';
-// import SamariaProfile from '../../../../../assets/images/samaria-sianturi-image.jpeg';
+import { useDispatch } from 'react-redux';
 import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
 import OneButton from '../../../../buttons/one-button';
 import ThreeButton from '../../../../buttons/three-button';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
-// import ShowcaseMembers from '../../../../showcase/showcase-members';
+import Swal from 'sweetalert2';
 import ShowcaseMembersForm from '../../../../showcase/showcase-members-form';
+import { uploadShowcaseProjectsStudents } from '../../../../../configs/redux/action/showcaseProjectsAction';
 
 const UploadsShowcaseProjects = () => {
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(selectedFile);
-    } else {
-      setFile(null);
-      setPreview(null);
+  const [formData, setFormData] = useState({
+    application_title: '',
+    group_name: '',
+    link_video: '',
+    link_design: '',
+    link_github: '',
+    description: '',
+    file: '',
+    preview: '',
+  });
+
+  const {
+    application_title,
+    group_name,
+    link_video,
+    link_design,
+    link_github,
+    description,
+    file,
+    preview,
+  } = formData;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newFormData = new FormData();
+    newFormData.append('application_image', file);
+    newFormData.append('application_title', application_title);
+    newFormData.append('group_name', group_name);
+    newFormData.append('link_video', link_video);
+    newFormData.append('link_design', link_design);
+    newFormData.append('link_github', link_github);
+    newFormData.append('description', description);
+    dispatch(uploadShowcaseProjectsStudents(newFormData, navigate))
+      .then((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: response.message,
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 1000,
+        });
+      })
+      .catch((error) => {
+        if (error.response && error.response.data && error.response.data.msg) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: error.response.data.msg,
+            confirmButtonText: 'Ok',
+          });
+        } else if (error.message) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: error.message,
+            confirmButtonText: 'Ok',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: 'Terjadi kesalahan',
+            confirmButtonText: 'Ok',
+          });
+        }
+      });
+  };
+
+  const handleImageUpload = (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setFormData({
+        ...formData,
+        file: image,
+        preview: URL.createObjectURL(image),
+      });
     }
   };
+
+  const handleImageCancel = () => {
+    setFormData({
+      ...formData,
+      file: '',
+      preview: '',
+    });
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+ 
 
   return (
     <LayoutStudents>
@@ -35,14 +116,13 @@ const UploadsShowcaseProjects = () => {
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
-          {/* <!-- View Showcase Latest --> */}
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="border-b border-stroke py-4 px-6.5">
               <h3 className="font-medium text-black">
                 Please Uploads Your Showcase Projects
               </h3>
             </div>
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div className="p-6.5">
                 <label className="mb-2.5 block text-black">
                   Upload Cover Image <span className="text-meta-1">*</span>
@@ -52,7 +132,7 @@ const UploadsShowcaseProjects = () => {
                     type="file"
                     accept="image/*"
                     className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                    onChange={handleFileChange}
+                    onChange={handleImageUpload}
                   />
                   <div className="flex flex-col items-center justify-center space-y-3">
                     {!preview && (
@@ -111,8 +191,11 @@ const UploadsShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
+                      id="application_title"
+                      name="application_title"
+                      value={application_title}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter full application title"
                     />
                   </div>
@@ -124,8 +207,11 @@ const UploadsShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="fullName"
-                      id="fullName"
+                      id="group_name"
+                      name="group_name"
+                      value={group_name}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter grup name"
                     />
                   </div>
@@ -139,8 +225,11 @@ const UploadsShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="fullName"
-                      id="fullName"
+                      id="link_video"
+                      name="link_video"
+                      value={link_video}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter link video project"
                     />
                   </div>
@@ -151,8 +240,11 @@ const UploadsShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="fullName"
-                      id="fullName"
+                      id="link_design"
+                      name="link_design"
+                      value={link_design}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter link hifi design"
                     />
                   </div>
@@ -163,8 +255,11 @@ const UploadsShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      name="fullName"
-                      id="fullName"
+                      id="link_github"
+                      name="link_github"
+                      value={link_github}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter link github"
                     />
                   </div>
@@ -176,6 +271,11 @@ const UploadsShowcaseProjects = () => {
                     </label>
                     <textarea
                       rows="6"
+                      id="description"
+                      name="description"
+                      value={description}
+                      onChange={handleChange}
+                      required
                       placeholder="Enter link product description"
                       className="w-full rounded-lg border-[1.5px] border-stroke   py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input focus:border-primary focus-visible:outline-none"
                     ></textarea>
@@ -190,14 +290,12 @@ const UploadsShowcaseProjects = () => {
                   </div>
                 </div>
 
-                {/* <!-- View Showcase Latest --> */}
-
                 <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <Link to="/students/showcase-projects">
+                  <div>
                     <OneButton>
                       <span>Upload</span>
                     </OneButton>
-                  </Link>
+                  </div>
                   <Link to="/students/showcase-projects">
                     <ThreeButton>
                       <span>Back</span>

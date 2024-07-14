@@ -17,6 +17,9 @@ import {
   FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST,
   FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE,
   FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST,
   FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_FAILURE,
@@ -33,17 +36,9 @@ import {
   DELETE_SHOWCASE_PROJECTS_ADMIN_FAILURE,
   DELETE_SHOWCASE_PROJECTS_MENTOR_SUCCESS,
   DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE,
-  FETCH_SHOWCASE_PROJECTS_REQUEST,
-  FETCH_SHOWCASE_PROJECTS_FAILURE,
-  ADD_PROJECT_REQUEST,
-  ADD_PROJECT_SUCCESS,
-  ADD_PROJECT_FAILURE,
-  UPDATE_PROJECT_REQUEST,
-  UPDATE_PROJECT_SUCCESS,
-  UPDATE_PROJECT_FAILURE,
-  DELETE_PROJECT_REQUEST,
-  DELETE_PROJECT_SUCCESS,
-  DELETE_PROJECT_FAILURE,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+  UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE,
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
@@ -51,12 +46,16 @@ const initialState = {
   showCaseProjectsDataPending: [],
   showCaseProjectsDataConfirmed: [],
   showCaseProjectsDataRejected: [],
+  showCaseProjectsDataStudents: [],
+  uploadShowCaseProjectsDataStudents: [],
   totalPagesPending: 0,
   totalPagesConfirmed: 0,
   totalPagesRejected: 0,
+  totalPagesStudent: 0,
   pagePending: 1,
   pageConfirmed: 1,
   pageRejected: 1,
+  pageStudent: 1,
   loading: false,
   error: null,
 };
@@ -71,12 +70,10 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST:
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST:
-    case FETCH_SHOWCASE_PROJECTS_REQUEST:
-    case ADD_PROJECT_REQUEST:
-    case UPDATE_PROJECT_REQUEST:
-    case DELETE_PROJECT_REQUEST:
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -100,8 +97,8 @@ const showcaseReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         showCaseProjectsDataConfirmed: action.payload.project,
-        totalPagesConfirmed: action.payload.total,
-        pageConfirmed: action.payload.page,
+        totalPagesStudent: action.payload.total,
+        pageStudent: action.payload.page,
         error: null,
       };
 
@@ -111,6 +108,16 @@ const showcaseReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         showCaseProjectsDataRejected: action.payload.project,
+        totalPagesRejected: action.payload.total,
+        pageRejected: action.payload.page,
+        error: null,
+      };
+
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        showCaseProjectsDataStudents: action.payload.projects,
         totalPagesRejected: action.payload.total,
         pageRejected: action.payload.page,
         error: null,
@@ -138,6 +145,17 @@ const showcaseReducer = (state = initialState, action) => {
         error: null,
       };
 
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        uploadShowCaseProjectsDataStudents: [
+          ...state.uploadShowCaseProjectsDataStudents,
+          action.payload,
+        ],
+        error: null,
+      };
+
     case FETCH_SHOWCASE_PROJECTS_PENDING_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_ADMIN_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_REJECTED_ADMIN_FAILURE:
@@ -147,64 +165,11 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_PENDING_MENTOR_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_CONFIRMED_MENTOR_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE:
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE:
-    case FETCH_SHOWCASE_PROJECTS_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-
-    case ADD_PROJECT_SUCCESS:
-      return {
-        ...state,
-        showCaseProjectsDataPending: [
-          ...state.showCaseProjectsDataPending,
-          action.payload,
-        ],
-        loading: false,
-      };
-
-    case UPDATE_PROJECT_SUCCESS:
-      return {
-        ...state,
-        showCaseProjectsDataPending: state.showCaseProjectsDataPending.map(
-          (project) =>
-            project.id === action.payload.id ? action.payload : project
-        ),
-        showCaseProjectsDataConfirmed: state.showCaseProjectsDataConfirmed.map(
-          (project) =>
-            project.id === action.payload.id ? action.payload : project
-        ),
-        showCaseProjectsDataRejected: state.showCaseProjectsDataConfirmed.map(
-          (project) =>
-            project.id === action.payload.id ? action.payload : project
-        ),
-        loading: false,
-      };
-
-    case DELETE_PROJECT_SUCCESS:
-      return {
-        ...state,
-        showCaseProjectsDataPending: state.showCaseProjectsDataPending.filter(
-          (project) => project.id !== action.payload.sopProjectId
-        ),
-        showCaseProjectsDataConfirmed:
-          state.showCaseProjectsDataConfirmed.filter(
-            (project) => project.id !== action.payload.sopProjectId
-          ),
-        showCaseProjectsDataRejected:
-          state.showCaseProjectsDataConfirmed.filter(
-            (project) => project.id !== action.payload.sopProjectId
-          ),
-        loading: false,
-      };
-
-    case ADD_PROJECT_FAILURE:
-    case UPDATE_PROJECT_FAILURE:
-    case DELETE_PROJECT_FAILURE:
+    case UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE:
       return {
         ...state,
         loading: false,
