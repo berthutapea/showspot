@@ -486,6 +486,7 @@ export const uploadShowcaseProjectsStudents = (formData, navigate) => {
         {
           headers: {
             'Content-type': 'multipart/form-data',
+            'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
           },
         }
       );

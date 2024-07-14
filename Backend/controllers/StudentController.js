@@ -125,6 +125,7 @@ class StudentController extends Controller {
       this.responseHandler.serverError(res, error);
     }
   }
+
   async getShowCaseProjectStudent(req, res) {
     const page = req.params.page;
     const studentId = req.params.id;
