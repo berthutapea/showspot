@@ -26,6 +26,9 @@ import {
   FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST,
   FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_SUCCESS,
   FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_REQUEST,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS,
+  FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_FAILURE,
   EVALUATION_SHOWCASE_PROJECTS_ADMIN_REQUEST,
   EVALUATION_SHOWCASE_PROJECTS_ADMIN_SUCCESS,
   EVALUATION_SHOWCASE_PROJECTS_ADMIN_FAILURE,
@@ -48,6 +51,7 @@ const initialState = {
   showCaseProjectsDataRejected: [],
   showCaseProjectsDataStudents: [],
   uploadShowCaseProjectsDataStudents: [],
+  showCaseProjectsDataStudentsById:[],
   totalPagesPending: 0,
   totalPagesConfirmed: 0,
   totalPagesRejected: 0,
@@ -72,6 +76,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST:
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_REQUEST:
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_REQUEST:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST:
     case UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST:
       return {
@@ -116,10 +121,18 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loading: true,
         showCaseProjectsDataStudents: action.payload.projects,
         totalPagesRejected: action.payload.total,
         pageRejected: action.payload.page,
+        error: null,
+      };
+
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        showCaseProjectsDataStudentsById: action.payload,
         error: null,
       };
 
@@ -167,6 +180,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_REJECTED_MENTOR_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_STUDENT_FAILURE:
     case FETCH_SHOWCASE_PROJECTS_MENTOR_BY_ID_FAILURE:
+    case FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_FAILURE:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE:
