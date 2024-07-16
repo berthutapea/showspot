@@ -157,7 +157,7 @@ const AppRoutes = () => {
       />
       <Route path="/students/sop-projects" element={<SopProjectsStudents />} />
       <Route
-        path="/students/showcase-projects/edit/:groupid"
+        path="/students/showcase-projects/edit/:id"
         element={<ViewShowcaseProjectsEdit />}
       />
       <Route
