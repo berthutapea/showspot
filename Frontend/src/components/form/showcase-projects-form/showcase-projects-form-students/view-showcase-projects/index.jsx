@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import TwoButton from '../../../../buttons/two-button';
+import ThreeButton from '../../../../buttons/three-button';
 import LayoutStudents from '../../../../../layout/layout-students';
 import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
-import ThreeButton from '../../../../buttons/three-button';
-import Swal from 'sweetalert2';
+import ShowcaseMembersStudents from '../../../../showcase/showcase-members/showcase-members-students';
 import {
+  deleteShowcaseProjectsStudents,
   fetchShowcaseProjectsStudentsByProjectId,
-  updateShowcaseProjectsStudents,
 } from '../../../../../configs/redux/action/showcaseProjectsAction';
-import TwoButton from '../../../../buttons/two-button';
 
 const ViewShowcaseProjects = () => {
   const dispatch = useDispatch();
@@ -26,58 +27,79 @@ const ViewShowcaseProjects = () => {
   const [link_design, setLinkDesign] = useState('');
   const [link_github, setLinkGithub] = useState('');
   const [description, setDescription] = useState('');
-  const [Hustler, setHustler] = useState([]);
-  const [ScrumMaster, setScrumMaster] = useState([]);
-  const [Hipster, setHipster] = useState([]);
-  const [Hacker, setHacker] = useState([]);
-  const [preview, setPreview] = useState('');
-  const [file, setFile] = useState(null);
+  const [group_id, setGroupId] = useState('');
+  const [grade_id, setGradeId] = useState('');
+  const [project_filter_id, setProjectFilterId] = useState('');
+  const [notes, setNotes] = useState('');
 
-  const handleImageUpload = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setPreview(URL.createObjectURL(selectedFile));
-      setFile(selectedFile);
+  const getStatusText = (statusId) => {
+    switch (statusId) {
+      case 1:
+        return 'Confirmed';
+      case 2:
+        return 'Pending';
+      case 3:
+        return 'Rejected';
+      default:
+        return 'No response';
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    console.log(formData);
-    if (file) {
-      formData.append('application_image', file);
+  const getStatusGrade = (statusGrade) => {
+    switch (statusGrade) {
+      case 1:
+        return 'A';
+      case 2:
+        return 'B';
+      case 3:
+        return 'C';
+      case 4:
+        return 'D';
+      case 5:
+        return 'E';
+      default:
+        return 'No response';
     }
-    formData.append('application_title', application_title);
-    formData.append('group_name', group_name);
-    formData.append('link_video', link_video);
-    formData.append('link_design', link_design);
-    formData.append('link_github', link_github);
-    formData.append('description', description);
-    formData.append('Hustler', Hustler);
-    formData.append('Scrum Master', ScrumMaster);
-    formData.append('Hipster', Hipster);
-    formData.append('Hacker', Hacker);
+  };
 
-    dispatch(updateShowcaseProjectsStudents(id, formData, navigate))
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Updated!',
-          timer: 1000,
-          timerProgressBar: true,
-          text: 'Showcase Project has been updated successfully.',
+  const getProjectFilter = (statusProjectFilter) => {
+    switch (statusProjectFilter) {
+      case 1:
+        return 'The Best';
+      case 2:
+        return 'Mobile';
+      case 3:
+        return 'Web';
+      default:
+        return 'No response';
+    }
+  };
+
+  const onDeleteShowcaseProjects = (id) => {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to Delete?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteShowcaseProjectsStudents(id)).then(() => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Showcase Project data has been successfully deleted.',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          }).then(() => {
+            navigate('/students/showcase-projects');
+          });
         });
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          timer: 1000,
-          timerProgressBar: true,
-          text: 'There was an error updating the Showcase Project.',
-        });
-      });
+      }
+    });
   };
 
   useEffect(() => {
@@ -85,68 +107,41 @@ const ViewShowcaseProjects = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (
-      showCaseProjectsDataStudentsById &&
-      showCaseProjectsDataStudentsById.team_project
-    ) {
-      setApplicationTitle(showCaseProjectsDataStudentsById.application_title);
-      setGroupName(showCaseProjectsDataStudentsById.group_name);
-      setLinkVideo(showCaseProjectsDataStudentsById.link_video);
-      setLinkDesign(showCaseProjectsDataStudentsById.link_design);
-      setLinkGithub(showCaseProjectsDataStudentsById.link_github);
-      setDescription(showCaseProjectsDataStudentsById.description);
-      const teamProject =
-        showCaseProjectsDataStudentsById?.team_project[0] || [];
-      const hustlers = teamProject
-        .filter((member) => member.student_position === 'Hustler')
-        .map((member) => member.student_name);
-      const scrumMasters = teamProject
-        .filter((member) => member.student_position === 'Scrum Master')
-        .map((member) => member.student_name);
-      const hipsters = teamProject
-        .filter((member) => member.student_position === 'Hipster')
-        .map((member) => member.student_name);
-      const hackers = teamProject
-        .filter((member) => member.student_position === 'Hacker')
-        .map((member) => member.student_name);
-
-      setHustler(hustlers);
-      setScrumMaster(scrumMasters);
-      setHipster(hipsters);
-      setHacker(hackers);
+    if (showCaseProjectsDataStudentsById?.project) {
+      setApplicationTitle(showCaseProjectsDataStudentsById?.project?.application_title);
+      setGroupName(showCaseProjectsDataStudentsById?.project?.group_name);
+      setLinkVideo(showCaseProjectsDataStudentsById?.project?.link_video);
+      setLinkDesign(showCaseProjectsDataStudentsById?.project?.link_design);
+      setLinkGithub(showCaseProjectsDataStudentsById?.project?.link_github);
+      setDescription(showCaseProjectsDataStudentsById?.project?.description);
+      setGroupId(showCaseProjectsDataStudentsById?.project?.group_id);
+      setGradeId(showCaseProjectsDataStudentsById?.project?.grade_id);
+      setProjectFilterId(showCaseProjectsDataStudentsById?.project?.project_filter_id);
+      setNotes(showCaseProjectsDataStudentsById?.project?.notes);
     }
-  }, [showCaseProjectsDataStudentsById]);
+  }, [showCaseProjectsDataStudentsById?.project]);
 
   return (
     <LayoutStudents>
       <BreadcrumbStudents pageName="View Showcase Project" />
-
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
-            <div className="border-b border-stroke py-4 px-6.5 bg-warning rounded ">
+            <div className="border-b border-stroke py-4 px-6.5 bg-meta-3 rounded ">
               <h1 className="font-medium text-white text-center text-xl">
-                Pending 222
+                {getStatusText(
+                  showCaseProjectsDataStudentsById?.project?.status_project_id
+                )}
               </h1>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="p-6.5">
                 <div className="mx-1 md:mx-4 rounded single-blog flex flex-col justify-between">
-                  <div className="relative">
-                    <img
-                      src={
-                        preview ||
-                        showCaseProjectsDataStudentsById?.application_image
-                      }
-                      className="showcase_image object-cover"
-                    />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                      onChange={handleImageUpload}
-                    />
-                  </div>
+                  <img
+                    src={showCaseProjectsDataStudentsById?.project?.application_image}
+                    alt="User"
+                    className="showcase_image object-cover"
+                  />
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row mt-10">
                   <div className="w-full xl:w-1/2">
@@ -156,10 +151,10 @@ const ViewShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="application_title"
                       name="application_title"
+                      id="application_title"
+                      disabled={true}
                       value={application_title}
-                      onChange={(e) => setApplicationTitle(e.target.value)}
                       required={true}
                     />
                   </div>
@@ -171,10 +166,10 @@ const ViewShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="group_name"
                       name="group_name"
+                      id="group_name"
+                      disabled={true}
                       value={group_name}
-                      onChange={(e) => setGroupName(e.target.value)}
                       required={true}
                     />
                   </div>
@@ -188,10 +183,10 @@ const ViewShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="link_video"
                       name="link_video"
+                      id="link_video"
+                      disabled={true}
                       value={link_video}
-                      onChange={(e) => setLinkVideo(e.target.value)}
                       required={true}
                     />
                   </div>
@@ -202,10 +197,10 @@ const ViewShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="link_design"
                       name="link_design"
+                      id="link_design"
+                      disabled={true}
                       value={link_design}
-                      onChange={(e) => setLinkDesign(e.target.value)}
                       required={true}
                     />
                   </div>
@@ -216,10 +211,10 @@ const ViewShowcaseProjects = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="link_github"
                       name="link_github"
+                      id="link_github"
+                      disabled={true}
                       value={link_github}
-                      onChange={(e) => setLinkGithub(e.target.value)}
                       required={true}
                     />
                   </div>
@@ -230,81 +225,90 @@ const ViewShowcaseProjects = () => {
                       Product Description<span className="text-meta-1">*</span>
                     </label>
                     <textarea
-                      className="w-full rounded-lg border-[1.5px] border-stroke  bg-gray  py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input focus:border-primary focus-visible:outline-none"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input"
                       rows="6"
-                      id="description"
                       name="description"
+                      id="description"
+                      disabled={true}
                       value={description}
-                      onChange={(e) => setDescription(e.target.value)}
                       required={true}
                     ></textarea>
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full">
+                    <label className="mb-3 block text-black dark:text-white">
+                      Members<span className="text-meta-1">*</span>
+                    </label>
+                    <ShowcaseMembersStudents />
+                  </div>
+                </div>
+                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
-                      Hustler<span className="text-meta-1">*</span>
+                      Grade <span className="text-meta-1">*</span>
                     </label>
                     <input
-                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      value={Hustler.join(', ')}
-                      onChange={(e) => setHustler(e.target.value.split(', '))}
+                      name="grade_id"
+                      id="grade_id"
+                      disabled={true}
+                      value={getStatusGrade(grade_id)}
+                      required={true}
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
-                      Scrum Master<span className="text-meta-1">*</span>
+                      Project Filter <span className="text-meta-1">*</span>
                     </label>
                     <input
-                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      id="ScrumMaster"
-                      name="ScrumMaster"
-                      value={ScrumMaster.join(', ')}
-                      onChange={(e) =>
-                        setScrumMaster(e.target.value.split(', '))
-                      }
-                    />
-                  </div>
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Hipster<span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      value={Hipster.join(', ')}
-                      onChange={(e) => setHipster(e.target.value.split(', '))}
-                    />
-                  </div>
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black">
-                      Hacker<span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
-                      type="text"
-                      value={Hacker.join(', ')}
-                      onChange={(e) => setHacker(e.target.value.split(', '))}
+                      name="project_filter_id"
+                      id="project_filter_id"
+                      disabled={true}
+                      value={getProjectFilter(project_filter_id)}
+                      required={true}
                     />
                   </div>
                 </div>
-
-                <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4">
-                  <div>
-                    <TwoButton>
-                      <span>Delete</span>
-                    </TwoButton>
+                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full">
+                    <label className="mb-3 block text-black dark:text-white">
+                      Notes <span className="text-meta-1">*</span>
+                    </label>
+                    <textarea
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input focus:border-primary focus-visible:outline-none"
+                      rows="6"
+                      id="notes"
+                      name="notes"
+                      value={notes}
+                      disabled={true}
+                      required={true}
+                    ></textarea>
                   </div>
-                  <Link to="/students/showcase-projects">
-                    <ThreeButton>
-                      <span>Back</span>
-                    </ThreeButton>
-                  </Link>
                 </div>
               </div>
             </form>
+            <div className="flex flex-col md:flex-row w-full gap-3 text-center py-4 p-6.5">
+              <div>
+                <TwoButton
+                  onClick={() => {
+                    onDeleteShowcaseProjects(
+                      showCaseProjectsDataStudentsById?.project?.application_id
+                    );
+                  }}
+                >
+                  <span>Delete</span>
+                </TwoButton>
+              </div>
+              <Link to="/students/showcase-projects">
+                <ThreeButton>
+                  <span>Back</span>
+                </ThreeButton>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
