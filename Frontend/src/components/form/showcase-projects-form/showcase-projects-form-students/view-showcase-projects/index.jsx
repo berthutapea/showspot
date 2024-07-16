@@ -35,13 +35,13 @@ const ViewShowcaseProjects = () => {
   const getStatusText = (statusId) => {
     switch (statusId) {
       case 1:
-        return 'Confirmed';
+        return { text: 'Confirmed', className: 'bg-meta-3' };
       case 2:
-        return 'Pending';
+        return { text: 'Pending', className: 'bg-warning' };
       case 3:
-        return 'Rejected';
+        return { text: 'Rejected', className: 'bg-danger' };
       default:
-        return 'No response';
+        return { text: 'No response', className: 'bg-gray-500' };
     }
   };
 
@@ -107,19 +107,19 @@ const ViewShowcaseProjects = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (showCaseProjectsDataStudentsById?.project) {
-      setApplicationTitle(showCaseProjectsDataStudentsById?.project?.application_title);
-      setGroupName(showCaseProjectsDataStudentsById?.project?.group_name);
-      setLinkVideo(showCaseProjectsDataStudentsById?.project?.link_video);
-      setLinkDesign(showCaseProjectsDataStudentsById?.project?.link_design);
-      setLinkGithub(showCaseProjectsDataStudentsById?.project?.link_github);
-      setDescription(showCaseProjectsDataStudentsById?.project?.description);
-      setGroupId(showCaseProjectsDataStudentsById?.project?.group_id);
-      setGradeId(showCaseProjectsDataStudentsById?.project?.grade_id);
-      setProjectFilterId(showCaseProjectsDataStudentsById?.project?.project_filter_id);
-      setNotes(showCaseProjectsDataStudentsById?.project?.notes);
+    if (showCaseProjectsDataStudentsById) {
+      setApplicationTitle(showCaseProjectsDataStudentsById.application_title);
+      setGroupName(showCaseProjectsDataStudentsById.group_name);
+      setLinkVideo(showCaseProjectsDataStudentsById.link_video);
+      setLinkDesign(showCaseProjectsDataStudentsById.link_design);
+      setLinkGithub(showCaseProjectsDataStudentsById.link_github);
+      setDescription(showCaseProjectsDataStudentsById.description);
+      setGroupId(showCaseProjectsDataStudentsById.group_id);
+      setGradeId(showCaseProjectsDataStudentsById.grade_id);
+      setProjectFilterId(showCaseProjectsDataStudentsById.project_filter_id);
+      setNotes(showCaseProjectsDataStudentsById.notes);
     }
-  }, [showCaseProjectsDataStudentsById?.project]);
+  }, [showCaseProjectsDataStudentsById]);
 
   return (
     <LayoutStudents>
@@ -127,18 +127,26 @@ const ViewShowcaseProjects = () => {
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
-            <div className="border-b border-stroke py-4 px-6.5 bg-meta-3 rounded ">
+            <div
+              className={`border-b border-stroke py-4 px-6.5 ${
+                getStatusText(
+                  showCaseProjectsDataStudentsById.status_project_id
+                ).className
+              } rounded `}
+            >
               <h1 className="font-medium text-white text-center text-xl">
-                {getStatusText(
-                  showCaseProjectsDataStudentsById?.project?.status_project_id
-                )}
+                {
+                  getStatusText(
+                    showCaseProjectsDataStudentsById.status_project_id
+                  ).text
+                }
               </h1>
             </div>
             <form>
               <div className="p-6.5">
                 <div className="mx-1 md:mx-4 rounded single-blog flex flex-col justify-between">
                   <img
-                    src={showCaseProjectsDataStudentsById?.project?.application_image}
+                    src={showCaseProjectsDataStudentsById?.application_image}
                     alt="User"
                     className="showcase_image object-cover"
                   />
@@ -296,7 +304,7 @@ const ViewShowcaseProjects = () => {
                 <TwoButton
                   onClick={() => {
                     onDeleteShowcaseProjects(
-                      showCaseProjectsDataStudentsById?.project?.application_id
+                      showCaseProjectsDataStudentsById.application_id
                     );
                   }}
                 >

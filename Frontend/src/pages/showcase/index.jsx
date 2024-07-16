@@ -48,11 +48,9 @@ const ShowCase = () => {
     }
   }, [inView, animation, location.pathname, generalShowcaseProjectsData]);
 
-  const filterItem = (filterId) => {
+  const filterItem = (filterFn) => {
     if (Array.isArray(generalShowcaseProjectsData)) {
-      const filtered = generalShowcaseProjectsData.filter(
-        (item) => item.project_filter_id === filterId
-      );
+      const filtered = generalShowcaseProjectsData.filter(filterFn);
       setItems(location.pathname === '/' ? filtered.slice(0, 6) : filtered);
     }
   };
@@ -106,7 +104,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('best');
-                filterItem(1);
+                filterItem((item) => item.grade_id === 1);
               }}
             >
               The Best
@@ -117,7 +115,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('mobile');
-                filterItem(2);
+                filterItem((item) => item.project_filter_id === 2);
               }}
             >
               Mobile
@@ -128,7 +126,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('web');
-                filterItem(3);
+                filterItem((item) => item.project_filter_id === 3);
               }}
             >
               Web
