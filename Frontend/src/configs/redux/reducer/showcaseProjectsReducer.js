@@ -42,6 +42,9 @@ import {
   UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST,
   UPLOAD_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
   UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+  UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST,
+  UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+  UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
 } from '../action/showcaseProjectsAction';
 
 const initialState = {
@@ -79,6 +82,7 @@ const showcaseReducer = (state = initialState, action) => {
     case FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_REQUEST:
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_REQUEST:
     case UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST:
+    case UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -129,9 +133,10 @@ const showcaseReducer = (state = initialState, action) => {
       };
 
     case FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS:
+    case UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loading: true,
         showCaseProjectsDataStudentsById: action.payload,
         error: null,
       };
@@ -184,6 +189,7 @@ const showcaseReducer = (state = initialState, action) => {
     case EVALUATION_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case DELETE_SHOWCASE_PROJECTS_MENTOR_FAILURE:
     case UPLOAD_SHOWCASE_PROJECTS_STUDENT_FAILURE:
+    case UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE:
       return {
         ...state,
         loading: false,

@@ -105,6 +105,13 @@ export const FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS =
   'FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS';
 export const FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_FAILURE =
   'FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_FAILURE';
+
+export const UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST =
+  'UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST';
+export const UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
+  'UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
+export const UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE =
+  'UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE';
 /* STUDENT */
 
 /* ADMIN */
@@ -511,7 +518,7 @@ export const fetchShowcaseProjectsStudents =
         },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         const data = response.data.data;
 
         showcaseProjectsCache[cacheKey] = data;
@@ -564,22 +571,57 @@ export const uploadShowcaseProjectsStudents = (formData, navigate) => {
   };
 };
 
-export const fetchShowcaseProjectsStudentsByProjectId =
-  (groupid) => async (dispatch) => {
-    dispatch({ type: FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_REQUEST });
-    try {
-      const response = await privateClient.get(
-        `students/projects/showcase-project/${groupid}`
-      );
+export const fetchShowcaseProjectsStudentsByProjectId = (id) => (dispatch) => {
+  dispatch({ type: FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_REQUEST });
+
+  privateClient
+    .get(`students/projects/showcase-project/${id}`, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+        'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
+      },
+    })
+    .then((response) => {
       dispatch({
         type: FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_SUCCESS,
-        payload: response.data,
+        payload: response.data.data,
       });
-    } catch (error) {
+    })
+    .catch((error) => {
       dispatch({
         type: FETCH_SHOWCASE_PROJECTS_STUDENT_BY_PROJECT_ID_FAILURE,
+        payload: error.response?.data?.msg || error.message,
+      });
+    });
+};
+
+export const updateShowcaseProjectsStudents =
+  (id, formData, navigate) => async (dispatch) => {
+    dispatch({ type: UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST });
+    try {
+      console.log('Form Data:', formData); // Log form data
+      const response = await privateClient.put(
+        `students/projects/showcase-project/${id}/update/`,
+        formData,
+        {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        }
+      );
+      dispatch({
+        type: UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+        payload: response.data.msg,
+      });
+      console.log(response.data.msg);
+      navigate('/students/showcase-projects');
+    } catch (error) {
+      console.log('Error Response:', error.response.data); // Log error response
+      dispatch({
+        type: UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
         payload: error.response.data.msg,
       });
     }
   };
+
 /* STUDENT */
