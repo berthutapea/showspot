@@ -243,34 +243,31 @@ class StudentController extends Controller {
     }
   }
 
-  async getShowCaseProjectByGroupProjectId(req, res) {
-    const groupProjectId = req.params.groupid;
+  async getShowCaseProjectByProjectId(req, res) {
+    const projectId = req.params.projectId;
 
     const params = {
-      group_project_id: groupProjectId,
+      application_id: projectId
     };
 
-    const groupProjectModel = await this.loadModel(this.groupProjectModel);
-    const groupProjectStudent = await groupProjectModel.findOne(
-      'student group',
-      params
-    );
+    const project = await this.loadModel(this.projectModel);
+    const studentProject = await project.findOne('strict one', params);
 
-    const projectModel = await this.loadModel(this.projectModel);
-    const projectStudent = await projectModel.findOne('where', {
-      group_id: groupProjectId,
-    });
+    const groupProject = await this.loadModel(this.groupProjectModel);
+    const studentGroupProject = await groupProject.findAll('where', { group_project_id: studentProject.group_id });
 
     const datas = {
-      application_title: projectStudent.application_title,
-      application_image: projectStudent.application_image,
-      group_name: projectStudent.group_name,
-      link_video: projectStudent.link_video,
-      link_design: projectStudent.link_design,
-      link_github: projectStudent.link_github,
-      description: projectStudent.description,
-      team_project: [groupProjectStudent],
-    };
+      application_title: studentProject.application_title,
+      application_image: studentProject.application_image,
+      group_name: studentProject.group_name,
+      link_video: studentProject.link_video,
+      link_design: studentProject.link_design,
+      link_github: studentProject.link_github,
+      description: studentProject.description,
+      team_project: [
+        studentGroupProject
+      ]
+    }
 
     try {
       if (Object.keys(datas)) {
