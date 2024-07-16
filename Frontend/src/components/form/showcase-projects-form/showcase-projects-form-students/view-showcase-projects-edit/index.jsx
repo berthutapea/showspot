@@ -59,10 +59,6 @@ const ViewShowcaseProjectsEdit = () => {
     formData.append('Hipster', Hipster);
     formData.append('Hacker', Hacker);
 
-    // Log formData entries to console
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
 
     dispatch(updateShowcaseProjectsStudents(id, formData, navigate))
       .then(() => {
@@ -124,7 +120,7 @@ const ViewShowcaseProjectsEdit = () => {
 
   return (
     <LayoutStudents>
-      <BreadcrumbStudents pageName="Edit Showcase" />
+      <BreadcrumbStudents pageName="Edit Showcase Project" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">

@@ -518,7 +518,6 @@ export const fetchShowcaseProjectsStudents =
         },
       })
       .then((response) => {
-        // console.log(response);
         const data = response.data.data;
 
         showcaseProjectsCache[cacheKey] = data;
@@ -599,7 +598,6 @@ export const updateShowcaseProjectsStudents =
   (id, formData, navigate) => async (dispatch) => {
     dispatch({ type: UPDATE_SHOWCASE_PROJECTS_STUDENT_REQUEST });
     try {
-      console.log('Form Data:', formData); // Log form data
       const response = await privateClient.put(
         `students/projects/showcase-project/${id}/update/`,
         formData,
@@ -613,10 +611,8 @@ export const updateShowcaseProjectsStudents =
         type: UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
         payload: response.data.msg,
       });
-      console.log(response.data.msg);
       navigate('/students/showcase-projects');
     } catch (error) {
-      console.log('Error Response:', error.response.data); // Log error response
       dispatch({
         type: UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
         payload: error.response.data.msg,
