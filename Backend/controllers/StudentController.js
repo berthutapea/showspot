@@ -253,17 +253,19 @@ class StudentController extends Controller {
     const project = await this.loadModel(this.projectModel);
     const studentProject = await project.findOne('strict one', params);
 
-    const groupProject = await this.loadModel(this.groupProjectModel);
-    const studentGroupProject = await groupProject.findAll('where', { group_project_id: studentProject.group_id });
-
+    const projectModel = await this.loadModel(this.projectModel);
+    const projectStudent = await projectModel.findOne('where', { group_id: groupProjectId });
     const datas = {
-      application_title: studentProject.application_title,
-      application_image: studentProject.application_image,
-      group_name: studentProject.group_name,
-      link_video: studentProject.link_video,
-      link_design: studentProject.link_design,
-      link_github: studentProject.link_github,
-      description: studentProject.description,
+      application_title: projectStudent.application_title,
+      application_image: projectStudent.application_image,
+      group_name: projectStudent.group_name,
+      grade_id: projectStudent.grade_id,
+      project_filter_id: projectStudent.project_filter_id,
+      status_project_id: projectStudent.status_project_id,
+      link_video: projectStudent.link_video,
+      link_design: projectStudent.link_design,
+      link_github: projectStudent.link_github,
+      description: projectStudent.description,
       team_project: [
         studentGroupProject
       ]
