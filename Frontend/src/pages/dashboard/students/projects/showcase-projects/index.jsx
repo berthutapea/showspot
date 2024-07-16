@@ -19,6 +19,8 @@ const ShowcaseProjects = () => {
     (state) => state.showCaseProjectsDataStudents
   );
 
+  // console.log(showCaseProjectsDataStudents);
+
   const filteredDataStudents = Array.isArray(showCaseProjectsDataStudents)
     ? showCaseProjectsDataStudents.filter((projects) => {
         const { group_name } = projects;
@@ -172,7 +174,9 @@ const ShowcaseProjects = () => {
                           </p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                          <Link to={'/students/showcase-projects/latest'}>
+                          <Link
+                            to={`/students/showcase-projects/edit/${projects.group_id}`}
+                          >
                             <button className="hover:text-black">
                               <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                             </button>

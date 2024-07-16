@@ -12,20 +12,25 @@ class StudentController extends Controller {
   }
 
   /*=== Student Entity ===*/
-    async dashboardStudent(req, res) {
+  async dashboardStudent(req, res) {
     try {
       const student = await this.loadModel(this.BaseModel);
-      const myId =  req.rawHeaders[5];
+      const myId = req.rawHeaders[5];
       const myData = await student.findById(myId);
 
       let dashboardData;
-      if (Object.keys(myData).length > 0){
+      if (Object.keys(myData).length > 0) {
         dashboardData = {
-            student_id: myData.student_id,
-            fullname: myData.fullname,
-            photoProfile: myData.photo_profile,
+          student_id: myData.student_id,
+          fullname: myData.fullname,
+          photoProfile: myData.photo_profile,
         };
-      this.responseHandler.success(res, 'Dashboard Student', 3, dashboardData);
+        this.responseHandler.success(
+          res,
+          'Dashboard Student',
+          3,
+          dashboardData
+        );
       } else {
         this.responseHandler.badRequest(res);
       }
@@ -48,7 +53,7 @@ class StudentController extends Controller {
     }
   }
 
-    async getMyProfileStudent(req, res) {
+  async getMyProfileStudent(req, res) {
     try {
       const myId = req.params.id;
       const student = await this.loadModel(this.BaseModel);
@@ -66,7 +71,7 @@ class StudentController extends Controller {
     try {
       const myId = req.params.id;
       const updatedData = req.body;
-      const filename = req.file === undefined ?  0 : req.file.filename;
+      const filename = req.file === undefined ? 0 : req.file.filename;
       const student = await this.loadModel(this.BaseModel);
       const result = await student.updateData(myId, updatedData, filename);
       if (result > 0) {
@@ -75,7 +80,7 @@ class StudentController extends Controller {
         this.responseHandler.badRequest(res);
       }
     } catch (error) {
-        this.responseHandler.serverError(res, error);
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -91,7 +96,7 @@ class StudentController extends Controller {
         this.responseHandler.badRequest(res);
       }
     } catch (error) {
-        this.responseHandler.serverError(res, error);
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -126,31 +131,90 @@ class StudentController extends Controller {
     }
   }
 
+  // async getShowCaseProjectStudent(req, res) {
+  //   const page = req.params.page;
+  //   const studentId = req.params.id;
+
+  //   let groupProjectStudentData;
+
+  //   const studentModel = await this.loadModel(this.BaseModel)
+  //   const student = await studentModel.findById(studentId);
+
+  //   const params = {
+  //     student_name: student.fullname
+  //   };
+
+  //   const groupProjectModel = await this.loadModel(this.groupProjectModel);
+  //   const groupProjectStudent = await groupProjectModel.findAll('group student', params);
+
+  //   if (groupProjectStudent.length > 0) {
+  //     const projectModel = await this.loadModel(this.projectModel);
+  //     const offset = (page - 1) * 5;
+
+  //     const fetchArray = await Promise.all(groupProjectStudent.map(async (group) => {
+  //       return await projectModel.findAll(1, { group_id: group.group_project_id }, 5, offset, 'created_at');
+  //     }));
+
+  //     const set = new Set(fetchArray.flatMap(data => data.map(JSON.stringify)));
+  //     const uniqueResult = Array.from(set).map(JSON.parse);
+
+  //     groupProjectStudentData = {
+  //       page: page,
+  //       projects: uniqueResult,
+  //       total: uniqueResult.length
+  //     };
+  //   }
+  //   try {
+  //     if (Object.keys(groupProjectStudentData)) {
+  //       this.responseHandler.success(res, 'Data Found', 3, groupProjectStudentData);
+  //     }
+  //   } catch (error) {
+  //      if (groupProjectStudent.length == 0) {
+  //       this.responseHandler.badRequest(res);
+  //     } else {
+  //       this.responseHandler.serverError(res, error);
+  //     }
+  //   }
+  // }
+
   async getShowCaseProjectStudent(req, res) {
     const page = req.params.page;
     const studentId = req.params.id;
 
     let groupProjectStudentData;
 
-    const studentModel = await this.loadModel(this.BaseModel)
+    const studentModel = await this.loadModel(this.BaseModel);
     const student = await studentModel.findById(studentId);
 
     const params = {
-      student_name: student.fullname
+      student_name: student.fullname,
     };
 
     const groupProjectModel = await this.loadModel(this.groupProjectModel);
-    const groupProjectStudent = await groupProjectModel.findAll('group student', params);
+    const groupProjectStudent = await groupProjectModel.findAll(
+      'group student',
+      params
+    );
 
     if (groupProjectStudent.length > 0) {
       const projectModel = await this.loadModel(this.projectModel);
       const offset = (page - 1) * 5;
 
-      const fetchArray = await Promise.all(groupProjectStudent.map(async (group) => {
-        return await projectModel.findAll(1, { group_id: group.group_project_id }, 5, offset, 'created_at');
-      }));
+      const fetchArray = await Promise.all(
+        groupProjectStudent.map(async (group) => {
+          return await projectModel.findAll(
+            1,
+            { group_id: group.group_project_id },
+            5,
+            offset,
+            'created_at'
+          );
+        })
+      );
 
-      const set = new Set(fetchArray.flatMap(data => data.map(JSON.stringify)));
+      const set = new Set(
+        fetchArray.flatMap((data) => data.map(JSON.stringify))
+      );
       const uniqueResult = Array.from(set).map(JSON.parse);
 
       await Promise.all([set, uniqueResult]);
@@ -158,15 +222,20 @@ class StudentController extends Controller {
       groupProjectStudentData = {
         page: page,
         projects: uniqueResult,
-        total: uniqueResult.length
+        total: uniqueResult.length,
       };
     }
     try {
       if (Object.keys(groupProjectStudentData)) {
-        this.responseHandler.success(res, 'Data Found', 3, groupProjectStudentData);
+        this.responseHandler.success(
+          res,
+          'Data Found',
+          3,
+          groupProjectStudentData
+        );
       }
     } catch (error) {
-       if (groupProjectStudent.length == 0) {
+      if (groupProjectStudent.length == 0) {
         this.responseHandler.badRequest(res);
       } else {
         this.responseHandler.serverError(res, error);
@@ -211,20 +280,24 @@ class StudentController extends Controller {
     }
   }
 
-    async updateProjectByStudent(req, res) {
+  async updateProjectByStudent(req, res) {
     try {
       const projectId = req.params.projectid;
       const updatedData = req.body;
-      const filename = req.file === undefined ?  0 : req.file.filename;
+      const filename = req.file === undefined ? 0 : req.file.filename;
       const project = await this.loadModel(this.projectModel);
-      const result = await project.updateProject(projectId, updatedData, filename);
+      const result = await project.updateProject(
+        projectId,
+        updatedData,
+        filename
+      );
       if (result > 0) {
         this.responseHandler.success(res, `Project Updated`);
       } else {
         this.responseHandler.badRequest(res);
       }
     } catch (error) {
-        this.responseHandler.serverError(res, error);
+      this.responseHandler.serverError(res, error);
     }
   }
 
@@ -234,7 +307,7 @@ class StudentController extends Controller {
       const projectModel = await this.loadModel(this.projectModel);
       const result = await projectModel.deleteProjectById(projectId);
       if (result[0].affectedRows > 0) {
-        this.responseHandler.success(res,'Data Deleted');
+        this.responseHandler.success(res, 'Data Deleted');
       } else {
         this.responseHandler.badRequest(res);
       }
