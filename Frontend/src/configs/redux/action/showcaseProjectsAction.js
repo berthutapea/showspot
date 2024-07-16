@@ -112,6 +112,11 @@ export const UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
   'UPDATE_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
 export const UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE =
   'UPDATE_SHOWCASE_PROJECTS_STUDENT_FAILURE';
+
+export const DELETE_SHOWCASE_PROJECTS_STUDENT_SUCCESS =
+  'DELETE_SHOWCASE_PROJECTS_STUDENT_SUCCESS';
+export const DELETE_SHOWCASE_PROJECTS_STUDENT_FAILURE =
+  'DELETE_SHOWCASE_PROJECTS_STUDENT_FAILURE';
 /* STUDENT */
 
 /* ADMIN */
@@ -618,6 +623,25 @@ export const updateShowcaseProjectsStudents =
         payload: error.response.data.msg,
       });
     }
+  };
+
+  export const deleteShowcaseProjectsStudents = (id) => {
+    return async (dispatch) => {
+      try {
+        const response = await privateClient.delete(
+          `students/projects/showcase-projects/${id}/delete`
+        );
+        dispatch({
+          type: DELETE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+          payload: response.data,
+        });
+      } catch (error) {
+        dispatch({
+          type: DELETE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+          payload: error.message,
+        });
+      }
+    };
   };
 
 /* STUDENT */
