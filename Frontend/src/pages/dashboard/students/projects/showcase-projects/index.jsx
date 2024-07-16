@@ -19,8 +19,6 @@ const ShowcaseProjects = () => {
     (state) => state.showCaseProjectsDataStudents
   );
 
-  // console.log(showCaseProjectsDataStudents);
-
   const filteredDataStudents = Array.isArray(showCaseProjectsDataStudents)
     ? showCaseProjectsDataStudents.filter((projects) => {
         const { group_name } = projects;
@@ -137,6 +135,10 @@ const ShowcaseProjects = () => {
                     const { text, className } = getStatusText(
                       projects.status_project_id
                     );
+                    const projectUrl =
+                      projects.status_project_id === 2
+                        ? `/students/showcase-projects/edit/${projects.application_id}`
+                        : `/students/showcase-projects/view/${projects.application_id}`;
                     return (
                       <tr key={projects.application_id}>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -145,16 +147,14 @@ const ShowcaseProjects = () => {
                           </p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark justify-center flex">
-                          <td className="border-b border-[#eee] dark:border-strokedark">
-                            <div className="h-12.5 w-15">
-                              <div className="rounded-full overflow-hidden">
-                                <img
-                                  src={projects.application_image}
-                                  alt="Cover"
-                                />
-                              </div>
+                          <div className="h-12.5 w-15">
+                            <div className="rounded-full overflow-hidden">
+                              <img
+                                src={projects.application_image}
+                                alt="Cover"
+                              />
                             </div>
-                          </td>
+                          </div>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                           <p className="text-black dark:text-white">
@@ -174,9 +174,7 @@ const ShowcaseProjects = () => {
                           </p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
-                          <Link
-                            to={`/students/showcase-projects/edit/${projects.application_id}`}
-                          >
+                          <Link to={projectUrl}>
                             <button className="hover:text-black">
                               <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
                             </button>
