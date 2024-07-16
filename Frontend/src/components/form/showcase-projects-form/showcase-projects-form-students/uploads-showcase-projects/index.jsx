@@ -137,7 +137,7 @@ const UploadsShowcaseProjects = () => {
 
   return (
     <LayoutStudents>
-      <BreadcrumbStudents pageName="View Showcase Latest" />
+      <BreadcrumbStudents pageName="Upload Showcase Latest" />
 
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">

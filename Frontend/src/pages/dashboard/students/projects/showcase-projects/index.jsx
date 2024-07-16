@@ -175,7 +175,7 @@ const ShowcaseProjects = () => {
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 text-center dark:border-strokedark">
                           <Link
-                            to={`/students/showcase-projects/edit/${projects.group_id}`}
+                            to={`/students/showcase-projects/edit/${projects.application_id}`}
                           >
                             <button className="hover:text-black">
                               <FaEye className="text-meta-5 text-xl hover:text-black dark:hover:text-white" />
