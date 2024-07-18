@@ -94,6 +94,8 @@ parent {
 
 /* Show Case */
 
+/* Show Case */
+
 .active-btn {
   color: #ff651c;
   background-color: transparent;
@@ -111,49 +113,33 @@ parent {
 
 .item img {
   opacity: 1;
-  transition: opacity 0.35s;
   object-fit: cover;
 }
 
 .item .overlay {
   position: absolute;
-  top: 15px;
-  right: 15px;
   bottom: 15px;
   left: 15px;
+  right: 15px;
   padding: 10px;
   text-align: center;
   border: 2px solid #ff651c;
   border-radius: 5px;
   content: '';
-  opacity: 0;
-  -webkit-transition:
-    opacity 0.35s,
-    -webkit-transform 0.35s;
-  transition:
-    opacity 0.35s,
-    transform 0.35s;
-  -webkit-transform: scale3d(1.4, 1.4, 1);
-  transform: scale3d(1.4, 1.4, 1);
-}
-
-.item:hover .overlay {
   opacity: 1;
-  -webkit-transform: scale3d(1, 1, 1);
-  transform: scale3d(1, 1, 1);
-}
-
-.item:hover .overlay {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
+  transition: none;
+  transform: none;
 }
 
-.item:hover img {
-  opacity: 0.8;
+.item img {
+  opacity: 1;
+  transition: none;
 }
 
 .slick-dots li button:before {
@@ -176,6 +162,7 @@ parent {
     height: 16rem;
   }
 }
+
 
 /* Bottom Line */
 
