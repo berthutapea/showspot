@@ -23,6 +23,7 @@ const store = configureStore({
     showCaseProjectsDataRejected: showcaseReducer,
     showCaseProjectsDataStudents: showcaseReducer,
     uploadShowCaseProjectsDataStudents: showcaseReducer,
+    showCaseProjectsDataStudentsById: showcaseReducer,
     profileDataUsers: adminProfileReducer,
     changePasswordData: changePasswordReducer,
     generalShowcaseProjectsData: generalUsersReducer,

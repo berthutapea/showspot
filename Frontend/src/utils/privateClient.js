@@ -22,10 +22,10 @@ privateClient.interceptors.request.use(
         config.headers['session-token'] = token;
       }
       if (userId) {
-        config.headers['user_id'] = userId;
+        config.headers["'user_id'"] = userId;
       }
       if (access) {
-        config.headers['access_code'] = access;
+        config.headers["'access_code'"] = access;
       }
     }
     return config;
