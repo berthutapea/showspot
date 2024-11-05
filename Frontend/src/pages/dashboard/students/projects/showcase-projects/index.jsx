@@ -18,7 +18,6 @@ const ShowcaseProjects = () => {
   const { showCaseProjectsDataStudents } = useSelector(
     (state) => state.showCaseProjectsDataStudents
   );
-
   const filteredDataStudents = Array.isArray(showCaseProjectsDataStudents)
     ? showCaseProjectsDataStudents.filter((projects) => {
         const { group_name } = projects;

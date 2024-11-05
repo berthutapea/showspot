@@ -449,6 +449,7 @@ export const fetchShowcaseProjectsStudents =
     dispatch(
       showcaseProjectsStudentRequest(FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST)
     );
+    console.log(`students/projects/showcase-project/${id}/${page}`)
     try {
       const response = await privateClient.get(
         `students/projects/showcase-project/${id}/${page}`,
@@ -459,6 +460,7 @@ export const fetchShowcaseProjectsStudents =
           },
         }
       );
+      console.log(response);
       dispatch(
         showcaseProjectsStudentSuccess(
           FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS,

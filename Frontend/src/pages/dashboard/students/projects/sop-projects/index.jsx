@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { TfiPrinter } from 'react-icons/tfi';
 import ThreeButton from '../../../../../components/buttons/three-button';
-import html2canvas from 'html2canvas';
+import html2canvas from
+ 'html2canvas';
 import LayoutStudents from '../../../../../layout/layout-students';
 import BreadcrumbStudents from '../../../../../components/breadcrumb/breadcrumb-students';
 import jsPDF from 'jspdf';
