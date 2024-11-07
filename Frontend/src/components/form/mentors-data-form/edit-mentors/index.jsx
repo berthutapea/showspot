@@ -77,7 +77,6 @@ const EditMentors = () => {
   useEffect(() => {
     if (mentorsDataMaster) {
       setFullname(mentorsDataMaster.fullname);
-      setFullname(mentorsDataMaster.username);
       setUsername(mentorsDataMaster.username);
       setCampus(mentorsDataMaster.campus);
       setMajor(mentorsDataMaster.major);

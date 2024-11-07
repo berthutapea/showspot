@@ -643,5 +643,6 @@ export const deleteShowcaseProjectsStudents = (id) => {
     }
   };
 };
+};
 
 /* STUDENT */

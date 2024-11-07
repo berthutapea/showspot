@@ -29,6 +29,6 @@ class HashingService {
 }
 
 const instance = new HashingService();
-// instance.generateHash('admin');
+// instance.generateHash('rineke');
 // instance.compareHash('admin', '$argon2id$v=19$m=65536,t=3,p=4$w3gJEmQxpalgsCRebRW4QA$argon2id$v=19$m=65536,t=3,p=4$1ryi2ny+Ss7nL7c9eLLuuw$YPr74kGg/a8c0PDMp2LfaYCg1ySGlEpvZPqkqYxSvDE');
 module.exports = { HashingService };
