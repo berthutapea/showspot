@@ -49,5 +49,5 @@ new GeneralRoute(router, generalController);
 new LoadImageHandler(app);
 
 app.listen(config.server.PORT, () => {
-  console.log(`Server is running on port : http://${config.server.PORT}`);
+  console.log(`Server is running on port : ${process.env.BASE_URL}`);
 });

@@ -15,16 +15,16 @@ class AdminRoute extends Route {
     // Dashboard Admin (Disable Auth)
     this.router.get(
       '/admin/dashboard',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.dashboardAdmin.bind(this.controller)
     );
 
     // get my profile admin
     this.router.get(
       '/admin/profile/:id',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getMyProfileAdmin.bind(this.controller)
     );
 
@@ -32,8 +32,8 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/profile/:id/update',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.updateMyProfileAdmin.bind(this.controller)
     );
 
@@ -41,8 +41,8 @@ class AdminRoute extends Route {
     this.router.patch(
       '/admin/password/:id/change',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.changePasswordAdmin.bind(this.controller)
     );
 
@@ -50,24 +50,24 @@ class AdminRoute extends Route {
     // get data mentors by admin
     this.router.get(
       '/admin/mentors',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataMentors.bind(this.controller)
     );
 
     // // get data mentor by id by admin
     this.router.get(
       '/admin/mentors/id/:id',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataMentorById.bind(this.controller)
     );
 
     // // get data mentor by name by admin
     this.router.get(
       '/admin/mentors/name/:name',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataMentorByName.bind(this.controller)
     );
 
@@ -75,8 +75,8 @@ class AdminRoute extends Route {
     this.router.post(
       '/admin/mentors/create',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.createDataMentor.bind(this.controller)
     );
 
@@ -84,8 +84,8 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/mentors/:id/update',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.updateDataMentor.bind(this.controller)
     );
 
@@ -93,16 +93,16 @@ class AdminRoute extends Route {
     this.router.patch(
       '/admin/mentors/:id/password',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.changePasswordMentor.bind(this.controller)
     );
 
     // delete data mentor by admin
     this.router.delete(
       '/admin/mentors/:id/delete',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.deleteDataMentor.bind(this.controller)
     );
 
@@ -110,24 +110,24 @@ class AdminRoute extends Route {
     // get data students by admin
     this.router.get(
       '/admin/students',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataStudents.bind(this.controller)
     );
 
     // get data student by id by admin
     this.router.get(
       '/admin/students/id/:id',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataStudentById.bind(this.controller)
     );
 
     // get data student by name by admin
     this.router.get(
       '/admin/students/name/:name',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getDataStudentByName.bind(this.controller)
     );
 
@@ -135,8 +135,8 @@ class AdminRoute extends Route {
     this.router.post(
       '/admin/students/create',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.createDataStudent.bind(this.controller)
     );
 
@@ -144,8 +144,8 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/students/:id/update',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.updateDataStudent.bind(this.controller)
     );
 
@@ -153,16 +153,16 @@ class AdminRoute extends Route {
     this.router.patch(
       '/admin/students/:id/password',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.changePasswordStudent.bind(this.controller)
     );
 
     // delete data student by admin
     this.router.delete(
       '/admin/students/:id/delete',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.deleteDataStudent.bind(this.controller)
     );
 
@@ -171,16 +171,16 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/projects/sop-project/add',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.addSopProject.bind(this.controller)
     );
 
     // Get SOP Project
     this.router.get(
       '/admin/projects/sop-project',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getSopProject.bind(this.controller)
     );
 
@@ -188,48 +188,48 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/projects/sop-project/update',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.updateSopProject.bind(this.controller)
     );
 
     // Delete SOP Project
     this.router.delete(
       '/admin/projects/sop-project/delete',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.deleteSopProject.bind(this.controller)
     );
 
     // ShowCase Project List
     this.router.get(
       '/admin/projects/showcase-projects/:statusproject/:page',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getShowProjects.bind(this.controller)
     );
 
     // Get Project By ID
     this.router.get(
       '/admin/projects/showcase-projects/id/:id/detail',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.findShowProjectById.bind(this.controller)
     );
 
     // Get Project By Name
     this.router.get(
       '/admin/projects/showcase-projects/:name',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.findShowProjectByGroupName.bind(this.controller)
     );
 
     // Delete Project By Admin
     this.router.delete(
       '/admin/projects/showcase-projects/:id/delete',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.deleteProjectByAdmin.bind(this.controller)
     );
 
@@ -237,8 +237,8 @@ class AdminRoute extends Route {
     this.router.put(
       '/admin/projects/showcase-projects/:id/valuation',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.valuationProjectByAdmin.bind(this.controller)
     );
   }

@@ -14,8 +14,8 @@ class MentorRoute extends Route {
     // Mentor Dashboard
     this.router.get(
       '/mentors/dashboard',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
 
       this.controller.dashboardMentor.bind(this.controller)
     );
@@ -23,8 +23,8 @@ class MentorRoute extends Route {
     // get my profile
     this.router.get(
       '/mentors/profile/:id',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
 
       this.controller.getMyProfileMentor.bind(this.controller)
     );
@@ -33,8 +33,8 @@ class MentorRoute extends Route {
     this.router.put(
       '/mentors/profile/:id/update',
       this.fileUploadHandler.getMulterInstance().single('profile_image'),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.updateMyProfileMentor.bind(this.controller)
     );
 
@@ -42,8 +42,8 @@ class MentorRoute extends Route {
     this.router.patch(
       '/mentors/password/:id/change',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.changePasswordMentor.bind(this.controller)
     );
 
@@ -51,32 +51,32 @@ class MentorRoute extends Route {
     // get data projects by mentor
     this.router.get(
       '/mentors/projects/sop-project',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getSopProject.bind(this.controller)
     );
 
     // get data projects by project_id by mentor
     this.router.get(
       '/mentors/projects/showcase-projects/id/:id/detail',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.findShowProjectById.bind(this.controller)
     );
 
     // get data projects by project_id by mentor
     this.router.get(
       '/mentors/projects/showcase-projects/:statusproject/:page',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.getShowProjects.bind(this.controller)
     );
 
     //get data projects by Group Name by mentor
     this.router.get(
       '/mentors/projects/showcase-projects/:groupname',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.findShowProjectByGroupName.bind(this.controller)
     );
 
@@ -84,16 +84,16 @@ class MentorRoute extends Route {
     this.router.put(
       '/mentors/projects/showcase-projects/:id/valuation',
       upload.none(),
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.valuationProject.bind(this.controller)
     );
 
     // Delete Project By Admin
     this.router.delete(
       '/mentors/projects/showcase-projects/:id/delete',
-      // authMiddleware,
-      // authUser,
+      authMiddleware,
+      authUser,
       this.controller.deleteProjectByMentor.bind(this.controller)
     );
   }
