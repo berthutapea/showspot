@@ -80,7 +80,6 @@ const EditStudents = () => {
   useEffect(() => {
     if (studentsDataMaster) {
       setFullname(studentsDataMaster.fullname);
-      setFullname(studentsDataMaster.username);
       setUsername(studentsDataMaster.username);
       setCampus(studentsDataMaster.campus);
       setMajor(studentsDataMaster.major);
