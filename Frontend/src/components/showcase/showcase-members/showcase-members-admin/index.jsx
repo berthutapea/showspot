@@ -17,8 +17,9 @@ const ShowcaseMembersAdmin = () => {
 
   const parseStudentNames = (studentNamesString) => {
     try {
-      const trimmedString = studentNamesString.replace(/'/g, '"').trim();
-      return JSON.parse(trimmedString);
+      let trimmedString = studentNamesString.replace(/^\["/, '');
+      trimmedString = trimmedString.replace(/"\]$/, '');
+      return trimmedString.split(',');
     } catch (error) {
       console.error('Error parsing student names:', error);
       return [];

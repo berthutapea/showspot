@@ -33,6 +33,22 @@ const ViewShowcaseProjectsEdit = () => {
   const [preview, setPreview] = useState('');
   const [file, setFile] = useState(null);
 
+  // Reformat Handler
+  const stripeArrayFormat = (value) => {
+    let result = value[0].replace(/^\["/, '').replace(/"\]$/, '').replace(/"/g, '');
+        result = result.replace(/,/g, ', ');
+    return result;
+  }
+
+  const toArrayFormat = (value) => {
+    // let result = value.replace(/,/g, ',');
+    // result = '"' + result.split(',').join('","') + '"';
+    // result = `["${result}"]`;
+    let result = `["${value}"]`;
+    return result;
+  }
+
+
   const handleImageUpload = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -44,7 +60,6 @@ const ViewShowcaseProjectsEdit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log(formData);
     if (file) {
       formData.append('application_image', file);
     }
@@ -54,10 +69,10 @@ const ViewShowcaseProjectsEdit = () => {
     formData.append('link_design', link_design);
     formData.append('link_github', link_github);
     formData.append('description', description);
-    formData.append('Hustler', Hustler);
-    formData.append('Scrum Master', ScrumMaster);
-    formData.append('Hipster', Hipster);
-    formData.append('Hacker', Hacker);
+    formData.append('Hustler', toArrayFormat(Hustler));
+    formData.append('Scrum Master', toArrayFormat(ScrumMaster));
+    formData.append('Hipster', toArrayFormat(Hipster));
+    formData.append('Hacker', toArrayFormat(Hacker));
 
 
     dispatch(updateShowcaseProjectsStudents(id, formData, navigate))
@@ -111,10 +126,10 @@ const ViewShowcaseProjectsEdit = () => {
         .filter((member) => member.student_position === 'Hacker')
         .map((member) => member.student_name);
 
-      setHustler(hustlers);
-      setScrumMaster(scrumMasters);
-      setHipster(hipsters);
-      setHacker(hackers);
+      setHustler(stripeArrayFormat(hustlers));
+      setScrumMaster(stripeArrayFormat(scrumMasters));
+      setHipster(stripeArrayFormat(hipsters));
+      setHacker(stripeArrayFormat(hackers));
     }
   }, [showCaseProjectsDataStudentsById]);
 
@@ -249,8 +264,10 @@ const ViewShowcaseProjectsEdit = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      value={Hustler.join(', ')}
-                      onChange={(e) => setHustler(e.target.value.split(', '))}
+                      // value={Hustler.join(', ')}
+                      // onChange={(e) => setHustler(e.target.value.split(', '))}
+                      value={Hustler}
+                      onChange={(e) => setHustler(e.target.value)}
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
@@ -262,9 +279,13 @@ const ViewShowcaseProjectsEdit = () => {
                       type="text"
                       id="ScrumMaster"
                       name="ScrumMaster"
-                      value={ScrumMaster.join(', ')}
+                      // value={ScrumMaster.join(', ')}
+                      // onChange={(e) =>
+                      //   setScrumMaster(e.target.value.split(', '))
+                      // }
+                      value={ScrumMaster}
                       onChange={(e) =>
-                        setScrumMaster(e.target.value.split(', '))
+                        setScrumMaster(e.target.value)
                       }
                     />
                   </div>
@@ -275,8 +296,12 @@ const ViewShowcaseProjectsEdit = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      value={Hipster.join(', ')}
-                      onChange={(e) => setHipster(e.target.value.split(', '))}
+                      // value={Hipster.join(', ')}
+                      // onChange={(e) => setHipster(e.target.value.split(', '))}
+                      value={Hipster}
+                      onChange={(e) =>
+                        setHipster(e.target.value)
+                      }
                     />
                   </div>
                   <div className="w-full xl:w-1/2">
@@ -286,8 +311,12 @@ const ViewShowcaseProjectsEdit = () => {
                     <input
                       className="w-full rounded border border-stroke py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none"
                       type="text"
-                      value={Hacker.join(', ')}
-                      onChange={(e) => setHacker(e.target.value.split(', '))}
+                      // value={Hacker.join(', ')}
+                      // onChange={(e) => setHacker(e.target.value.split(', '))}
+                      value={Hacker}
+                      onChange={(e) =>
+                        setHacker(e.target.value)
+                      }
                     />
                   </div>
                 </div>

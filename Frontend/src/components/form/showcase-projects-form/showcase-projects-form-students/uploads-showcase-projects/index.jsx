@@ -51,7 +51,6 @@ const UploadsShowcaseProjects = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newFormData = new FormData();
     newFormData.append('application_image', file);
     newFormData.append('application_title', application_title);
@@ -131,7 +130,8 @@ const UploadsShowcaseProjects = () => {
     const { name, value } = e.target;
     setFormDataStudent((prevFormData) => ({
       ...prevFormData,
-      [name]: value.split(',').map((item) => item.trim()),
+      // [name]: value.split(',').map((item) => item.trim()),
+      [name]: value.split(','),
     }));
   };
 
@@ -316,7 +316,7 @@ const UploadsShowcaseProjects = () => {
                       type="text"
                       id="Hustler"
                       name="Hustler"
-                      value={Hustler.join(', ')}
+                      value={Hustler}
                       onChange={handleChangeStudent}
                       required
                       placeholder="Enter hustler"
@@ -331,7 +331,7 @@ const UploadsShowcaseProjects = () => {
                       type="text"
                       id="ScrumMaster"
                       name="Scrum Master"
-                      value={ScrumMaster.join(', ')}
+                      value={ScrumMaster}
                       onChange={handleChangeStudent}
                       required
                       placeholder="Enter scrum master"
@@ -346,7 +346,7 @@ const UploadsShowcaseProjects = () => {
                       type="text"
                       id="Hipster"
                       name="Hipster"
-                      value={Hipster.join(', ')}
+                      value={Hipster}
                       onChange={handleChangeStudent}
                       required
                       placeholder="Enter hipster"
@@ -361,7 +361,7 @@ const UploadsShowcaseProjects = () => {
                       type="text"
                       id="Hacker"
                       name="Hacker"
-                      value={Hacker.join(', ')}
+                      value={Hacker}
                       onChange={handleChangeStudent}
                       required
                       placeholder="Enter hacker"
