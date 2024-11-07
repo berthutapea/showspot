@@ -4,7 +4,7 @@ const { SessionModel } = require('../models/SessionModel');
 
 module.exports = async function(req, res, next) {
   // Production config
-  const sessionToken  = req.rawHeaders[19];
+  const sessionToken  = req.headers['session-token'];
   // Development config
   // const sessionToken  = req.rawHeaders[3];
   const instanceSessionModel = new SessionModel();
