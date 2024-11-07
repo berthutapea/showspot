@@ -494,32 +494,14 @@ export const showcaseProjectsStudentFailure = (actionType, error) => ({
 //     }
 //   };
 
-let showcaseProjectsCache = {};
+const showcaseProjectsCache = {};
 
 export const fetchShowcaseProjectsStudents =
   (id, page = 1) =>
-  async (dispatch) => {
-    dispatch(
-      showcaseProjectsStudentRequest(FETCH_SHOWCASE_PROJECTS_STUDENT_REQUEST)
-    );
-    console.log(`students/projects/showcase-project/${id}/${page}`)
-    try {
-      const response = await privateClient.get(
-        `students/projects/showcase-project/${id}/${page}`,
-        {
-          headers: {
-            'api-key': '$11%%22**33++aAbBcCdDeEfFgG33@@??44',
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      console.log(response);
-
   (dispatch) => {
     const cacheKey = `${id}-${page}`;
 
     if (showcaseProjectsCache[cacheKey]) {
-
       dispatch(
         showcaseProjectsStudentSuccess(
           FETCH_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
@@ -643,23 +625,21 @@ export const updateShowcaseProjectsStudents =
     }
   };
 
-  export const deleteShowcaseProjectsStudents = (id) => {
-    return async (dispatch) => {
-      try {
-        const response = await privateClient.delete(
-          `students/projects/showcase-projects/${id}/delete`
-        );
-        dispatch({
-          type: DELETE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
-          payload: response.data,
-        });
-      } catch (error) {
-        dispatch({
-          type: DELETE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
-          payload: error.message,
-        });
-      }
-    };
+export const deleteShowcaseProjectsStudents = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await privateClient.delete(
+        `students/projects/showcase-projects/${id}/delete`
+      );
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_STUDENT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_SHOWCASE_PROJECTS_STUDENT_FAILURE,
+        payload: error.message,
+      });
+    }
   };
-
-/* STUDENT */
+};
