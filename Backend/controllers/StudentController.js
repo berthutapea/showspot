@@ -98,6 +98,7 @@ class StudentController extends Controller {
   async addProjectStudent(req, res) {
     try {
       const projectData = req.body;
+      console.log(projectData);
       const filename = req.file.filename;
       const project = await this.loadModel('ProjectModel');
       const result = await project.addProject(projectData, filename);

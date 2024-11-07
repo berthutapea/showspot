@@ -23,6 +23,13 @@ const ViewShowcasePendingAdmin = () => {
     (state) => state.showCaseProjectsData
   );
 
+  // const { showCaseProjectsData } = useSelector(
+  //   (state) =>{
+  //     state.showCaseProjectsData
+  //     console.log(state.showCaseProjectsData);
+  //   }
+  // );
+
   const [application_title, setApplicationTitle] = useState('');
   const [group_name, setGroupName] = useState('');
   const [link_video, setLinkVideo] = useState('');
@@ -98,22 +105,21 @@ const ViewShowcasePendingAdmin = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (showCaseProjectsData?.project) {
-      setApplicationTitle(showCaseProjectsData?.project?.application_title);
-      setGroupName(showCaseProjectsData?.project?.group_name);
-      setLinkVideo(showCaseProjectsData?.project?.link_video);
-      setLinkDesign(showCaseProjectsData?.project?.link_design);
-      setLinkGithub(showCaseProjectsData?.project?.link_github);
-      setDescription(showCaseProjectsData?.project?.description);
-      setGroupId(showCaseProjectsData?.project?.group_id);
-      setGradeId(showCaseProjectsData?.project?.grade_id || 'No Response');
+    if (showCaseProjectsData && showCaseProjectsData.project) {
+      setApplicationTitle(showCaseProjectsData.project.application_title);
+      setGroupName(showCaseProjectsData.project.group_name);
+      setLinkVideo(showCaseProjectsData.project.link_video);
+      setLinkDesign(showCaseProjectsData.project.link_design);
+      setLinkGithub(showCaseProjectsData.project.link_github);
+      setDescription(showCaseProjectsData.project.description);
+      setGroupId(showCaseProjectsData.project.group_id);
+      setGradeId(showCaseProjectsData.project.grade_id || 'No Response');
       setProjectFilterId(
-        showCaseProjectsData?.project?.project_filter_id || 'No Response'
+        showCaseProjectsData.project.project_filter_id || 'No Response'
       );
-      setNotes(showCaseProjectsData?.project?.notes || 'No Response');
+      setNotes(showCaseProjectsData.project.notes || 'No Response');
     }
-  }, [showCaseProjectsData?.project]);
-  
+  }, [showCaseProjectsData]);
 
   return (
     <LayoutAdmin>

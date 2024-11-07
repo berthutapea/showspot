@@ -219,7 +219,7 @@ export const fetchShowcaseProjectsRejectedAdmin =
   };
 
 export const fetchShowcaseProjectsAdminById = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST });
+  // dispatch({ type: FETCH_SHOWCASE_PROJECTS_ADMIN_BY_ID_REQUEST });
   try {
     const response = await privateClient.get(
       `admin/projects/showcase-projects/id/${id}/detail`
@@ -547,7 +547,6 @@ export const fetchShowcaseProjectsStudents =
 export const uploadShowcaseProjectsStudents = (formData, navigate) => {
   return async (dispatch) => {
     dispatch({ type: UPLOAD_SHOWCASE_PROJECTS_STUDENT_REQUEST });
-
     try {
       const response = await privateClient.post(
         'students/projects/add',
@@ -643,6 +642,3 @@ export const deleteShowcaseProjectsStudents = (id) => {
     }
   };
 };
-};
-
-/* STUDENT */
