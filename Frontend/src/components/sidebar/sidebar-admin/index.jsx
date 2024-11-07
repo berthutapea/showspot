@@ -93,7 +93,7 @@ const SidebarAdmin = ({ sidebarOpen, setSidebarOpen }) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-center px-6 py-5.5 lg:py-6.5 object-cover">
-        <NavLink to="/dashboard/admin">
+        <NavLink to="/admin/dashboard">
           <img
             src={LogoShowSpot}
             alt="Logo Show Spot"

@@ -61,18 +61,15 @@ const ViewShowcaseConfirmedMentors = () => {
         return 'No response';
     }
   };
+  
   const getProjectFilter = (statusProjectFilter) => {
     switch (statusProjectFilter) {
       case 1:
-        return 'A';
+        return 'The Best';
       case 2:
-        return 'B';
+        return 'Mobile';
       case 3:
-        return 'C';
-      case 4:
-        return 'D';
-      case 5:
-        return 'E';
+        return 'Web';
       default:
         return 'No response';
     }

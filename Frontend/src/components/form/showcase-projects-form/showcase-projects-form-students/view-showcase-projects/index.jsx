@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import LayoutAdmin from '../../../../../layout/layout-admin';
-import BreadcrumbAdmin from '../../../../breadcrumb/breadcrumb-admin';
 import Swal from 'sweetalert2';
 import TwoButton from '../../../../buttons/two-button';
-import ShowcaseMembersAdmin from '../../../../showcase/showcase-members/showcase-members-admin';
-import {
-  deleteShowcaseProjectsAdmin,
-  fetchShowcaseProjectsAdminById,
-} from '../../../../../configs/redux/action/showcaseProjectsAction';
 import ThreeButton from '../../../../buttons/three-button';
+import LayoutStudents from '../../../../../layout/layout-students';
+import BreadcrumbStudents from '../../../../breadcrumb/breadcrumb-students';
+import ShowcaseMembersStudents from '../../../../showcase/showcase-members/showcase-members-students';
+import {
+  deleteShowcaseProjectsStudents,
+  fetchShowcaseProjectsStudentsByProjectId,
+} from '../../../../../configs/redux/action/showcaseProjectsAction';
 
-const ViewShowcaseRejectedAdmin = () => {
+const ViewShowcaseProjects = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { showCaseProjectsData } = useSelector(
-    (state) => state.showCaseProjectsData
+  const { showCaseProjectsDataStudentsById } = useSelector(
+    (state) => state.showCaseProjectsDataStudentsById
   );
 
   const [application_title, setApplicationTitle] = useState('');
@@ -35,13 +35,13 @@ const ViewShowcaseRejectedAdmin = () => {
   const getStatusText = (statusId) => {
     switch (statusId) {
       case 1:
-        return 'Confirmed';
+        return { text: 'Confirmed', className: 'bg-meta-3' };
       case 2:
-        return 'Pending';
+        return { text: 'Pending', className: 'bg-warning' };
       case 3:
-        return 'Rejected';
+        return { text: 'Rejected', className: 'bg-danger' };
       default:
-        return 'No response';
+        return { text: 'No response', className: 'bg-gray-500' };
     }
   };
 
@@ -61,7 +61,7 @@ const ViewShowcaseRejectedAdmin = () => {
         return 'No response';
     }
   };
-  
+
   const getProjectFilter = (statusProjectFilter) => {
     switch (statusProjectFilter) {
       case 1:
@@ -75,7 +75,7 @@ const ViewShowcaseRejectedAdmin = () => {
     }
   };
 
-  const onDeleteShowcaseProjectsConfirmed = (id) => {
+  const onDeleteShowcaseProjects = (id) => {
     Swal.fire({
       title: 'Confirmation',
       text: 'Are you sure you want to Delete?',
@@ -86,7 +86,7 @@ const ViewShowcaseRejectedAdmin = () => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteShowcaseProjectsAdmin(id)).then(() => {
+        dispatch(deleteShowcaseProjectsStudents(id)).then(() => {
           Swal.fire({
             title: 'Success',
             text: 'Showcase Project data has been successfully deleted.',
@@ -95,7 +95,7 @@ const ViewShowcaseRejectedAdmin = () => {
             timerProgressBar: true,
             showConfirmButton: false,
           }).then(() => {
-            navigate('/admin/showcase-projects');
+            navigate('/students/showcase-projects');
           });
         });
       }
@@ -103,42 +103,50 @@ const ViewShowcaseRejectedAdmin = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchShowcaseProjectsAdminById(id));
+    dispatch(fetchShowcaseProjectsStudentsByProjectId(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (showCaseProjectsData?.project) {
-      setApplicationTitle(showCaseProjectsData?.project?.application_title);
-      setGroupName(showCaseProjectsData?.project?.group_name);
-      setLinkVideo(showCaseProjectsData?.project?.link_video);
-      setLinkDesign(showCaseProjectsData?.project?.link_design);
-      setLinkGithub(showCaseProjectsData?.project?.link_github);
-      setDescription(showCaseProjectsData?.project?.description);
-      setGroupId(showCaseProjectsData?.project?.group_id);
-      setGradeId(showCaseProjectsData?.project?.grade_id);
-      setProjectFilterId(showCaseProjectsData?.project?.project_filter_id);
-      setNotes(showCaseProjectsData?.project?.notes);
+    if (showCaseProjectsDataStudentsById) {
+      setApplicationTitle(showCaseProjectsDataStudentsById.application_title);
+      setGroupName(showCaseProjectsDataStudentsById.group_name);
+      setLinkVideo(showCaseProjectsDataStudentsById.link_video);
+      setLinkDesign(showCaseProjectsDataStudentsById.link_design);
+      setLinkGithub(showCaseProjectsDataStudentsById.link_github);
+      setDescription(showCaseProjectsDataStudentsById.description);
+      setGroupId(showCaseProjectsDataStudentsById.group_id);
+      setGradeId(showCaseProjectsDataStudentsById.grade_id);
+      setProjectFilterId(showCaseProjectsDataStudentsById.project_filter_id);
+      setNotes(showCaseProjectsDataStudentsById.notes);
     }
-  }, [showCaseProjectsData?.project]);
+  }, [showCaseProjectsDataStudentsById]);
 
   return (
-    <LayoutAdmin>
-      <BreadcrumbAdmin pageName="View Showcase Rejected" />
+    <LayoutStudents>
+      <BreadcrumbStudents pageName="View Showcase Project" />
       <div className="sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default">
-            <div className="border-b border-stroke py-4 px-6.5 bg-danger rounded ">
+            <div
+              className={`border-b border-stroke py-4 px-6.5 ${
+                getStatusText(
+                  showCaseProjectsDataStudentsById.status_project_id
+                ).className
+              } rounded `}
+            >
               <h1 className="font-medium text-white text-center text-xl">
-                {getStatusText(
-                  showCaseProjectsData?.project?.status_project_id
-                )}
+                {
+                  getStatusText(
+                    showCaseProjectsDataStudentsById.status_project_id
+                  ).text
+                }
               </h1>
             </div>
             <form>
               <div className="p-6.5">
                 <div className="mx-1 md:mx-4 rounded single-blog flex flex-col justify-between">
                   <img
-                    src={showCaseProjectsData?.project?.application_image}
+                    src={showCaseProjectsDataStudentsById?.application_image}
                     alt="User"
                     className="showcase_image object-cover"
                   />
@@ -240,7 +248,7 @@ const ViewShowcaseRejectedAdmin = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Members<span className="text-meta-1">*</span>
                     </label>
-                    <ShowcaseMembersAdmin />
+                    <ShowcaseMembersStudents />
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -295,15 +303,15 @@ const ViewShowcaseRejectedAdmin = () => {
               <div>
                 <TwoButton
                   onClick={() => {
-                    onDeleteShowcaseProjectsConfirmed(
-                      showCaseProjectsData?.project?.application_id
+                    onDeleteShowcaseProjects(
+                      showCaseProjectsDataStudentsById.application_id
                     );
                   }}
                 >
                   <span>Delete</span>
                 </TwoButton>
               </div>
-              <Link to="/admin/showcase-projects">
+              <Link to="/students/showcase-projects">
                 <ThreeButton>
                   <span>Back</span>
                 </ThreeButton>
@@ -312,8 +320,8 @@ const ViewShowcaseRejectedAdmin = () => {
           </div>
         </div>
       </div>
-    </LayoutAdmin>
+    </LayoutStudents>
   );
 };
 
-export default ViewShowcaseRejectedAdmin;
+export default ViewShowcaseProjects;

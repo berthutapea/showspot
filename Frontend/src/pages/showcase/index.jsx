@@ -34,25 +34,25 @@ const ShowCase = () => {
     } else {
       setViewDiv(false);
     }
-    if (
-      location.pathname === '/' &&
-      Array.isArray(generalShowcaseProjectsData)
-    ) {
-      setItems(generalShowcaseProjectsData.slice(0, 6));
-    } else {
-      setItems(
-        Array.isArray(generalShowcaseProjectsData)
-          ? generalShowcaseProjectsData
-          : []
+
+    if (Array.isArray(generalShowcaseProjectsData)) {
+      const filteredProjects = generalShowcaseProjectsData.filter(
+        (project) => project.grade_id !== 4 && project.grade_id !== 5
       );
+
+      if (location.pathname === '/') {
+        setItems(filteredProjects.slice(0, 6));
+      } else {
+        setItems(filteredProjects);
+      }
     }
   }, [inView, animation, location.pathname, generalShowcaseProjectsData]);
 
-  const filterItem = (filterId) => {
+  const filterItem = (filterFn) => {
     if (Array.isArray(generalShowcaseProjectsData)) {
-      const filtered = generalShowcaseProjectsData.filter(
-        (item) => item.project_filter_id === filterId
-      );
+      const filtered = generalShowcaseProjectsData
+        .filter((item) => item.grade_id !== 4 && item.grade_id !== 5)
+        .filter(filterFn);
       setItems(location.pathname === '/' ? filtered.slice(0, 6) : filtered);
     }
   };
@@ -93,8 +93,14 @@ const ShowCase = () => {
                 setActiveBtn('all');
                 setItems(
                   location.pathname === '/'
-                    ? generalShowcaseProjectsData.slice(0, 6)
-                    : generalShowcaseProjectsData
+                    ? generalShowcaseProjectsData
+                        .filter(
+                          (item) => item.grade_id !== 4 && item.grade_id !== 5
+                        )
+                        .slice(0, 6)
+                    : generalShowcaseProjectsData.filter(
+                        (item) => item.grade_id !== 4 && item.grade_id !== 5
+                      )
                 );
               }}
             >
@@ -106,7 +112,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('best');
-                filterItem(1);
+                filterItem((item) => item.grade_id === 1);
               }}
             >
               The Best
@@ -117,7 +123,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('mobile');
-                filterItem(2);
+                filterItem((item) => item.project_filter_id === 2);
               }}
             >
               Mobile
@@ -128,7 +134,7 @@ const ShowCase = () => {
               }`}
               onClick={() => {
                 setActiveBtn('web');
-                filterItem(3);
+                filterItem((item) => item.project_filter_id === 3);
               }}
             >
               Web
