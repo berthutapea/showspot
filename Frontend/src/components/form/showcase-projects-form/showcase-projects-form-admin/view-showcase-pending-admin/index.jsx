@@ -58,7 +58,7 @@ const ViewShowcasePendingAdmin = () => {
   const handleSubmit = (e, status) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('grade_id', grade_id);
+    // formData.append('grade_id', grade_id);
     formData.append('project_filter_id', project_filter_id || 'No Response');
     formData.append('notes', notes || 'No Response');
     formData.append('status_project_id', status);
@@ -244,7 +244,7 @@ const ViewShowcasePendingAdmin = () => {
                   </div>
                 </div>
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                  <div className="w-full xl:w-1/2">
+                  {/* <div className="w-full xl:w-1/2">
                     <label className="mb-2.5 block text-black">
                       Grade <span className="text-meta-1">*</span>
                     </label>
@@ -267,8 +267,8 @@ const ViewShowcasePendingAdmin = () => {
                         <MdOutlineKeyboardArrowDown />
                       </span>
                     </div>
-                  </div>
-                  <div className="w-full xl:w-1/2">
+                  </div> */}
+                  <div className="w-full">
                     <label className="mb-2.5 block text-black">
                       Projects Filter <span className="text-meta-1">*</span>
                     </label>
